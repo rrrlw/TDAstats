@@ -49,9 +49,11 @@ plot_persist <- function(feature.matrix) {
   feature.df$dimension <- as.factor(feature.df$dimension) # for colors to work correctly (discrete legend, not continuous color scale)
 
   # plot w/ ggplot
+  df.geompath <- data.frame(x = c(0, axes.max),
+                            y = c(0, axes.max))
   ggplot2::ggplot(data = feature.df) +
     ggplot2::xlim(axes.min, axes.max) + ggplot2::ylim(axes.min, axes.max) +                           # axis limits
-    ggplot2::geom_segment(aes(x = 0, y = 0, xend = axes.max, yend = axes.max), size = 0.1) +          # reference segment
+    ggplot2::geom_path(data = df.geompath, aes_string(x = "x", y = "y")) +          # reference segment
     ggplot2::xlab("Feature Birth") + ggplot2::ylab("Feature Death") +                                 # axis titles
     ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),                               # add axis lines
              panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),         # remove gridlines
