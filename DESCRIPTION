@@ -20,7 +20,7 @@ LazyData: true
 Imports:
     ggplot2 (>= 2.2.1),
     Rcpp (>= 0.12.15)
-Depends: R (>= 3.3.3)
+Depends: R
 URL: https://github.com/rrrlw/TDAstats
 BugReports: https://github.com/rrrlw/TDAstats/issues
 LinkingTo: Rcpp
