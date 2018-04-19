@@ -50,7 +50,8 @@ metric for nonparametric statistical inference.
 
 3.  *Visualization of persistent homology*: persistent homology is visualized
 using two types of plots - persistence diagrams and topological barcodes.
-TDAstats provides implementations of both plot types using the ggplot2
+TDAstats provides implementations of both plot types using the
+[ggplot2](https://github.com/tidyverse/ggplot2)
 framework. Having ggplot2 underlying the plots confers many advantages to the
 user, including generation of publication-quality plots and customization using
 the ggplot object returned by TDAstats.
