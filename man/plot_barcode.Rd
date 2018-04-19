@@ -37,7 +37,7 @@ rand.angle <- runif(num.pts, 0, 2*pi)
 pt.cloud <- cbind(cos(rand.angle), sin(rand.angle))
 
 # calculate persistent homology (num.pts by 3 numeric matrix)
-pers.hom <- ripser(pt.cloud)
+pers.hom <- calculate_homology(pt.cloud)
 
 # plot calculated homology features as persistence diagram
 plot_barcode(pers.hom)

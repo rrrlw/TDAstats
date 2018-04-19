@@ -22,7 +22,7 @@
 #' pt.cloud <- cbind(cos(rand.angle), sin(rand.angle))
 #'
 #' # calculate persistent homology (num.pts by 3 numeric matrix)
-#' pers.hom <- ripser(pt.cloud)
+#' pers.hom <- calculate_homology(pt.cloud)
 calculate_homology <- function(mat) {
 
   # make sure matrix has at least 2 columns and at least 2 rows

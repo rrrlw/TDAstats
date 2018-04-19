@@ -11,6 +11,8 @@ permutation_test(cloud1, cloud2, iterations, exponent = 1)
 
 \item{cloud2}{point cloud represented as numeric matrix}
 
+\item{iterations}{number of iterations for distribution in permutation test}
+
 \item{exponent}{parameter `p` that returns Wasserstein-p metric}
 }
 \value{

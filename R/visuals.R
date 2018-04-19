@@ -30,7 +30,7 @@
 #' pt.cloud <- cbind(cos(rand.angle), sin(rand.angle))
 #'
 #' # calculate persistent homology (num.pts by 3 numeric matrix)
-#' pers.hom <- ripser(pt.cloud)
+#' pers.hom <- calculate_homology(pt.cloud)
 #'
 #' # plot calculated homology features as persistence diagram
 #' plot_persist(pers.hom)
@@ -56,7 +56,7 @@ plot_persist <- function(feature.matrix) {
     ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),                               # add axis lines
              panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),         # remove gridlines
              panel.background = ggplot2::element_blank()) +                                           # remove default background color
-    ggplot2::geom_point(ggplot2::aes(x = birth, y = death, shape = dimension, colour = dimension))    # add features as points
+    ggplot2::geom_point(ggplot2::aes_string(x = "birth", y = "death", shape = "dimension", colour = "dimension"))    # add features as points
 }
 
 #####TOPOLOGICAL BARCODE#####
@@ -90,7 +90,7 @@ plot_persist <- function(feature.matrix) {
 #' pt.cloud <- cbind(cos(rand.angle), sin(rand.angle))
 #'
 #' # calculate persistent homology (num.pts by 3 numeric matrix)
-#' pers.hom <- ripser(pt.cloud)
+#' pers.hom <- calculate_homology(pt.cloud)
 #'
 #' # plot calculated homology features as persistence diagram
 #' plot_barcode(pers.hom)
@@ -117,7 +117,7 @@ plot_barcode <- function(feature.matrix) {
                         axis.line.y = ggplot2::element_blank(), axis.ticks.y = ggplot2::element_blank(), axis.text.y = ggplot2::element_blank(), # remove y-axis stuff
                         panel.grid = ggplot2::element_blank(),                                                        # remove gridlines
                         panel.background = ggplot2::element_blank()) +                                                # remove default background color
-         ggplot2::geom_segment(ggplot2::aes(x = birth, y = vertical.pos,                                              # add actual bars for barcode
-                          xend = death, yend = vertical.pos,
-                          colour = dimension))
+         ggplot2::geom_segment(ggplot2::aes_string(x = "birth", y = "vertical.pos",                                              # add actual bars for barcode
+                          xend = "death", yend = "vertical.pos",
+                          colour = "dimension"))
 }

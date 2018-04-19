@@ -92,6 +92,7 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #'
 #' @param cloud1 point cloud represented as numeric matrix
 #' @param cloud2 point cloud represented as numeric matrix
+#' @param iterations number of iterations for distribution in permutation test
 #' @param exponent parameter `p` that returns Wasserstein-p metric
 #' @return list containing results of permutation test
 #' @export
