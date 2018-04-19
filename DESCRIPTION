@@ -1,0 +1,27 @@
+Package: TDAstats
+Type: Package
+Title: R Pipeline for Topological Data Analysis
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Raoul", "Wadhwa", email = "raoulwadhwa@gmail.com", role = c("aut", "cre")),
+    person("Andrew", "Dhawan", role = "aut"),
+    person("Drew", "Williamson", role = "aut"),
+    person("Jacob", "Scott", role = "aut"))
+Description: This package aims to be a comprehensive toolset for any
+    useR conducting topological data analysis, specifically via the
+    calculation of persistent homology in a Vietoris-Rips complex.
+    The tools this package currently provides can be conveniently split
+    into three main sections: (1) calculating persistent homology; (2)
+    conducting statistical inference on persistent homology calculations;
+    (3) visualizing persistent homology and statistical inference.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    ggplot2 (>= 2.2.1),
+    Rcpp (>= 0.12.15)
+Depends: R (>= 3.3.3)
+URL: https://github.com/rrrlw/TDAstats
+BugReports: https://github.com/rrrlw/TDAstats/issues
+LinkingTo: Rcpp
+RoxygenNote: 6.0.1
