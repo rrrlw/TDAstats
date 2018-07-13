@@ -17,10 +17,8 @@ Description: A comprehensive toolset for any
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports:
-    ggplot2 (>= 2.2.1),
+Imports: ggplot2 (>= 2.2.1),
     Rcpp (>= 0.12.15)
-Depends: R
 URL: https://github.com/rrrlw/TDAstats
 BugReports: https://github.com/rrrlw/TDAstats/issues
 LinkingTo: Rcpp
