@@ -1,6 +1,9 @@
 TDAstats
 ===========================================
 [![Travis-CI Build Status](https://travis-ci.org/rrrlw/TDAstats.svg?branch=master)](https://travis-ci.org/rrrlw/TDAstats)
+[![CRAN version](http://www.r-pkg.org/badges/version/TDAstats)](https://CRAN.R-project.org/package=TDAstats)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![CRAN Downloads](http://cranlogs.r-pkg.org/badges/grand-total/TDAstats)](https://CRAN.R-project.org/package=TDAstats)
 
 Overview
 --------
