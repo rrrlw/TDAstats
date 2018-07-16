@@ -8,9 +8,11 @@
 #' The `mat` parameter should be a numeric matrix with each row corresponding
 #' to a single point, and each column corresponding to a single dimension. Thus,
 #' if `mat` has 50 rows and 5 columns, it represents a point cloud with 50 points
-#' in 5 dimensions.
+#' in 5 dimensions. The `dim` parameter should be a positive integer.
 #'
 #' @param mat numeric matrix containing point cloud
+#' @param dim maximum dimension of features to calculate
+#' @param threshold maximum diameter for computation of Vietoris-Rips complexes
 #' @return 3-column matrix, with each row representing a TDA feature
 #' @importFrom stats complete.cases
 #' @export
@@ -23,7 +25,7 @@
 #'
 #' # calculate persistent homology (num.pts by 3 numeric matrix)
 #' pers.hom <- calculate_homology(pt.cloud)
-calculate_homology <- function(mat) {
+calculate_homology <- function(mat, dim = 1, threshold = -1) {
 
   # make sure matrix has at least 2 columns and at least 2 rows
   if (nrow(mat) < 2 | ncol(mat) < 2) {
@@ -42,9 +44,23 @@ calculate_homology <- function(mat) {
   if (sum(stats::complete.cases(mat)) < nrow(mat)) {
     stop("Point cloud has missing values.")
   }
+  
+  # make sure dim is an integer greater than or equal to zero
+  if (as.integer(dim) != dim) {
+    stop("dim parameter needs to be an integer")
+  }
+  if (dim < 0) {
+    stop("dim cannot be negative")
+  }
+  
+  # make sure threshold is of type numeric
+  if (!(class(threshold) %in% c("numeric", "integer"))) {
+    stop("threshold parameter must be of type numeric")
+  }
+  threshold <- as.numeric(threshold)
 
   # actually do work
-  ans_vec <- ripser_cpp(mat)
+  ans_vec <- ripser_cpp(mat, dim, threshold)
 
   # format properly and return
   ans_mat <- matrix(ans_vec,

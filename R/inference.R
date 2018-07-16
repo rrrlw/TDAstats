@@ -8,8 +8,8 @@ wass_cloud_calc <- function(pts1, pts2, pow.val = 1) {
   }
 
   # calculate persistent homology
-  phom1 <- calculate_homology(pts1)
-  phom2 <- calculate_homology(pts2)
+  phom1 <- calculate_homology(pts1, dim = ncol(pts1) - 1)
+  phom2 <- calculate_homology(pts2, dim = ncol(pts2) - 1)
 
   # return Wasserstein metric
   return(wass_mat_calc(phom1, phom2, pow.val))
@@ -18,7 +18,7 @@ wass_cloud_calc <- function(pts1, pts2, pow.val = 1) {
 # convenience function using `wass_workhorse` as main workhorse
 # mat1 and mat2 are feature matrices for which we want to calculate the
 # Wasserstein metric
-wass_mat_calc <- function(mat1, mat2, pow.val = 1) {
+wass_mat_calc <- function(mat1, mat2, pow.val = 1, dim = 1) {
   # only want to calculate Wasserstein for overlapping dimensions
   min.dim <- max(min(mat1[, 1]), min(mat2[, 1]))
   max.dim <- min(max(mat1[, 1]), max(mat2[, 1]))
@@ -38,7 +38,9 @@ wass_mat_calc <- function(mat1, mat2, pow.val = 1) {
                         curr.feat2 <- curr.mat2[, 3] - curr.mat2[, 2]
 
                         # return Wasserstein metric for current dimension
-                        return(wass_workhorse(curr.feat1, curr.feat2, pow.val))
+                        this.ans <- wass_workhorse(curr.feat1, curr.feat2, pow.val)
+                        #print(paste("This ans:", this.ans))
+                        return(this.ans)
                       })
 
   # return vector of Wasserstein metrics (one per dimension)

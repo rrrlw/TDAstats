@@ -182,12 +182,12 @@ public:
 
 template <class DistanceMatrix> class simplex_coboundary_enumerator {
 private:
-  index_t idx_below, idx_above, v, k;
-  std::vector<index_t> vertices;
   const diameter_entry_t simplex;
+  index_t idx_below, idx_above, v, k;
   const coefficient_t modulus;
-  const DistanceMatrix& dist;
   const binomial_coeff_table& binomial_coeff;
+  const DistanceMatrix& dist;
+  std::vector<index_t> vertices;
 
 public:
   simplex_coboundary_enumerator(const diameter_entry_t _simplex, index_t _dim, index_t _n,
@@ -434,6 +434,8 @@ void compute_pairs(std::vector<diameter_index_t>& columns_to_reduce, hash_map<in
   std::vector<diameter_entry_t> coface_entries;
 
   for (index_t i = 0; i < columns_to_reduce.size(); ++i) {
+    Rcpp::checkUserInterrupt();
+    
     auto column_to_reduce = columns_to_reduce[i];
 
     std::priority_queue<diameter_entry_t, std::vector<diameter_entry_t>,
@@ -449,10 +451,12 @@ void compute_pairs(std::vector<diameter_index_t>& columns_to_reduce, hash_map<in
     bool might_be_apparent_pair = (i == j);
 
     do {
+      Rcpp::checkUserInterrupt();
       const coefficient_t factor = modulus - get_coefficient(pivot);
       auto coeffs_begin = &columns_to_reduce[j], coeffs_end = &columns_to_reduce[j] + 1;
 
       for (auto it = coeffs_begin; it != coeffs_end; ++it) {
+        Rcpp::checkUserInterrupt();
         diameter_entry_t simplex = *it;
         set_coefficient(simplex, get_coefficient(simplex) * factor % modulus);
 
@@ -547,7 +551,7 @@ compressed_lower_distance_matrix getPointCloud(NumericMatrix inputMat) {
 
 // More lightweight version of Ripser by Ulrich Bauer
 // [[Rcpp::export]]
-NumericVector ripser_cpp(NumericMatrix input_points) {
+NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh) {
   NumericVector ansx(1);
   ansx[0] = 1;
 
@@ -555,8 +559,10 @@ NumericVector ripser_cpp(NumericMatrix input_points) {
   int currDim = 0;
   std::vector<std::vector<value_t>> pers_hom;
 
-  index_t dim_max = 1;
+  index_t dim_max = dim;
   value_t threshold = std::numeric_limits<value_t>::max();
+  if (thresh > 0)
+    threshold = thresh;
   const coefficient_t modulus = 2;
   compressed_lower_distance_matrix dist = getPointCloud(input_points);
 
@@ -604,6 +610,8 @@ NumericVector ripser_cpp(NumericMatrix input_points) {
   }
 
   for (index_t dim = 1; dim <= dim_max; ++dim) {
+    Rcpp::checkUserInterrupt();
+    
     rips_filtration_comparator<decltype(dist)> comp(dist, dim + 1, binomial_coeff);
     rips_filtration_comparator<decltype(dist)> comp_prev(dist, dim, binomial_coeff);
 

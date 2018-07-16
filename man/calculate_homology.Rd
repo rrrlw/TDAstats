@@ -4,10 +4,14 @@
 \alias{calculate_homology}
 \title{Calculate Persistent Homology of a Point Cloud}
 \usage{
-calculate_homology(mat)
+calculate_homology(mat, dim = 1, threshold = -1)
 }
 \arguments{
 \item{mat}{numeric matrix containing point cloud}
+
+\item{dim}{maximum dimension of features to calculate}
+
+\item{threshold}{maximum diameter for computation of Vietoris-Rips complexes}
 }
 \value{
 3-column matrix, with each row representing a TDA feature
@@ -22,7 +26,7 @@ information on the C++ library, see https://github.com/Ripser/ripser.
 The `mat` parameter should be a numeric matrix with each row corresponding
 to a single point, and each column corresponding to a single dimension. Thus,
 if `mat` has 50 rows and 5 columns, it represents a point cloud with 50 points
-in 5 dimensions.
+in 5 dimensions. The `dim` parameter should be a positive integer.
 }
 \examples{
 
