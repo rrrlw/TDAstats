@@ -20,7 +20,7 @@ calculate_homology(mat, dim = 1, threshold = -1)
 Calculates the persistent homology of a point cloud, as represented by
 a Vietoris-Rips complex. This function is an R wrapper for Ulrich Bauer's
 Ripser C++ library for calculating persistent homology. For more
-information on the C++ library, see https://github.com/Ripser/ripser.
+information on the C++ library, see <https://github.com/Ripser/ripser>.
 }
 \details{
 The `mat` parameter should be a numeric matrix with each row corresponding

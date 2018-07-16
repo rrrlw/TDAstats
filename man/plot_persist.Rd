@@ -26,7 +26,7 @@ The output from the `calculate_homology` function in this package will be a
 valid value for the `feature.matrix` parameter.
 
 This function uses the ggplot2 framework to generate persistence diagrams.
-For details, see: Wickham H (2009). ggplot2: Elegant Graphics for Data
+For details, see: Wickham H (2009, ISBN:9780387981413). ggplot2: Elegant Graphics for Data
 Analysis. Springer-Verlag: New York, NY.
 }
 \examples{

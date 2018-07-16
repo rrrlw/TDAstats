@@ -90,7 +90,7 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' For more details on permutation tests for statistical inference in
 #' topological data analysis, see Robinson A, Turner K. Hypothesis
 #' testing for topological data analysis. J Appl Comput Topology. 2017;
-#' 1(2): 241-261. doi: 10.1007/s41468-017-0008-7.
+#' 1(2): 241-261.<doi:10.1007/s41468-017-0008-7>
 #'
 #' @param cloud1 point cloud represented as numeric matrix
 #' @param cloud2 point cloud represented as numeric matrix

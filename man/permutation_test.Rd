@@ -33,5 +33,5 @@ clouds) as a nonparametric hypothesis test for statistical inference.
 For more details on permutation tests for statistical inference in
 topological data analysis, see Robinson A, Turner K. Hypothesis
 testing for topological data analysis. J Appl Comput Topology. 2017;
-1(2): 241-261. doi: 10.1007/s41468-017-0008-7.
+1(2): 241-261.<doi:10.1007/s41468-017-0008-7>
 }
