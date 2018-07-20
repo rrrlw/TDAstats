@@ -1,6 +1,6 @@
 Package: TDAstats
 Type: Package
-Title: R Pipeline for Topological Data Analysis
+Title: Pipeline for Topological Data Analysis
 Version: 0.1.0
 Authors@R: c(
     person("Raoul", "Wadhwa", email = "raoulwadhwa@gmail.com", role = c("aut", "cre")),
@@ -14,6 +14,16 @@ Description: A comprehensive toolset for any
     into three main sections: (1) calculating persistent homology; (2)
     conducting statistical inference on persistent homology calculations;
     (3) visualizing persistent homology and statistical inference.
+    
+    For a general background on computing persistent homology for
+    topological data analysis, see Otter et al. (2017)
+    <doi:10.1140/epjds/s13688-017-0109-5>.
+    To learn more about how the permutation test is used for
+    nonparametric statistical inference in topological data analysis,
+    read Robinson & Turner (2017) <doi:10.1007/s41468-017-0008-7>.
+    To learn more about how TDAstats calculates persistent homology,
+    you can visit the GitHub repository for Ripser, the software that
+    works behind the scenes at <https://github.com/Ripser/ripser>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
