@@ -18,3 +18,7 @@ There was 1 NOTE:
   - homology
   - toolset
   - useR
+
+Note: this is a resubmission. The DESCRIPTION has been edited to:
+* remove a redundant mention of R in the title
+* include citations within the package description
