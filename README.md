@@ -1,40 +1,54 @@
-TDAstats
-===========================================
+# TDAstats
+
 [![Travis-CI Build Status](https://travis-ci.org/rrrlw/TDAstats.svg?branch=master)](https://travis-ci.org/rrrlw/TDAstats)
 [![CRAN version](http://www.r-pkg.org/badges/version/TDAstats)](https://CRAN.R-project.org/package=TDAstats)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/grand-total/TDAstats)](https://CRAN.R-project.org/package=TDAstats)
 
-Overview
---------
+## Overview
 
 TDAstats is an R pipeline for topological data analysis, specifically, the
 use of persistent homology in Vietoris-Rips simiplicial complexes to study the
 shape of data.
 
-Installation
-------------
+## Installation
 
 To install TDAstats, run the following R code:
 ```r
-# install TDAstats from GitHub repository
+# install from CRAN
+install.packages("TDAstats")
+
+# install development version from GitHub
 devtools::install_github("rrrlw/TDAstats")
 ```
-Note that you need the devtools package installed first. If you do not have
-devtools installed, you can do so with the following R code:
+
+## Sample code
+
+The following sample code creates two synthetic datasets, and calculates and visualizes their persistent homology to showcase the use of TDAstats.
+
 ```r
-# install devtools from CRAN
-install.packages("devtools")
+# load TDAstats
+library("TDAstats")
 
-# install TDAstats from GitHub repository
-devtools::install_github("rrrlw/TDAstats")
+# point cloud: uniform random points in unit square (2-dimensional)
+data1 <- cbind(runif(100), runif(100))
+
+# point cloud: points distributed uniformly around circle (2-dimensional)
+angles <- runif(100, 0, 2 * pi)
+circ <- cbind(cos(angles), sin(angles))
+
+# calculate persistent homology for both datasets
+data1.hom <- calculate_homology(data1, dim = 1)
+circ.hom <- calculate_homology(circ, dim = 1)
+
+# visualize first dataset as persistence diagram
+plot_persist(data1.hom)
+
+# visualize second dataset as topological barcode
+plot_barcode(circ.hom)
 ```
 
-We hope to submit TDAstats to CRAN soon. If accepted, the code above will be
-revised to reflect installation from CRAN, rather than a GitHub repository.
-
-Usage
------
+## Functionality
 
 TDAstats has 3 primary goals:
 
