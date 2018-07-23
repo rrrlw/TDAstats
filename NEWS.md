@@ -9,3 +9,6 @@
 
 * added `dim` parameter to `permutation_test` function to allow users to select maximum dimension for homology comparison
 
+## Additions
+
+* added automated testing using `testthat` package
