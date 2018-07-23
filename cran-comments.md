@@ -8,17 +8,9 @@
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs. 
+There were no ERRORs, WARNINGs, or NOTEs.
 
-There was 1 NOTE:
+## Purpose
 
-* TDAstats is a new package being submitted to CRAN
-* Potentially mis-spelled words in DESCRIPTION raised by R CMD check were all manually checked and confirmed to be spelled correctly
-  - Vietoris
-  - homology
-  - toolset
-  - useR
-
-Note: this is a resubmission. The DESCRIPTION has been edited to:
-* remove a redundant mention of R in the title
-* include citations within the package description
+* The primary purpose of such a quick update submission to CRAN is because of a clash with `index_t` in C++ code brought up by Dr. Brian Ripley that causes TDAstats to fail on Solaris systems. This issue has been fixed in this update.
+* There are also new features/fixes in this submission (e.g. automated testing, bug fixes)
