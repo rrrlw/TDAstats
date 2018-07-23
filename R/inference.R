@@ -114,9 +114,11 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' @param cloud2 point cloud represented as numeric matrix
 #' @param iterations number of iterations for distribution in permutation test
 #' @param exponent parameter `p` that returns Wasserstein-p metric
+#' @param dim maximum dimension of cycles for which to compare homology
 #' @return list containing results of permutation test
 #' @export
-permutation_test <- function(cloud1, cloud2, iterations, exponent = 1, dim = 1) {
+permutation_test <- function(cloud1, cloud2, iterations,
+                             exponent = 1, dim = 1) {
   # make sure both are matrices with same number of columns,
   # sufficient number of rows, and no missing values
   if (class(cloud1) != "matrix" |
