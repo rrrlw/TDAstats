@@ -1,18 +1,18 @@
 #####WASSERSTEIN CALCULATION#####
 # convenience function using `wass_mat_calc` as main (`wass_workhorse` indirectly)
 # as main workhorse
-wass_cloud_calc <- function(pts1, pts2, pow.val = 1) {
+wass_cloud_calc <- function(pts1, pts2, pow.val = 1, dim = 1) {
   # make sure pts1 and pts2 (matrices) have same # of cols
   if (ncol(pts1) != ncol(pts2)) {
     stop("Something wrong in code here; invalid arguments (unequal number of columns in point clouds.")
   }
 
   # calculate persistent homology
-  phom1 <- calculate_homology(pts1, dim = ncol(pts1) - 1)
-  phom2 <- calculate_homology(pts2, dim = ncol(pts2) - 1)
+  phom1 <- calculate_homology(pts1, dim = dim)
+  phom2 <- calculate_homology(pts2, dim = dim)
 
   # return Wasserstein metric
-  return(wass_mat_calc(phom1, phom2, pow.val))
+  return(wass_mat_calc(phom1, phom2, pow.val = pow.val, dim = dim))
 }
 
 # convenience function using `wass_workhorse` as main workhorse
@@ -20,9 +20,9 @@ wass_cloud_calc <- function(pts1, pts2, pow.val = 1) {
 # Wasserstein metric
 wass_mat_calc <- function(mat1, mat2, pow.val = 1, dim = 1) {
   # only want to calculate Wasserstein for overlapping dimensions
-  min.dim <- max(min(mat1[, 1]), min(mat2[, 1]))
-  max.dim <- min(max(mat1[, 1]), max(mat2[, 1]))
-
+  min.dim <- 0
+  max.dim <- dim
+  
   # make workhorse function do all the work
   wass.vals <- vapply(X = min.dim:max.dim,
                       FUN.VALUE = numeric(1),
@@ -32,6 +32,18 @@ wass_mat_calc <- function(mat1, mat2, pow.val = 1, dim = 1) {
                         curr.mat2 <- matrix(mat2[mat2[, 1] == curr.dim, ], ncol = 3)
 
                         #print(dim(curr.mat1))
+                        #if (nrow(curr.mat1) == 0 |
+                        #    nrow(curr.mat2) == 0) {
+                        #  stop("Calculating Wasserstein for invalid dimension")
+                        #}
+                        # if there's no features for a given dimension in current permutation
+                        # add a 
+                        if (nrow(curr.mat1) == 0) {
+                          curr.mat1 <- matrix(c(curr.dim, 0, 0), ncol = 3)
+                        }
+                        if (nrow(curr.mat2) == 0) {
+                          curr.mat2 <- matrix(c(curr.dim, 0, 0), ncol = 3)
+                        }
 
                         # calculate feature lengths from feature matrices
                         curr.feat1 <- curr.mat1[, 3] - curr.mat1[, 2]
@@ -39,6 +51,7 @@ wass_mat_calc <- function(mat1, mat2, pow.val = 1, dim = 1) {
 
                         # return Wasserstein metric for current dimension
                         this.ans <- wass_workhorse(curr.feat1, curr.feat2, pow.val)
+                        if (is.na(this.ans)) stop("Error: found an NA somewhere1")
                         #print(paste("This ans:", this.ans))
                         return(this.ans)
                       })
@@ -62,7 +75,8 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
   # make sure vec1 and vec2 are now of equal length
   # user should never see this
   if (length(vec1) != length(vec2)) stop("Something wrong with length-equaling code above (inference.R; wass_calc).")
-
+  if (length(vec1) == 0) stop("Error with feature calculating code.")
+  
   # sort both
   vec1 <- sort(vec1, decreasing = TRUE)
   vec2 <- sort(vec2, decreasing = TRUE)
@@ -71,7 +85,11 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
   diff.vec <- abs(vec1 - vec2)
 
   # return answer (incorporating power value parameter)
-  sum(diff.vec ^ pow.val)
+  ans <- sum(diff.vec ^ pow.val)
+  if (is.na(ans)) {
+    stop("Error: found an NA somewhere2")
+  }
+  return(ans)
 }
 
 #####PERMUTATION TEST#####
@@ -98,7 +116,7 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' @param exponent parameter `p` that returns Wasserstein-p metric
 #' @return list containing results of permutation test
 #' @export
-permutation_test <- function(cloud1, cloud2, iterations, exponent = 1) {
+permutation_test <- function(cloud1, cloud2, iterations, exponent = 1, dim = 1) {
   # make sure both are matrices with same number of columns,
   # sufficient number of rows, and no missing values
   if (class(cloud1) != "matrix" |
@@ -129,7 +147,7 @@ permutation_test <- function(cloud1, cloud2, iterations, exponent = 1) {
   }
 
   # calculate Wasserstein values for actual point clouds (prior to permuting)
-  orig.wass <- wass_cloud_calc(cloud1, cloud2, exponent)
+  orig.wass <- wass_cloud_calc(cloud1, cloud2, exponent, dim = dim)
 
   # calculate Wasserstein values for each permutation
   combo.pts <- rbind(cloud1, cloud2)
@@ -145,7 +163,9 @@ permutation_test <- function(cloud1, cloud2, iterations, exponent = 1) {
                      # calculate Wasserstein for permuted clouds
                      curr.wass.calc <- wass_cloud_calc(pts1 = curr.pts[1:nrow(cloud1), ],
                                                        pts2 = curr.pts[(nrow(cloud1) + 1):nrow(curr.pts), ],
-                                                       pow.val = exponent)
+                                                       pow.val = exponent,
+                                                       dim = dim)
+                     #print(curr.wass.calc)
 
                      # store into matrix
                      wass.values[curr.iter, ] <<- curr.wass.calc[1:ncol(wass.values)]
@@ -159,7 +179,7 @@ permutation_test <- function(cloud1, cloud2, iterations, exponent = 1) {
   #                        (2) all trajectories (to plot as histogram)
   #                        (3) Wasserstein original metric for this dimension
   #                        (4) Title (character string with dimension to avoid mismatch w/ indexes)
-  answer <- lapply(X = 0:(ncol(cloud1) - 1),
+  answer <- lapply(X = 0:dim,
                    FUN = function(curr.dim) {
                      curr.ans <- list()
                      curr.ans$dimension <- curr.dim
