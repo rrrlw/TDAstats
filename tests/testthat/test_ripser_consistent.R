@@ -47,8 +47,8 @@ test_that("calculate_homology is consistent in 3-d", {
            x2 <- 1
            temp.triangle <- x1 * x1 + x2 * x2
            while (temp.triangle >= 1) {
-             x1 <- runif(1)
-             x2 <- runif(1)
+             x1 <- runif(1, -1, 1)
+             x2 <- runif(1, -1, 1)
              
              temp.triangle <- x1 * x1 + x2 * x2
            }

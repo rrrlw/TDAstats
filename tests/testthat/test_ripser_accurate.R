@@ -24,8 +24,7 @@ test_that("calculate_homology detects 0-, 1-, and 2-cycles in sphere", {
   skip_on_cran()
   skip_on_travis()
   
-  # for reproducibility
-  set.seed(1)
+  # reproducibility not needed (sufficient points should lead to 2-cycle)
   
   # make dataset (3-d sphere w/ Marsaglia method)
   sphere.data <- matrix(NA, nrow = 100, ncol = 3)
@@ -37,8 +36,8 @@ test_that("calculate_homology detects 0-, 1-, and 2-cycles in sphere", {
            x2 <- 1
            temp.triangle <- x1 * x1 + x2 * x2
            while (temp.triangle >= 1) {
-             x1 <- runif(1)
-             x2 <- runif(1)
+             x1 <- runif(1, -1, 1)
+             x2 <- runif(1, -1, 1)
              
              temp.triangle <- x1 * x1 + x2 * x2
            }
