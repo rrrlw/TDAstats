@@ -12,3 +12,4 @@
 ## Additions
 
 * added automated testing using `testthat` package
+* 4 sample datasets for users to learn/test TDAstats (and probably to follow future vignettes): unif2d, unif3d, circle2d, sphere3d
