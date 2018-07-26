@@ -34,4 +34,7 @@ BugReports: https://github.com/rrrlw/TDAstats/issues
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
 SystemRequirements: C++11
-Suggests: testthat (>= 2.0.0)
+Suggests: testthat (>= 2.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
