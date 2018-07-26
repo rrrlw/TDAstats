@@ -1,0 +1,91 @@
+---
+title: "Hypothesis testing with TDAstats"
+author: "Raoul R. Wadhwa, Drew F.K. Williamson, Andrew Dhawan, Jacob G. Scott"
+date: "26 July 2018"
+output:
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Hypothesis testing with TDAstats}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+references:
+- id: resampling-book
+  title: 'Mathematical Statistics with Resampling and R'
+  author:
+  - family: Chihara
+    given: Laura
+  - family: Hesterberg
+    given: Tim
+  URL: 'https://sites.google.com/site/chiharahesterberg/home'
+  isbn: '978-1-118-02985-5'
+  type: book
+  issued:
+    year: 2011
+  publisher: 'Wiley'
+- id: hyptest
+  title: 'Hypothesis testing for topological data analysis'
+  author:
+  - family: Robinson
+    given: Andrew
+  - family: Turner
+    given: Katharine
+  container-title: Journal of Applied and Computational Topology
+  volume: 1
+  URL: 'https://doi.org/10.1007/s41468-017-0008-7'
+  DOI: 10.1007/s41468-017-0008-7
+  page: 241
+  type: article-journal
+  issued:
+    year: 2017
+- id: wasserstein-calc
+  title: 'Calculation of the Wasserstein distance between probability distributions on the line'
+  author:
+  - family: Vallender
+    given: SS
+  container-title: Theory Probab Appl
+  volume: 18
+  URL: 'https://doi.org/10.1137/1118101'
+  DOI: 10.1137/1118101
+  page: 784-786
+  type: article-journal
+  issued:
+    year: 1974
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ">"
+)
+```
+
+## Statistical inference with permutation tests
+
+To learn about the basics of permutation tests and statistical resampling from an excellent textbook, see @resampling-book.
+For a primer on hypothesis testing with permutation tests in the context of topological data analysis, see @hyptest.
+Since the distribution of topological features has not been well characterized yet, statistical inference on persistent homology must be nonparametric.
+Given two sets of data, $X$ and $Y$, conventional statistical inference generally involves comparison of the parameters of each population with the following null and alternative hypotheses:
+
+$$
+\begin{aligned}
+  H_0&: \mu_X=\mu_Y \\
+  H_A&: \mu_X\neq\mu_Y
+\end{aligned}
+$$
+If we define a function $T$ that returns the persistent homology of a point cloud, then given two point clouds, $C$ and $D$, we can use a permutation test to conduct analogous statistical inference with the following null and alternative hypotheses:
+
+$$
+\begin{aligned}
+  H_0&:T(C)=T(D) \\
+  H_A&:T(C)\neq T(D)
+\end{aligned}
+$$
+TDAstats uses the Wasserstein distance (aka Earth-mover's distance) as a similarity metric between persistent homologies of two point clouds [@wasserstein-calc].
+Although visual analysis of plots (topological barcodes and persistence diagrams) is essential, a formal statistical procedure adds objectivity to the analysis.
+The case study below highlights the main features of TDAstats pertaining to statistical inference.
+For practice, perform the steps of the case study to the `unif3d` and `sphere3d` datasets.
+
+## Case study: `unif2d` versus `circle3d`
+
+## References
