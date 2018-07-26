@@ -1,0 +1,196 @@
+---
+title: "Introduction to persistent homology with TDAstats"
+author: "Raoul R. Wadhwa, Drew F.K. Williamson, Andrew Dhawan, Jacob G. Scott"
+date: "24 July 2018"
+output:
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Introduction to persistent homology with TDAstats}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+references:
+- id: roadmap-ph
+  title: A roadmap for the computation of persistent homology
+  author:
+  - family: Otter
+    given: Nina
+  - family: Porter
+    given: Mason
+  - family: Tillmann
+    given: Ulrike
+  - family: Grindrod
+    given: Peter
+  - family: Harrington
+    given: Heather
+  container-title: EPJ Data Science
+  volume: 6
+  URL: 'https://doi.org/10.1140/epjds/s13688-017-0109-5'
+  DOI: 10.1140/epjds/s13688-017-0109-5
+  page: 17
+  type: article-journal
+  issued:
+    year: 2017
+- id: Rcpp-paper
+  title: 'Rcpp: Seamless R and C++ Integration'
+  author:
+  - family: Eddelbuettel
+    given: Dirk
+  - family: Francois
+    given: Romain
+  container-title: Journal of Statistical Software
+  volume: 40
+  URL: 'http://www.jstatsoft.org/v40/i08'
+  DOI: 10.18637/jss.v040.i08
+  page: 1-18
+  type: article-journal
+  issued:
+    year: 2011
+- id: ggplot2-book
+  title: 'ggplot2: Elegant Graphics for Data Analysis'
+  author:
+  - family: Wickham
+    given: Hadley
+  URL: 'http://ggplot2.org'
+  isbn: '978-0-387-98140-6'
+  type: book
+  issued:
+    year: 2009
+  publisher: 'Springer-Verlag New York'
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ">"
+)
+library("TDAstats")
+```
+
+## Purpose
+
+TDAstats is intended to be a comprehensive R pipeline to conduct topological data analysis, specifically, using persistent homology of a Vietoris-Rips complex to identify significant features within high-dimensional datasets.
+The three primary functions of TDAstats mirror the functionality of tools used to conduct traditional statistical analysis (e.g. simple linear regression).
+Listed below are the three functions and their analogs in simple linear regression.
+
+1. **Calculation of persistent homology:** analogous to calculating the slope and intercept of a line of best fit.
+1. **Visualization of persistent homology:** analogous to plotting a scatterplot to visualize a dataset.
+1. **Hypothesis testing on persistent homology:** analogous to conducting Student's *t*-test to determine if two sets of data have significantly differing means.
+
+To learn more about the computation of persistent homology, see @roadmap-ph.
+
+## Installation
+
+TDAstats is available on CRAN. The development version can also be installed from its [GitHub repo](https://github.com/rrrlw/TDAstats).
+Use the appropriate selections of the R code below to install your preferred version.
+
+*N.B.:* if you are new to R, installing TDAstats from CRAN is recommended. The development version on GitHub may be unstable.
+
+```{r install-package, eval = FALSE}
+# install development version of TDAstats - advanced users
+devtools::install_github("rrrlw/TDAstats")
+
+# install TDAstats from CRAN
+install.packages("TDAstats")
+
+# load TDAstats for use
+library("TDAstats")
+```
+
+## Sample dataset
+
+In this vignette, we will use the `circle2d` dataset included in TDAstats.
+The `circle2d` dataset is a numeric matrix containing the 2-dimensional Cartesian coordinates of 100 points on the circumference of a unit circle centered at the origin.
+To load `circle2d` and take a quick peek, run the following R code:
+
+```{r load-data}
+# load dataset
+data(circle2d)
+
+# look at the dimensions and class of circle2d
+class(circle2d)
+nrow(circle2d)
+ncol(circle2d)
+
+# take a peek at first 6 rows
+head(circle2d)
+```
+
+Above, each of the 100 rows represents a single point, with each of the 2 columns representing a Cartesian coordinate for a single dimension.
+Column 1 (accessed by `circle2d[, 1]`) contains the x-coordinates of the 100 points and column 2 (accessed by `circle2d[, 2]`) contains the respective y-coordinates.
+To confirm that the points in `circle2d` do lie on the circumference of a circle, we can quickly create a scatterplot.
+
+```{r plot-circle2d, fig.width = 4, fig.height = 4.5}
+# scatterplot of circle2d
+plot(circle2d, xlab = "x", ylab = "y", main = "Point cloud in circle2d dataset")
+```
+
+## Calculating persistent homology
+
+Given that the points in `circle2d` are uniformly distributed across the circumference of a circle without any error or noise, we expect a single prominent 1-cycle to be present in its persistent homology.
+The [Ripser](https://github.com/Ripser/ripser) C++ library is wrapped by R using [Rcpp](https://github.com/RcppCore/Rcpp), and performs calculations on a Vietoris-Rips complex created using the `circle2d` point cloud [@Rcpp-paper].
+These calculations result in a numeric matrix that contains all the necessary information to characterize the persistence of features within `circle2d`, and can be performed with a single line of R code using TDAstats.
+
+```{r calc-hom}
+# calculate persistent homology
+circle.phom <- calculate_homology(circle2d)
+
+# print first 6 features (ordered by dimension and birth)
+head(circle.phom)
+
+# print last 6 features (ordered by dimension and birth)
+tail(circle.phom)
+```
+
+Each row in the homology matrix returned by the `calculate_homology` function (variable named `circle.phom`) represents a single feature (cycle).
+The homology matrix has 3 columns in the following order:
+
+1. **dimension:** if 0, represents a 0-cycle; if 1, represents a 1-cycle; and so on.
+1. **birth:** the radius of the Vietoris-Rips complex at which this feature was first detected.
+1. **death:** the radius of the Vietoris-Rips complex at which this feature was last detected.
+
+Persistence of a feature is generally defined as the length of the interval of the radius within which the feature exists.
+This can be calculated as the numerical difference between the second (birth) and third (death) columns of the homology matrix.
+Confirmed in the output of the `head` and `tail` functions above, the homology matrix is ordered by dimension, with the birth column used to compare features of the same dimension.
+As expected for `circle2d`, the homology matrix contains a single prominent 1-cycle (last line of the output of `tail`).
+Although we suspect the feature to be a persistent 1-cycle, comparison with the other features in the homology matrix is required to confirm that it is sufficiently persistent.
+This task is done far more easily with an appropriate visualization than by eyeballing the contents of `circle.phom`.
+
+## Visualizing persistent homology
+
+TDAstats uses the [ggplot2](http://ggplot2.org) R package to create visualizations for persistent homology [@ggplot2-book].
+One method of visualizing persistent homology is the topological barcode.
+Each feature is depicted by a single bar (ergo, a topological *barcode*) with its left edge at feature birth and its right edge at feature death.
+Thus, the persistence of a feature is depicted as the length of the bar.
+The horizontal axis of the barcode represents the Vietoris-Rips complex radius; the vertical axis is not inherently meaningful and is not strictly ordered.
+By convention, the order of features is in reverse of the order in the homology matrix.
+Hence, the dimension of features increases as you go higher up the vertical axis, as does the value of feature birth.
+For ease of interpretation, feature dimension is coded as the bar's color, with an accompanying legend.
+
+```{r plot-barcode, fig.height = 4.5, fig.width = 6}
+# plot topological barcode
+plot_barcode(circle.phom)
+```
+
+In the topological barcode plotted above, we see a number of 0-cycles (red bars).
+However, of interest to us is the single 1-cycle at the top of the barcode (blue bar).
+A quick visual evaluation of the barcode confirms that the 1-cycle is clearly a significant feature (the blue bar is relatively long), as expected for `circle2d`.
+Congratulations, you have successfully used TDAstats to conduct topological data analysis on a point cloud!
+
+Another method of visualizing persistent homology is the persistence diagram.
+Each feature is depicted by a single point with the horizontal axis representing feature birth and the vertical axis representing feature death.
+The line $y = x$ is included as a reference.
+Since feature birth always precedes feature death ($x < y$), all points in a persistence diagram lie above the reference line.
+In persistence diagrams, the persistence of a feature is depicted as the vertical distance between the point representing the feature and the reference line.
+Just like topological barcodes, feature dimension is coded as the point's color, with an accompanying legend; however, feature dimension is redundantly coded as point shape in case of issues with color differentiation.
+
+```{r plot-persist, fig.height = 4.5, fig.width = 6}
+# plot persistence diagram
+plot_persist(circle.phom)
+```
+
+In the persistence diagram plotted above, we see a number of 0-cycles (red circles); it is difficult to differentiate individual 0-cycles due to the overlap between points.
+However, the single 1-cycle is distinct (blue triangle), again confirming our initial proposition that the persistent homology of `circle2d` would be significant for a single prominent 1-cycle.
+When evaluating persistence diagrams, it must be kept in mind that a point's y-coordinate by itself is not an accurate measure of feature persistence; rather, it is the vertical distance between the point and the reference line that represents persistence.
+
+## References
