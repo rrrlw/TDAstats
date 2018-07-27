@@ -72,3 +72,7 @@ TDAstats provides implementations of both plot types using the
 framework. Having ggplot2 underlying the plots confers many advantages to the
 user, including generation of publication-quality plots and customization using
 the ggplot object returned by TDAstats.
+
+## Contribute
+
+To contribute to TDAstats, you can create issues for any bugs/suggestions on the [issues page](https://github.com/rrrlw/TDAstats/issues). You can also fork the TDAstats repository and create pull requests to add features you think will be useful for users.
