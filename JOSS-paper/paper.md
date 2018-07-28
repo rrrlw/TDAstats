@@ -1,33 +1,33 @@
 ---
 title: 'TDAstats: R pipeline for computing persistent homology in topological data analysis'
 tags:
-  - R
-  - topological data analysis
-  - persistent homology
-  - Vietoris-Rips complex
-  - statistical resampling
+  - 'R'
+  - 'topological data analysis'
+  - 'persistent homology'
+  - 'Vietoris-Rips complex'
+  - 'statistical resampling'
 authors:
-  - name: "Raoul R. Wadhwa"
-    orcid: 0000-0003-0503-9580
-    affiliation: "1, 2"
-  - name: "Drew F.K. Williamson"
-    orcid: 0000-0003-1745-8846
-    affiliation: "1, 3"
-  - name: "Andrew Dhawan"
-  	orcid: 0000-0002-5027-1277
-  	affiliation: "1, 4"
-  - name: "Jacob G. Scott"
-  	orcid: 0000-0003-2971-7673
-  	affiliation: "1, 2, 3"
+  - name: 'Raoul R. Wadhwa'
+    orcid: '0000-0003-0503-9580'
+    affiliation: '1'
+  - name: 'Drew F.K. Williamson'
+    orcid: '0000-0003-1745-8846'
+    affiliation: '2'
+  - name: 'Andrew Dhawan'
+    orcid: '0000-0002-5027-1277'
+    affiliation: '3'
+  - name: 'Jacob G. Scott'
+    orcid: '0000-0003-2971-7673'
+    affiliation: '4'
 affiliations:
- - name: Cleveland Clinic Lerner College of Medicine, Case Western Reserve University, Cleveland, OH 44195, USA
-   index: 2
- - name: Case Western Reserve University School of Medicine, Cleveland, OH 44106, USA
-   index: 3
- - name: Department of Translational Hematology and Oncology Research, Cleveland Clinic Foundation, Cleveland, OH 44195, USA
-   index: 1
- - name: Neurological Institute, Cleveland Clinic Foundation, Cleveland, OH 44195, USA
-   index: 4
+  - name: 'Cleveland Clinic Lerner College of Medicine, Case Western Reserve University, Cleveland, OH 44195, USA'
+    index: '1'
+  - name: 'Case Western Reserve University School of Medicine, Cleveland, OH 44106, USA'
+    index: '2'
+  - name: 'Neurological Institute, Cleveland Clinic Foundation, Cleveland, OH 44195, USA'
+    index: '3'
+  - name: 'Department of Translational Hematology and Oncology Research, Cleveland Clinic Foundation, Cleveland, OH 44195, USA'
+    index: '4'
 date: 27 July 2018
 bibliography: paper.bib
 ---
