@@ -28,7 +28,7 @@ affiliations:
     index: '3'
   - name: 'Department of Translational Hematology and Oncology Research, Cleveland Clinic Foundation, Cleveland, OH 44195, USA'
     index: '4'
-date: 27 July 2018
+date: 28 July 2018
 bibliography: paper.bib
 ---
 
@@ -38,7 +38,7 @@ High-dimensional datasets are becoming more common in a variety of scientific fi
 
 The ``TDAstats`` R package is a comprehensive pipeline for conducting TDA. Once data is loaded into R, ``TDAstats`` can calculate, visualize, and conduct nonparametric statistical inference on persistent homology. The Ripser C++ library [@Ripser], benchmarked at approximately 40 times faster than comparable software, is wrapped using Rcpp [@rcpp-paper] for efficient computation of persistent homology. ``TDAstats`` generates topological barcodes and persistence diagrams using the ubiquitous ggplot2 library [@ggplot2-book], allowing use of ggplot2 functions to manipulate plots. This reduces the number of manual steps required to prepare publication-quality figures, thus enabling reproducible research [@reproduce-res]. ``TDAstats`` also implements nonparametric hypothesis testing of persistent homology using a permutation test, first described by @tda-testing. To our knowledge, ``TDAstats`` is the first library to implement this feature.
 
-The primary barrier to using TDA is not mathematical comprehension. Although the algebraic topology that underlies TDA requires graduate-level study, the concepts necessary for application of TDA are far more intuitive. Rather, the barrier to entry is the lack of accessible, user-friendly software. ``TDAstats`` has an easy-to-use API with only 4 functions, each with only one or two intuitive parameters. Additionally, the provided vignettes cover its functionality with a comprehensive introduction and case study. Thus, even minimal knowledge of R will be sufficient to conduct TDA. We intend to use ``TDAstats`` to improve digit recognition algorithms, and hope that with its efficient implementation and user-friendly API, a far larger set of students and researchers can now apply TDA to answer research questions.
+The primary barrier to using TDA is not mathematical comprehension. Although the algebraic topology that underlies TDA requires graduate-level study, the concepts necessary for application of TDA are far more intuitive. Rather, the barrier to entry is the lack of accessible, user-friendly software. ``TDAstats`` has an easy-to-use API with only 4 functions, each with only one or two intuitive parameters. Additionally, the provided vignettes cover its functionality with a comprehensive introduction and case study. Thus, even minimal knowledge of R will be sufficient to conduct TDA. We intend to use ``TDAstats`` to improve digit recognition algorithms, and hope that, with its efficient implementation and user-friendly API, a far larger set of students and researchers can now apply TDA to answer research questions.
 
 ![Topological barcode (left) and persistence diagram (right) of the sphere3d sample dataset included with ``TDAstats``. The 0-cycles are colored red, the 1-cycles are colored green, and the 2-cycles are colored blue. For details on interpreting these plots, see @roadmap-tda.](sphere3d.png)
 
