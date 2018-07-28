@@ -16,5 +16,5 @@
 	- seek support: **email included in DESCRIPTION file**
 * Functionality: **vignettes (compile Rmarkdown from vignettes folder, or use devtools::build_vignettes() after installing package. Upon request, can also email HTML of built vignettes) introduce functionality**
 * Tests: **tests folder contains automated testing suite using testthat R package**
-* Novelty of software: **TDA package in R does have overlapping functionality, but TDAstats calculates homology faster (see https://github.com/Ripser/ripser for details), allows modifications of plots through ggplot2 (more customizable, reproducible graph), and allows for hypothesis testing with permutation tests (which no software library known to us implements)**
+* Novelty of software: **TDA package in R does have overlapping functionality, but TDAstats calculates homology faster (see https://github.com/Ripser/ripser for details), allows modifications of plots through ggplot2 (more customizable, reproducible graph), and allows for hypothesis testing with permutation tests (which no TDA software known to us implements)**
 * Development environment: **the R programming language and the corresponding IDE (Rstudio) are open-source and free**
