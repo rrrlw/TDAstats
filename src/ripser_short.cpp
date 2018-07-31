@@ -585,7 +585,19 @@ NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int 
   if (thresh > 0)
     threshold = thresh;
   const coefficient_t_ripser modulus = 2;
-  compressed_lower_distance_matrix dist = getPointCloud(input_points);
+  
+  //make sure a valid format is used
+  assert(format == 0 || format == 1);
+  
+  //get distance matrix based on input format
+  compressed_lower_distance_matrix dist;
+  if (format == 0) {
+  	dist = getPointCloud(input_points);
+  }
+  else if (format == 1) {
+  	dist = getLowerDistMatrix(input_points);
+  }
+  else {assert(0 == 1);} //throw some kind of error b/c should never be here (previous assert)
 
   index_t_ripser n = dist.size();
   dim_max = std::min(dim_max, n - 2);
