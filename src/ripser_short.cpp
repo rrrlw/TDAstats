@@ -568,6 +568,20 @@ compressed_lower_distance_matrix getLowerDistMatrix(NumericMatrix inputMat) {
 	return compressed_lower_distance_matrix(std::move(distances));
 }
 
+// convert from user format into lower distance matrix
+compressed_lower_distance_matrix read_file(NumericMatrix input_points, int format) {
+	switch (format) {
+		case 0:
+			return getPointCloud(input_points);
+		case 1:
+			return getLowerDistMatrix(input_points);
+		default:
+			assert(0 == 1);	//error should never reach here
+			//should never reach here - but compile errors otherwise
+			return getPointCloud(input_points);
+	}
+}
+
 // Altered version of Ripser by Ulrich Bauer
 // format = 0 --> point cloud
 // format = 1 --> lower distance matrix
@@ -590,14 +604,7 @@ NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int 
   assert(format == 0 || format == 1);
   
   //get distance matrix based on input format
-  compressed_lower_distance_matrix dist;
-  if (format == 0) {
-  	dist = getPointCloud(input_points);
-  }
-  else if (format == 1) {
-  	dist = getLowerDistMatrix(input_points);
-  }
-  else {assert(0 == 1);} //throw some kind of error b/c should never be here (previous assert)
+  compressed_lower_distance_matrix dist = read_file(input_points, format);
 
   index_t_ripser n = dist.size();
   dim_max = std::min(dim_max, n - 2);
