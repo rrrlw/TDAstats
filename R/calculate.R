@@ -9,13 +9,13 @@
 #' to a single point, and each column corresponding to a single dimension. Thus,
 #' if `mat` has 50 rows and 5 columns, it represents a point cloud with 50 points
 #' in 5 dimensions. The `dim` parameter should be a positive integer.
-#' Alternatively, the `mat` parameter could be a lower distance matrix (upper
+#' Alternatively, the `mat` parameter could be a distance matrix (upper
 #' triangular half is ignored); note: `format` should be specified as "ldm".
 #'
-#' @param mat numeric matrix containing point cloud or lower distance matrix
+#' @param mat numeric matrix containing point cloud or distance matrix
 #' @param dim maximum dimension of features to calculate
 #' @param threshold maximum diameter for computation of Vietoris-Rips complexes
-#' @param format  format of `mat`, either "cloud" for point cloud or "ldm" for lower distance matrix
+#' @param format  format of `mat`, either "cloud" for point cloud or "distmat" for distance matrix
 #' @return 3-column matrix, with each row representing a TDA feature
 #' @importFrom stats complete.cases
 #' @export
@@ -63,13 +63,13 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud") {
   threshold <- as.numeric(threshold)
   
   # make sure format is either "cloud" or "ldm"
-  if (!(format %in% c("cloud", "ldm"))) {
-    stop("format parameter should be either \"cloud\" or \"ldm\"")
+  if (!(format %in% c("cloud", "distmat"))) {
+    stop("format parameter should be either \"cloud\" or \"distmat\"")
   }
-  format <- ifelse(format == "cloud", 0, 1)
+  int.format <- ifelse(format == "cloud", 0, 1)
 
   # actually do work
-  ans_vec <- ripser_cpp(mat, dim, threshold, format)
+  ans_vec <- ripser_cpp(mat, dim, threshold, int.format)
 
   # format properly and return
   ans_mat <- matrix(ans_vec,
