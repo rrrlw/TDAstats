@@ -120,11 +120,12 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' @param dim maximum dimension of cycles for which to compare homology
 #' @param format  format of data, either "cloud" for point cloud or "distmat" for distance matrix
 #' @param threshold maximum diameter for computation of Vietoris-Rips complexes
+#' @param update if greater than zero, will print a message every `update` iterations
 #' @return list containing results of permutation test
 #' @export
 permutation_test <- function(data1, data2, iterations,
                              exponent = 1, dim = 1,
-                             format = "cloud", threshold = -1) {
+                             format = "cloud", threshold = -1, update = 0) {
   # make sure both are matrices with same number of columns,
   # sufficient number of rows, and no missing values
   if (class(data1) != "matrix" |
@@ -153,10 +154,18 @@ permutation_test <- function(data1, data2, iterations,
   if (iterations <= 1) {
     stop("Permutation test must have at least 2 iterations (preferably more).")
   }
+  
+  if (update > 0) {
+    cat("Beginning calculations\n")
+  }
 
   # calculate Wasserstein values for actual point clouds (prior to permuting)
   orig.wass <- wass_cloud_calc(data1, data2, exponent, dim = dim,
                                format = format, threshold = threshold)
+  
+  if (update > 0) {
+    cat("Initial calculation complete; starting iterations\n")
+  }
 
   # calculate Wasserstein values for each permutation
   combo.pts <- rbind(data1, data2)
@@ -164,6 +173,11 @@ permutation_test <- function(data1, data2, iterations,
   worked <- vapply(X = 1:iterations,
                    FUN.VALUE = logical(1),
                    FUN = function(curr.iter) {
+                     # print update message if necessary
+                     if (update > 0 & curr.iter %% update == 0) {
+                       cat("At iteration #", curr.iter, sep = "")
+                     }
+                     
                      # permute the point clouds
                      curr.pts <- combo.pts[sample.int(n = nrow(combo.pts),
                                                       size = nrow(combo.pts),
@@ -201,5 +215,8 @@ permutation_test <- function(data1, data2, iterations,
 
                      return(curr.ans)
                    })
+  if (update > 0) {
+    cat("Completed calculations")
+  }
   return(answer)
 }
