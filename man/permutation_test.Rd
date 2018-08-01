@@ -4,18 +4,23 @@
 \alias{permutation_test}
 \title{Statistical Inference for Topological Data Analysis}
 \usage{
-permutation_test(cloud1, cloud2, iterations, exponent = 1, dim = 1)
+permutation_test(data1, data2, iterations, exponent = 1, dim = 1,
+  format = "cloud", threshold = -1)
 }
 \arguments{
-\item{cloud1}{point cloud represented as numeric matrix}
+\item{data1}{first dataset}
 
-\item{cloud2}{point cloud represented as numeric matrix}
+\item{data2}{second dataset}
 
 \item{iterations}{number of iterations for distribution in permutation test}
 
 \item{exponent}{parameter `p` that returns Wasserstein-p metric}
 
 \item{dim}{maximum dimension of cycles for which to compare homology}
+
+\item{format}{format of data, either "cloud" for point cloud or "distmat" for distance matrix}
+
+\item{threshold}{maximum diameter for computation of Vietoris-Rips complexes}
 }
 \value{
 list containing results of permutation test

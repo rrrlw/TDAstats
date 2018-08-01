@@ -1,15 +1,18 @@
 #####WASSERSTEIN CALCULATION#####
 # convenience function using `wass_mat_calc` as main (`wass_workhorse` indirectly)
 # as main workhorse
-wass_cloud_calc <- function(pts1, pts2, pow.val = 1, dim = 1, format = "cloud") {
+wass_cloud_calc <- function(pts1, pts2, pow.val = 1, dim = 1,
+                            threshold = -1, format = "cloud") {
   # make sure pts1 and pts2 (matrices) have same # of cols
   if (ncol(pts1) != ncol(pts2)) {
     stop("Something wrong in code here; invalid arguments (unequal number of columns in point clouds.")
   }
 
   # calculate persistent homology
-  phom1 <- calculate_homology(pts1, dim = dim, format = format)
-  phom2 <- calculate_homology(pts2, dim = dim, format = format)
+  phom1 <- calculate_homology(pts1, dim = dim,
+                              format = format, threshold = threshold)
+  phom2 <- calculate_homology(pts2, dim = dim,
+                              format = format, threshold = threshold)
 
   # return Wasserstein metric
   return(wass_mat_calc(phom1, phom2, pow.val = pow.val, dim = dim))
@@ -116,11 +119,12 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' @param exponent parameter `p` that returns Wasserstein-p metric
 #' @param dim maximum dimension of cycles for which to compare homology
 #' @param format  format of data, either "cloud" for point cloud or "distmat" for distance matrix
+#' @param threshold maximum diameter for computation of Vietoris-Rips complexes
 #' @return list containing results of permutation test
 #' @export
 permutation_test <- function(data1, data2, iterations,
                              exponent = 1, dim = 1,
-                             format = "cloud") {
+                             format = "cloud", threshold = -1) {
   # make sure both are matrices with same number of columns,
   # sufficient number of rows, and no missing values
   if (class(data1) != "matrix" |
@@ -151,7 +155,8 @@ permutation_test <- function(data1, data2, iterations,
   }
 
   # calculate Wasserstein values for actual point clouds (prior to permuting)
-  orig.wass <- wass_cloud_calc(data1, data2, exponent, dim = dim, format)
+  orig.wass <- wass_cloud_calc(data1, data2, exponent, dim = dim,
+                               format = format, threshold = threshold)
 
   # calculate Wasserstein values for each permutation
   combo.pts <- rbind(data1, data2)
@@ -169,7 +174,8 @@ permutation_test <- function(data1, data2, iterations,
                                                        pts2 = curr.pts[(nrow(data1) + 1):nrow(curr.pts), ],
                                                        pow.val = exponent,
                                                        dim = dim,
-                                                       format = format)
+                                                       format = format,
+                                                       threshold = threshold)
                      #print(curr.wass.calc)
 
                      # store into matrix
