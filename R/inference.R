@@ -126,23 +126,42 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 permutation_test <- function(data1, data2, iterations,
                              exponent = 1, dim = 1,
                              format = "cloud", threshold = -1, update = 0) {
+  if (update > 0) {
+    cat("Starting function\n")
+  }
+  
   # make sure both are matrices with same number of columns,
   # sufficient number of rows, and no missing values
   if (class(data1) != "matrix" |
       class(data2) != "matrix") {
     stop("Both point clouds must be passed as matrices.")
   }
+  if (update > 0) {
+    cat("PASSED error check #1\n")
+  }
   if (nrow(data1) < 2 | nrow(data2) < 2) {
     stop("Both point clouds must have at least 2 points (rows) each.")
+  }
+  if (update > 0) {
+    cat("PASSED error check #2\n")
   }
   if (ncol(data1) < 2 | ncol(data2) < 2) {
     stop("Both point clouds must be in least 2 dimensions (columns) each.")
   }
+  if (update > 0) {
+    cat("PASSED error check #3\n")
+  }
   if (ncol(data1) != ncol(data2)) {
     stop("Both point clouds must have the same number of dimensions.")
   }
+  if (update > 0) {
+    cat("PASSED error check #4\n")
+  }
   if (sum(is.na(data1)) > 0 | sum(is.na(data2)) > 0) {
     stop("There should be no NAs in the point clouds passed to this function.")
+  }
+  if (update > 0) {
+    cat("PASSED error check #5\n")
   }
   class.data1 <- class(data1[1,1])
   class.data2 <- class(data2[1,1])
@@ -151,10 +170,15 @@ permutation_test <- function(data1, data2, iterations,
       !(class.data2 %in% allowed.classes)) {
     stop("Point clouds must be formatted as matrices filled with integers or numerics.")
   }
+  if (update > 0) {
+    cat("PASSED error check #6\n")
+  }
   if (iterations <= 1) {
     stop("Permutation test must have at least 2 iterations (preferably more).")
   }
-  
+  if (update > 0) {
+    cat("PASSED error check #7\n")
+  }
   if (update > 0) {
     cat("Beginning calculations\n")
   }
@@ -175,7 +199,7 @@ permutation_test <- function(data1, data2, iterations,
                    FUN = function(curr.iter) {
                      # print update message if necessary
                      if (update > 0 & curr.iter %% update == 0) {
-                       cat("At iteration #", curr.iter, sep = "")
+                       cat("At iteration #", curr.iter, "\n", sep = "")
                      }
                      
                      # permute the point clouds
@@ -216,7 +240,7 @@ permutation_test <- function(data1, data2, iterations,
                      return(curr.ans)
                    })
   if (update > 0) {
-    cat("Completed calculations")
+    cat("Completed calculations\n")
   }
   return(answer)
 }
