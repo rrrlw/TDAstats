@@ -102,6 +102,47 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
   return(ans)
 }
 
+#####DISTANCE BETWEEN PERSISTENT HOMOLOGY#####
+# calculate distance between two persistent homology matrices (filled with features)
+# inspired from Wasserstein/EMD but not the same (no intrinsic ordering of features, etc.)
+#' Calculate Distance between Homology Matrices
+#' 
+#' Calculates the distance between two matrices containing persistent homology
+#' features, usually as returned by the `calculate_homology` function.
+#' 
+#' Note that the absolute value of this measure of distance is not meaningful
+#' without a null distribution or at least another value for relative
+#' comparison (e.g. finding most similar pair within a triplet).
+#' 
+#' @param phom1 3-by-n numeric matrix containing persistent homology for first dataset
+#' @param phom2 3-by-n numeric matrix containing persistent homology for second dataset
+#' @return distance vector (1 element per dimension) between `phom1` and `phom2`
+#' @export
+phom.dist <- function(phom1, phom2) {
+  # make sure both matrices have at least some features
+  if (nrow(phom1) < 1 | nrow(phom2) < 1) {
+    stop("Each homology matrix must have at least one feature.")
+  }
+  
+  # make sure homology matrix format is correct
+  if (ncol(phom1) != 3 | ncol(phom2) != 3) {
+    stop("Each homology matrix must have exactly three columns.")
+  }
+  
+  # none of the values in the homology matrix should be negative
+  if (sum(phom1 < 0) > 0 |
+      sum(phom2 < 0) > 0) {
+    stop("A homology matrix cannot contain any negative values")
+  }
+  
+  # calculate maximum feature dimension for each matrix
+  max.dim1 <- max(phom1[, 1])
+  max.dim2 <- max(phom2[, 1])
+  
+  # call function that does actual work
+  wass_mat_calc(phom1, phom2, pow.val = 1, dim = max(max.dim1, max.dim2))
+}
+
 #####PERMUTATION TEST#####
 #' Statistical Inference for Topological Data Analysis
 #'
