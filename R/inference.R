@@ -126,6 +126,11 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 permutation_test <- function(data1, data2, iterations,
                              exponent = 1, dim = 1,
                              format = "cloud", threshold = -1, update = 0) {
+  # doesn't work for distance matrices, only point clouds
+  if (format != "cloud") {
+    stop("Permutation tests only work for point clouds.")
+  }
+  
   if (update > 0) {
     cat("Starting function\n")
   }
