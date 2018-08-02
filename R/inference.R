@@ -1,18 +1,25 @@
 #####WASSERSTEIN CALCULATION#####
 # convenience function using `wass_mat_calc` as main (`wass_workhorse` indirectly)
 # as main workhorse
-wass_cloud_calc <- function(pts1, pts2, pow.val = 1, dim = 1,
-                            threshold = -1, format = "cloud") {
+# ellipsis includes dim, format, threshold for calculate_homology
+wass_cloud_calc <- function(pts1, pts2, pow.val = 1, ...) {
   # make sure pts1 and pts2 (matrices) have same # of cols
   if (ncol(pts1) != ncol(pts2)) {
     stop("Something wrong in code here; invalid arguments (unequal number of columns in point clouds.")
   }
 
   # calculate persistent homology
-  phom1 <- calculate_homology(pts1, dim = dim,
-                              format = format, threshold = threshold)
-  phom2 <- calculate_homology(pts2, dim = dim,
-                              format = format, threshold = threshold)
+  phom1 <- calculate_homology(pts1, ...)
+  phom2 <- calculate_homology(pts2, ...)
+  
+  # check if dim is present as parameter within ...
+  dim <- 1 # default
+  list.version <- list(...)
+  if (length(list.version) > 0) {
+    if (!is.null(list.version$dim)) {
+      dim <- as.integer(list.version$dim)
+    }
+  }
 
   # return Wasserstein metric
   return(wass_mat_calc(phom1, phom2, pow.val = pow.val, dim = dim))
@@ -117,18 +124,24 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' @param data2 second dataset
 #' @param iterations number of iterations for distribution in permutation test
 #' @param exponent parameter `p` that returns Wasserstein-p metric
-#' @param dim maximum dimension of cycles for which to compare homology
-#' @param format  format of data, either "cloud" for point cloud or "distmat" for distance matrix
-#' @param threshold maximum diameter for computation of Vietoris-Rips complexes
 #' @param update if greater than zero, will print a message every `update` iterations
 #' @return list containing results of permutation test
 #' @export
 permutation_test <- function(data1, data2, iterations,
-                             exponent = 1, dim = 1,
-                             format = "cloud", threshold = -1, update = 0) {
-  # doesn't work for distance matrices, only point clouds
-  if (format != "cloud") {
-    stop("Permutation tests only work for point clouds.")
+                             exponent = 1, update = 0, ...) {
+  # doesn't work for distance matrices, only point clouds; set dim parameter
+  dim <- 1
+  list.version <- list(...)
+  if (length(list.version) > 0) {
+    if (!is.null(list.version$format)) {
+      if (list.version$format != "cloud") {
+        stop("Permutation tests only work for point clouds.")
+      }
+    }
+    # set dim parameter from ... that user passed
+    if (!is.null(list.version$dim)) {
+      dim <- as.integer(list.version$dim)
+    }
   }
   
   if (update > 0) {
@@ -189,8 +202,7 @@ permutation_test <- function(data1, data2, iterations,
   }
 
   # calculate Wasserstein values for actual point clouds (prior to permuting)
-  orig.wass <- wass_cloud_calc(data1, data2, exponent, dim = dim,
-                               format = format, threshold = threshold)
+  orig.wass <- wass_cloud_calc(data1, data2, exponent, ...)
   
   if (update > 0) {
     cat("Initial calculation complete; starting iterations\n")
@@ -216,9 +228,7 @@ permutation_test <- function(data1, data2, iterations,
                      curr.wass.calc <- wass_cloud_calc(pts1 = curr.pts[1:nrow(data1), ],
                                                        pts2 = curr.pts[(nrow(data1) + 1):nrow(curr.pts), ],
                                                        pow.val = exponent,
-                                                       dim = dim,
-                                                       format = format,
-                                                       threshold = threshold)
+                                                       ...)
                      #print(curr.wass.calc)
 
                      # store into matrix
