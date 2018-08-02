@@ -125,6 +125,7 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' @param iterations number of iterations for distribution in permutation test
 #' @param exponent parameter `p` that returns Wasserstein-p metric
 #' @param update if greater than zero, will print a message every `update` iterations
+#' @param ... arguments for `calculate_homology` used for each permutation; this includes the `format`, `dim`, and `threshold` parameters
 #' @return list containing results of permutation test
 #' @export
 permutation_test <- function(data1, data2, iterations,

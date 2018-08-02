@@ -16,6 +16,8 @@ permutation_test(data1, data2, iterations, exponent = 1, update = 0, ...)
 \item{exponent}{parameter `p` that returns Wasserstein-p metric}
 
 \item{update}{if greater than zero, will print a message every `update` iterations}
+
+\item{...}{arguments for `calculate_homology` used for each permutation; this includes the `format`, `dim`, and `threshold` parameters}
 }
 \value{
 list containing results of permutation test
