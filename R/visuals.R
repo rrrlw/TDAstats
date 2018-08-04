@@ -59,7 +59,8 @@ plot_persist <- function(feature.matrix) {
     ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),                               # add axis lines
              panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),         # remove gridlines
              panel.background = ggplot2::element_blank()) +                                           # remove default background color
-    ggplot2::geom_point(ggplot2::aes_string(x = "birth", y = "death", shape = "dimension", colour = "dimension"))    # add features as points
+    ggplot2::geom_point(ggplot2::aes_string(x = "birth", y = "death", shape = "dimension", colour = "dimension")) +   # add features as points
+    ggplot2::coord_fixed(ratio = 1)
 }
 
 #####TOPOLOGICAL BARCODE#####
