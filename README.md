@@ -21,6 +21,9 @@ install.packages("TDAstats")
 
 # install development version from GitHub
 devtools::install_github("rrrlw/TDAstats")
+
+# install development version with vignettes/tutorials
+devtools::install_github("rrrlw/TDAstats", build_vignettes = TRUE)
 ```
 
 ## Sample code
