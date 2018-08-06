@@ -8,7 +8,9 @@
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs, or NOTEs.
+There were no ERRORs or WARNINGs.
+
+There was 1 NOTE: the package was archived prior to the Aug 4 deadline, and appears as a new submission. The installation error has been fixed.
 
 ## Purpose
 
