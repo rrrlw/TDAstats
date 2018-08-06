@@ -44,6 +44,6 @@ The primary barrier to using TDA is not mathematical comprehension. Although the
 
 # Acknowledgments
 
-We thank Francesca Buffa, Ph.D. and Chad Topaz, Ph.D. for their advice.
+We thank Francesca Buffa, Ph.D. for introducing us to Ripser; Chad Topaz, Ph.D. for assistance as we started studying topological data analysis; J. Cory Brunson, Ph.D. and Jessica Scarborough, M.S. for insightful feedback.
 
 # References
