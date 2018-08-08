@@ -5,6 +5,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/grand-total/TDAstats)](https://CRAN.R-project.org/package=TDAstats)
 [![status](http://joss.theoj.org/papers/0ac4998ce691c718c4518201b86ef87d/status.svg)](http://joss.theoj.org/papers/0ac4998ce691c718c4518201b86ef87d)
+[![Coverage Status](https://img.shields.io/codecov/c/github/rrrlw/TDAstats/master.svg)](https://codecov.io/github/rrrlw/TDAstats?branch=master)
 
 ## Overview
 

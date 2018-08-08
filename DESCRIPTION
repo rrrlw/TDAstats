@@ -36,5 +36,6 @@ RoxygenNote: 6.0.1
 SystemRequirements: C++11
 Suggests: testthat (>= 2.0.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
