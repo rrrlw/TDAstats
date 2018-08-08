@@ -1,4 +1,14 @@
-# TDAstats 0.2.0
+# v0.3.0
+
+## Bug fixes
+
+* fixed bug in `plot_persist` where setting a shorter axis limit would cause the reference diagonal to disappear (thank you, @corybrunson)
+
+## Changes
+
+* changing size of `plot_persist` output figures still preserves one-to-one length ratio of horizontal and vertical axes (fixed coordinate system; thank you, @corybrunson)
+
+# v0.2.0
 
 ## Bug fixes
 
