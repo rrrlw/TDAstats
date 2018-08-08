@@ -1,15 +1,25 @@
 #####WASSERSTEIN CALCULATION#####
 # convenience function using `wass_mat_calc` as main (`wass_workhorse` indirectly)
 # as main workhorse
-wass_cloud_calc <- function(pts1, pts2, pow.val = 1, dim = 1) {
+# ellipsis includes dim, format, threshold for calculate_homology
+wass_cloud_calc <- function(pts1, pts2, pow.val = 1, ...) {
   # make sure pts1 and pts2 (matrices) have same # of cols
   if (ncol(pts1) != ncol(pts2)) {
     stop("Something wrong in code here; invalid arguments (unequal number of columns in point clouds.")
   }
 
   # calculate persistent homology
-  phom1 <- calculate_homology(pts1, dim = dim)
-  phom2 <- calculate_homology(pts2, dim = dim)
+  phom1 <- calculate_homology(pts1, ...)
+  phom2 <- calculate_homology(pts2, ...)
+  
+  # check if dim is present as parameter within ...
+  dim <- 1 # default
+  list.version <- list(...)
+  if (length(list.version) > 0) {
+    if (!is.null(list.version$dim)) {
+      dim <- as.integer(list.version$dim)
+    }
+  }
 
   # return Wasserstein metric
   return(wass_mat_calc(phom1, phom2, pow.val = pow.val, dim = dim))
@@ -92,6 +102,47 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
   return(ans)
 }
 
+#####DISTANCE BETWEEN PERSISTENT HOMOLOGY#####
+# calculate distance between two persistent homology matrices (filled with features)
+# inspired from Wasserstein/EMD but not the same (no intrinsic ordering of features, etc.)
+#' Calculate Distance between Homology Matrices
+#' 
+#' Calculates the distance between two matrices containing persistent homology
+#' features, usually as returned by the `calculate_homology` function.
+#' 
+#' Note that the absolute value of this measure of distance is not meaningful
+#' without a null distribution or at least another value for relative
+#' comparison (e.g. finding most similar pair within a triplet).
+#' 
+#' @param phom1 3-by-n numeric matrix containing persistent homology for first dataset
+#' @param phom2 3-by-n numeric matrix containing persistent homology for second dataset
+#' @return distance vector (1 element per dimension) between `phom1` and `phom2`
+#' @export
+phom.dist <- function(phom1, phom2) {
+  # make sure both matrices have at least some features
+  if (nrow(phom1) < 1 | nrow(phom2) < 1) {
+    stop("Each homology matrix must have at least one feature.")
+  }
+  
+  # make sure homology matrix format is correct
+  if (ncol(phom1) != 3 | ncol(phom2) != 3) {
+    stop("Each homology matrix must have exactly three columns.")
+  }
+  
+  # none of the values in the homology matrix should be negative
+  if (sum(phom1 < 0) > 0 |
+      sum(phom2 < 0) > 0) {
+    stop("A homology matrix cannot contain any negative values")
+  }
+  
+  # calculate maximum feature dimension for each matrix
+  max.dim1 <- max(phom1[, 1])
+  max.dim2 <- max(phom2[, 1])
+  
+  # call function that does actual work
+  wass_mat_calc(phom1, phom2, pow.val = 1, dim = max(max.dim1, max.dim2))
+}
+
 #####PERMUTATION TEST#####
 #' Statistical Inference for Topological Data Analysis
 #'
@@ -110,63 +161,116 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' testing for topological data analysis. J Appl Comput Topology. 2017;
 #' 1(2): 241-261.<doi:10.1007/s41468-017-0008-7>
 #'
-#' @param cloud1 point cloud represented as numeric matrix
-#' @param cloud2 point cloud represented as numeric matrix
+#' @param data1 first dataset
+#' @param data2 second dataset
 #' @param iterations number of iterations for distribution in permutation test
 #' @param exponent parameter `p` that returns Wasserstein-p metric
-#' @param dim maximum dimension of cycles for which to compare homology
+#' @param update if greater than zero, will print a message every `update` iterations
+#' @param ... arguments for `calculate_homology` used for each permutation; this includes the `format`, `dim`, and `threshold` parameters
 #' @return list containing results of permutation test
 #' @export
-permutation_test <- function(cloud1, cloud2, iterations,
-                             exponent = 1, dim = 1) {
+permutation_test <- function(data1, data2, iterations,
+                             exponent = 1, update = 0, ...) {
+  # doesn't work for distance matrices, only point clouds; set dim parameter
+  dim <- 1
+  list.version <- list(...)
+  if (length(list.version) > 0) {
+    if (!is.null(list.version$format)) {
+      if (list.version$format != "cloud") {
+        stop("Permutation tests only work for point clouds.")
+      }
+    }
+    # set dim parameter from ... that user passed
+    if (!is.null(list.version$dim)) {
+      dim <- as.integer(list.version$dim)
+    }
+  }
+  
+  if (update > 0) {
+    cat("Starting function\n")
+  }
+  
   # make sure both are matrices with same number of columns,
   # sufficient number of rows, and no missing values
-  if (class(cloud1) != "matrix" |
-      class(cloud2) != "matrix") {
+  if (class(data1) != "matrix" |
+      class(data2) != "matrix") {
     stop("Both point clouds must be passed as matrices.")
   }
-  if (nrow(cloud1) < 2 | nrow(cloud2) < 2) {
+  if (update > 0) {
+    cat("PASSED error check #1\n")
+  }
+  if (nrow(data1) < 2 | nrow(data2) < 2) {
     stop("Both point clouds must have at least 2 points (rows) each.")
   }
-  if (ncol(cloud1) < 2 | ncol(cloud2) < 2) {
+  if (update > 0) {
+    cat("PASSED error check #2\n")
+  }
+  if (ncol(data1) < 2 | ncol(data2) < 2) {
     stop("Both point clouds must be in least 2 dimensions (columns) each.")
   }
-  if (ncol(cloud1) != ncol(cloud2)) {
+  if (update > 0) {
+    cat("PASSED error check #3\n")
+  }
+  if (ncol(data1) != ncol(data2)) {
     stop("Both point clouds must have the same number of dimensions.")
   }
-  if (sum(is.na(cloud1)) > 0 | sum(is.na(cloud2)) > 0) {
+  if (update > 0) {
+    cat("PASSED error check #4\n")
+  }
+  if (sum(is.na(data1)) > 0 | sum(is.na(data2)) > 0) {
     stop("There should be no NAs in the point clouds passed to this function.")
   }
-  class.cloud1 <- class(cloud1[1,1])
-  class.cloud2 <- class(cloud2[1,1])
+  if (update > 0) {
+    cat("PASSED error check #5\n")
+  }
+  class.data1 <- class(data1[1,1])
+  class.data2 <- class(data2[1,1])
   allowed.classes <- c("numeric", "integer")
-  if (!(class.cloud1 %in% allowed.classes) |
-      !(class.cloud2 %in% allowed.classes)) {
+  if (!(class.data1 %in% allowed.classes) |
+      !(class.data2 %in% allowed.classes)) {
     stop("Point clouds must be formatted as matrices filled with integers or numerics.")
+  }
+  if (update > 0) {
+    cat("PASSED error check #6\n")
   }
   if (iterations <= 1) {
     stop("Permutation test must have at least 2 iterations (preferably more).")
   }
+  if (update > 0) {
+    cat("PASSED error check #7\n")
+  }
+  if (update > 0) {
+    cat("Beginning calculations\n")
+  }
 
   # calculate Wasserstein values for actual point clouds (prior to permuting)
-  orig.wass <- wass_cloud_calc(cloud1, cloud2, exponent, dim = dim)
+  orig.wass <- wass_cloud_calc(data1, data2, exponent, ...)
+  
+  if (update > 0) {
+    cat("Initial calculation complete; starting iterations\n")
+  }
 
   # calculate Wasserstein values for each permutation
-  combo.pts <- rbind(cloud1, cloud2)
-  wass.values <- matrix(-1, ncol = ncol(cloud1), nrow = iterations)
+  combo.pts <- rbind(data1, data2)
+  wass.values <- matrix(-1, ncol = ncol(data1), nrow = iterations)
   worked <- vapply(X = 1:iterations,
                    FUN.VALUE = logical(1),
                    FUN = function(curr.iter) {
+                     # print update message if necessary
+                     if (update > 0 & curr.iter %% update == 0) {
+                       cat("At iteration #", curr.iter, "\n", sep = "")
+                     }
+                     
                      # permute the point clouds
                      curr.pts <- combo.pts[sample.int(n = nrow(combo.pts),
                                                       size = nrow(combo.pts),
                                                       replace = FALSE), ]
 
                      # calculate Wasserstein for permuted clouds
-                     curr.wass.calc <- wass_cloud_calc(pts1 = curr.pts[1:nrow(cloud1), ],
-                                                       pts2 = curr.pts[(nrow(cloud1) + 1):nrow(curr.pts), ],
+                     curr.wass.calc <- wass_cloud_calc(pts1 = curr.pts[1:nrow(data1), ],
+                                                       pts2 = curr.pts[(nrow(data1) + 1):nrow(curr.pts), ],
                                                        pow.val = exponent,
-                                                       dim = dim)
+                                                       ...)
                      #print(curr.wass.calc)
 
                      # store into matrix
@@ -192,5 +296,8 @@ permutation_test <- function(cloud1, cloud2, iterations,
 
                      return(curr.ans)
                    })
+  if (update > 0) {
+    cat("Completed calculations\n")
+  }
   return(answer)
 }

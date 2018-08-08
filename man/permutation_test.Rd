@@ -4,18 +4,20 @@
 \alias{permutation_test}
 \title{Statistical Inference for Topological Data Analysis}
 \usage{
-permutation_test(cloud1, cloud2, iterations, exponent = 1, dim = 1)
+permutation_test(data1, data2, iterations, exponent = 1, update = 0, ...)
 }
 \arguments{
-\item{cloud1}{point cloud represented as numeric matrix}
+\item{data1}{first dataset}
 
-\item{cloud2}{point cloud represented as numeric matrix}
+\item{data2}{second dataset}
 
 \item{iterations}{number of iterations for distribution in permutation test}
 
 \item{exponent}{parameter `p` that returns Wasserstein-p metric}
 
-\item{dim}{maximum dimension of cycles for which to compare homology}
+\item{update}{if greater than zero, will print a message every `update` iterations}
+
+\item{...}{arguments for `calculate_homology` used for each permutation; this includes the `format`, `dim`, and `threshold` parameters}
 }
 \value{
 list containing results of permutation test

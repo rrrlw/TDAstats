@@ -2,6 +2,7 @@
 
 export(calculate_homology)
 export(permutation_test)
+export(phom.dist)
 export(plot_barcode)
 export(plot_persist)
 import(ggplot2)

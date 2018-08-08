@@ -14,5 +14,4 @@ There was 1 NOTE: the package was archived prior to the Aug 4 deadline, and appe
 
 ## Purpose
 
-* The primary purpose of such a quick update submission to CRAN is because of a clash with `index_t` in C++ code brought up by Dr. Brian Ripley that causes TDAstats to fail on Solaris systems (with an Aug 4 deadline to fix). This issue has been fixed in this update.
-* There are also new features/fixes in this submission (e.g. automated testing, bug fixes)
+The primary purpose of such a quick update submission to CRAN is because of a clash with `index_t` in C++ code brought up by Dr. Brian Ripley that causes TDAstats to fail on Solaris systems (with an Aug 4 deadline to fix). This issue has been fixed in this update.

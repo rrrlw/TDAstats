@@ -6,21 +6,22 @@
 using namespace Rcpp;
 
 // ripser_cpp
-NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh);
-RcppExport SEXP _TDAstats_ripser_cpp(SEXP input_pointsSEXP, SEXP dimSEXP, SEXP threshSEXP) {
+NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int format);
+RcppExport SEXP _TDAstats_ripser_cpp(SEXP input_pointsSEXP, SEXP dimSEXP, SEXP threshSEXP, SEXP formatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type input_points(input_pointsSEXP);
     Rcpp::traits::input_parameter< int >::type dim(dimSEXP);
     Rcpp::traits::input_parameter< float >::type thresh(threshSEXP);
-    rcpp_result_gen = Rcpp::wrap(ripser_cpp(input_points, dim, thresh));
+    Rcpp::traits::input_parameter< int >::type format(formatSEXP);
+    rcpp_result_gen = Rcpp::wrap(ripser_cpp(input_points, dim, thresh, format));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_TDAstats_ripser_cpp", (DL_FUNC) &_TDAstats_ripser_cpp, 3},
+    {"_TDAstats_ripser_cpp", (DL_FUNC) &_TDAstats_ripser_cpp, 4},
     {NULL, NULL, 0}
 };
 
