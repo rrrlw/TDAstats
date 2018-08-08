@@ -23,6 +23,8 @@ Description: A comprehensive toolset for any
     To learn more about how TDAstats calculates persistent homology,
     you can visit the GitHub repository for Ripser, the software that
     works behind the scenes at <https://github.com/Ripser/ripser>.
+    This package has been published as Wadhwa et al. (2018)
+    <doi:10.21105/joss.00860>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
