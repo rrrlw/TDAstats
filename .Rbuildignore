@@ -7,3 +7,4 @@
 ^data-raw$
 JOSS-paper
 LICENSE
+^codecov\.yml$
