@@ -1,3 +1,10 @@
+# v0.4.0
+
+## Additions
+
+* code coverage has been extended
+* added support for distance matrix format for calculate_homology
+
 # v0.3.0
 
 ## Bug fixes
