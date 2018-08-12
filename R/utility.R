@@ -10,21 +10,21 @@ validate_matrix <- function(feature.matrix) {
   if (nrow(feature.matrix) < 1) {
     stop("Invalid feature matrix: must have at least one row.")
   }
-  # first column should be of type integer
-  suppressWarnings(temp <- as.integer(feature.matrix[, 1]))
-  if (sum(temp != feature.matrix[, 1]) > 1) {
-    stop("Invalid feature matrix: first column must be of type integer to represent feature dimension.")
-  }
-  # second and third columns should be of type numeric
-  suppressWarnings(temp <- as.numeric(feature.matrix[, 2:3]))
-  if (sum(temp != feature.matrix[, 2:3]) > 1) {
-    stop("Invalid feature matrix: second and third columns must be of type numeric to represent feature birth and death.")
-  }
   # no NAs
   count.na <- sum(is.na(feature.matrix))
   if (count.na > 0) {
     stop(paste("Invalid feature matrix with", count.na,
                "NAs: should have zero NAs."))
+  }
+  # first column should be of type integer
+  suppressWarnings(temp <- as.integer(feature.matrix[, 1]))
+  if (sum(is.na(temp)) > 0) {
+    stop("Invalid feature matrix: first column must be of type integer to represent feature dimension.")
+  }
+  # second and third columns should be of type numeric
+  suppressWarnings(temp <- as.numeric(feature.matrix[, 2:3]))
+  if (sum(is.na(temp)) > 0) {
+    stop("Invalid feature matrix: second and third columns must be of type numeric to represent feature birth and death.")
   }
   # make sure all births are before corresponding deaths
   check.before <- sum(feature.matrix[, 2] > feature.matrix[, 3])
