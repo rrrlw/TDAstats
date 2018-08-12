@@ -62,7 +62,7 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud") {
   }
   threshold <- as.numeric(threshold)
   
-  # make sure format is either "cloud" or "ldm"
+  # make sure format is either "cloud" or "distmat"
   if (!(format %in% c("cloud", "distmat"))) {
     stop("format parameter should be either \"cloud\" or \"distmat\"")
   }
