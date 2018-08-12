@@ -1,5 +1,5 @@
 context("Test statistical inference on persistent homology")
-library("TDAstats")
+library(TDAstats)
 
 test_that("Basic permutation test (2-d) works correctly", {
   # set variables for reproducibility and maintenance ease
