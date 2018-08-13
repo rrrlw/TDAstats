@@ -132,7 +132,7 @@ phom.dist <- function(phom1, phom2) {
   # none of the values in the homology matrix should be negative
   if (sum(phom1 < 0) > 0 |
       sum(phom2 < 0) > 0) {
-    stop("A homology matrix cannot contain any negative values")
+    stop("A homology matrix cannot contain any negative values.")
   }
   
   # calculate maximum feature dimension for each matrix
