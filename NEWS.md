@@ -4,6 +4,7 @@
 
 * code coverage has been extended
 * added support for distance matrix format for calculate_homology
+* added `standardize` parameter and functionality to standardize point cloud size
 
 # v0.3.0
 
