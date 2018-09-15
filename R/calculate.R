@@ -75,6 +75,10 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
     for (i in 1:ncol(mat)) {
       min.val <- min(mat[, i])
       max.val <- max(mat[, i])
+      
+      # skip if only one unique value in this column (all identical)
+      if (min.val == max.val) next
+      
       mat[, i] <- (mat[, i] - min.val) / (max.val - min.val)
     }
   }
