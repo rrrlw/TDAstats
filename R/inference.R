@@ -102,6 +102,33 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
   return(ans)
 }
 
+# get top n features from each dimension
+phom.topn <- function(phom, n) {
+  # all the dimensions
+  dims <- unique(phom[, 1])
+  phom.adjust <- matrix(NA, nrow = 0, ncol = 3)
+  
+  # go through all dimensions
+  for (curr.dim in dims) {
+    # get top n rows from this dimension
+    curr.phom <- phom[phom[, 1] == curr.dim, ]
+    names(curr.phom) <- NULL
+    curr.phom <- matrix(curr.phom, ncol = 3)
+    
+    # order
+    curr.phom <- cbind(curr.phom,
+                       curr.phom[, 3] - curr.phom[, 2])
+    curr.phom <- curr.phom[order(curr.phom[, 4], decreasing = TRUE), ]
+    curr.phom <- matrix(curr.phom, ncol = 4)
+    
+    # combine phom.adjust - guaranteed at least one row
+    phom.adjust <- rbind(phom.adjust,
+                         curr.phom[1:min(nrow(curr.phom), n), 1:3])
+  }
+  
+  return(phom.adjust)
+}
+
 #####DISTANCE BETWEEN PERSISTENT HOMOLOGY#####
 # calculate distance between two persistent homology matrices (filled with features)
 # inspired from Wasserstein/EMD but not the same (no intrinsic ordering of features, etc.)
@@ -116,9 +143,10 @@ wass_workhorse <- function(vec1, vec2, pow.val = 1) {
 #' 
 #' @param phom1 3-by-n numeric matrix containing persistent homology for first dataset
 #' @param phom2 3-by-n numeric matrix containing persistent homology for second dataset
+#' @param limit.num limit comparison to only top `limit.num` features in each dimension
 #' @return distance vector (1 element per dimension) between `phom1` and `phom2`
 #' @export
-phom.dist <- function(phom1, phom2) {
+phom.dist <- function(phom1, phom2, limit.num = 0) {
   # make sure both matrices have at least some features
   if (nrow(phom1) < 1 | nrow(phom2) < 1) {
     stop("Each homology matrix must have at least one feature.")
@@ -135,10 +163,22 @@ phom.dist <- function(phom1, phom2) {
     stop("A homology matrix cannot contain any negative values.")
   }
   
+  # make sure limit.num is an integer
+  if (!(class(limit.num) %in% c("integer", "numeric"))) {
+    stop(limit.num, " must be of class integer or numeric.")
+  }
+  limit.num <- as.integer(limit.num)
+  
+  # select only top n features from each dimension if `limit.num` parameter > 0
+  if (limit.num > 0) {
+    phom1 <- phom.topn(phom1, n = limit.num)
+    phom2 <- phom.topn(phom2, n = limit.num)
+  }
+  
   # calculate maximum feature dimension for each matrix
   max.dim1 <- max(phom1[, 1])
   max.dim2 <- max(phom2[, 1])
-  
+
   # call function that does actual work
   wass_mat_calc(phom1, phom2, pow.val = 1, dim = max(max.dim1, max.dim2))
 }
