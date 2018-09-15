@@ -4,7 +4,8 @@
 \alias{permutation_test}
 \title{Statistical Inference for Topological Data Analysis}
 \usage{
-permutation_test(data1, data2, iterations, exponent = 1, update = 0, ...)
+permutation_test(data1, data2, iterations, exponent = 1, update = 0,
+  ...)
 }
 \arguments{
 \item{data1}{first dataset}

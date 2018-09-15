@@ -4,12 +4,14 @@
 \alias{phom.dist}
 \title{Calculate Distance between Homology Matrices}
 \usage{
-phom.dist(phom1, phom2)
+phom.dist(phom1, phom2, limit.num = 0)
 }
 \arguments{
 \item{phom1}{3-by-n numeric matrix containing persistent homology for first dataset}
 
 \item{phom2}{3-by-n numeric matrix containing persistent homology for second dataset}
+
+\item{limit.num}{limit comparison to only top `limit.num` features in each dimension}
 }
 \value{
 distance vector (1 element per dimension) between `phom1` and `phom2`
