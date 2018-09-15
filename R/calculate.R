@@ -16,6 +16,7 @@
 #' @param dim maximum dimension of features to calculate
 #' @param threshold maximum diameter for computation of Vietoris-Rips complexes
 #' @param format  format of `mat`, either "cloud" for point cloud or "distmat" for distance matrix
+#' @param standardize boolean determining whether point cloud size should be standardized
 #' @return 3-column matrix, with each row representing a TDA feature
 #' @importFrom stats complete.cases
 #' @export
@@ -28,8 +29,8 @@
 #'
 #' # calculate persistent homology (num.pts by 3 numeric matrix)
 #' pers.hom <- calculate_homology(pt.cloud)
-calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud") {
-
+calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
+                               standardize = FALSE) {
   # make sure matrix has at least 2 columns and at least 2 rows
   if (nrow(mat) < 2 | ncol(mat) < 2) {
     stop("Point cloud must have at least 2 points and at least 2 dimensions.")
@@ -68,6 +69,16 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud") {
   }
   int.format <- ifelse(format == "cloud", 0, 1)
 
+  # standardize if necessary
+  # method: independently for each coordinate axis: (x - min) / (max - min)
+  if (standardize) {
+    for (i in 1:ncol(mat)) {
+      min.val <- min(mat[, i])
+      max.val <- max(mat[, i])
+      mat[, i] <- (mat[, i] - min.val) / (max.val - min.val)
+    }
+  }
+  
   # actually do work
   ans_vec <- ripser_cpp(mat, dim, threshold, int.format)
 
