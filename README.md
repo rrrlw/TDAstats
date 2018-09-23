@@ -1,4 +1,4 @@
-# TDAstats: R pipeline to compute persistent homology in topological data analysis <img src="man/figures/HexTDA.png" align="right" height="150" width="150"/>
+# TDAstats <img src="man/figures/HexTDA.png" align="right" height="175" width="151"/>
 
 [![Travis-CI Build Status](https://travis-ci.org/rrrlw/TDAstats.svg?branch=master)](https://travis-ci.org/rrrlw/TDAstats)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rrrlw/TDAstats?branch=master&svg=true)](https://ci.appveyor.com/project/rrrlw/TDAstats)
@@ -12,9 +12,7 @@
 
 ## Overview
 
-TDAstats is an R pipeline for topological data analysis, specifically, the
-use of persistent homology in Vietoris-Rips simiplicial complexes to study the
-shape of data.
+TDAstats is an R pipeline for computing persistent homology in topological data analysis.
 
 ## Installation
 
