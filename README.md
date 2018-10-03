@@ -64,7 +64,7 @@ project is a lightweight library for calculating persistent homology
 that outpaces all of its competitors. Given the importance of computational
 efficiency, TDAstats naturally uses Ripser behind the scenes for homology
 calculations, using the Rcpp package to integrate the C++ code into an R
-pipeline.
+pipeline (Ripser for R).
 
 2.  *Statistical inference of persistent homology*: persistent homology can be
 used in hypothesis testing to compare the topological structure of two point
