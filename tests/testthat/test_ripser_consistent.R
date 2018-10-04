@@ -9,8 +9,8 @@ test_that("calculate_homology is consistent with standardization", {
   square.data <- cbind(runif(50), runif(50))
   
   # test homology calculation for 0-cycles and 1-cycles
-  expect_equal_to_reference(calculate_homology(square.data, dim = 1),
-                            standardize = TRUE,
+  expect_equal_to_reference(calculate_homology(square.data, dim = 1,
+                                               standardize = TRUE),
                             file = "2dconsist-std")
 })
 
