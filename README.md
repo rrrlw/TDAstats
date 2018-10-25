@@ -8,7 +8,8 @@
 [![CRAN version](http://www.r-pkg.org/badges/version/TDAstats)](https://CRAN.R-project.org/package=TDAstats)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/grand-total/TDAstats)](https://CRAN.R-project.org/package=TDAstats)
 
-[![DOI](http://joss.theoj.org/papers/10.21105/joss.00860/status.svg)](https://doi.org/10.21105/joss.00860)
+[![JOSS DOI](http://joss.theoj.org/papers/10.21105/joss.00860/status.svg)](https://doi.org/10.21105/joss.00860)
+[![Zenodo DOI](https://zenodo.org/badge/130141540.svg)](https://zenodo.org/badge/latestdoi/130141540)
 
 ## Overview
 
