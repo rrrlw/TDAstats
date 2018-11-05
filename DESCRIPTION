@@ -13,7 +13,9 @@ Description: A comprehensive toolset for any
     The tools this package currently provides can be conveniently split
     into three main sections: (1) calculating persistent homology; (2)
     conducting statistical inference on persistent homology calculations;
-    (3) visualizing persistent homology and statistical inference.    
+    (3) visualizing persistent homology and statistical inference.
+    The published form of TDAstats can be found in Wadhwa et al. (2018)
+    <doi:10.21105/joss.00860>.   
     For a general background on computing persistent homology for
     topological data analysis, see Otter et al. (2017)
     <doi:10.1140/epjds/s13688-017-0109-5>.
