@@ -14,6 +14,7 @@
 * code coverage has been extended
 * added support for distance matrix format for calculate_homology
 * vignette has been added showing use of new distance matrix format
+* `phom.dist` function to compare persistent homology of two point clouds/matrices
 
 # v0.3.0
 
