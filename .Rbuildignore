@@ -9,3 +9,4 @@ JOSS-paper
 LICENSE
 ^codecov\.yml$
 ^appveyor\.yml$
+^hexbin$
