@@ -4,10 +4,12 @@
 \alias{plot_persist}
 \title{Plot Persistent Homology as Persistence Diagram}
 \usage{
-plot_persist(feature.matrix)
+plot_persist(feature.matrix, flat = FALSE)
 }
 \arguments{
 \item{feature.matrix}{nx3 matrix representing persistent homology features}
+
+\item{flat}{default FALSE; if TRUE, plots flat persistent homology instead}
 }
 \value{
 ggplot instance representing persistence diagram
