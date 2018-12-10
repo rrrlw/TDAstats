@@ -57,7 +57,7 @@ plot_persist <- function(feature.matrix, flat = FALSE) {
       ggplot2::xlim(axes.min, axes.max) + ggplot2::ylim(axes.min, axes.max) +                           # axis limits
       ggplot2::geom_abline(slope = 1, intercept = 0) +  # reference line
       #ggplot2::geom_path(data = df.geompath, ggplot2::aes_string(x = "x", y = "y")) +          # reference segment
-      ggplot2::xlab("Feature Birth") + ggplot2::ylab("Feature Death") +                                 # axis titles
+      ggplot2::xlab("Feature appearance") + ggplot2::ylab("Feature disappearance") +                                 # axis titles
       ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),                               # add axis lines
                panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),         # remove gridlines
                panel.background = ggplot2::element_blank()) +                                           # remove default background color
@@ -68,7 +68,8 @@ plot_persist <- function(feature.matrix, flat = FALSE) {
     feature.df$persistence <- feature.df$death - feature.df$birth
     ggplot2::ggplot(data = feature.df) +
       ggplot2::geom_point(ggplot2::aes_string(x = "birth", y = "persistence", shape = "dimension", colour = "dimension")) +
-      ggplot2::xlab("Feature Birth") + ggplot2::ylab("Feature Persistence") +
+      ggplot2::xlab("Feature appearance") +
+      ggplot2::ylab("Feature persistence") +
       ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
                      panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
                      panel.background = ggplot2::element_blank())
