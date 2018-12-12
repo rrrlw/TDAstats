@@ -1,4 +1,4 @@
-# TDAstats <img src="man/figures/HexTDA.png" align="right" height="175" width="151"/>
+# TDAstats: topological data analysis in R <img src="man/figures/HexTDA.png" align="right" height="175" width="151"/>
 
 [![Travis-CI Build Status](https://travis-ci.org/rrrlw/TDAstats.svg?branch=master)](https://travis-ci.org/rrrlw/TDAstats)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rrrlw/TDAstats?branch=master&svg=true)](https://ci.appveyor.com/project/rrrlw/TDAstats)
