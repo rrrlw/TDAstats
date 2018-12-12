@@ -52,6 +52,8 @@ plot_persist(unif.phom)
 plot_barcode(circ.phom)
 ```
 
+A more detailed tutorial can be found in the package vignettes or at [this Gist](https://gist.github.com/rrrlw/2fd22a834a883cb66454b1dabab9fdcb).
+
 ## Functionality
 
 TDAstats has 3 primary goals:
