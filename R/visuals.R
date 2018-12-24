@@ -129,7 +129,7 @@ plot_barcode <- function(feature.matrix) {
   # plot w/ ggplot
   ggplot2::ggplot(data = feature.df) +
          ggplot2::xlim(x.min, x.max) + ggplot2::ylim(y.min, y.max) +                                                  # axis limits
-         ggplot2::xlab("Vietoris-Rips Radius") + ggplot2::ylab("") +                                                  # axis titles
+         ggplot2::xlab("Vietoris-Rips Diameter") + ggplot2::ylab("") +                                                  # axis titles
          ggplot2::theme(axis.line.x = ggplot2::element_line(colour = "black"),                                        # add x-axis line
                         axis.line.y = ggplot2::element_blank(), axis.ticks.y = ggplot2::element_blank(), axis.text.y = ggplot2::element_blank(), # remove y-axis stuff
                         panel.grid = ggplot2::element_blank(),                                                        # remove gridlines
