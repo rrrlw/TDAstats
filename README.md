@@ -1,4 +1,4 @@
-# TDAstats <img src="man/figures/HexTDA.png" align="right" height="175" width="151"/>
+# TDAstats: topological data analysis in R <img src="man/figures/HexTDA.png" align="right" height="175" width="151"/>
 
 [![Travis-CI Build Status](https://travis-ci.org/rrrlw/TDAstats.svg?branch=master)](https://travis-ci.org/rrrlw/TDAstats)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rrrlw/TDAstats?branch=master&svg=true)](https://ci.appveyor.com/project/rrrlw/TDAstats)
@@ -37,23 +37,22 @@ The following sample code creates two synthetic datasets, and calculates and vis
 # load TDAstats
 library("TDAstats")
 
-# point cloud: uniform random points in unit square (2-dimensional)
-data1 <- cbind(runif(100), runif(100))
-
-# point cloud: points distributed uniformly around circle (2-dimensional)
-angles <- runif(100, 0, 2 * pi)
-circ <- cbind(cos(angles), sin(angles))
+# load sample datasets
+data("unif2d")
+data("circle2d")
 
 # calculate persistent homology for both datasets
-data1.hom <- calculate_homology(data1, dim = 1)
-circ.hom <- calculate_homology(circ, dim = 1)
+unif.phom <- calculate_homology(unif2d, dim = 1)
+circ.phom <- calculate_homology(circle2d, dim = 1)
 
 # visualize first dataset as persistence diagram
-plot_persist(data1.hom)
+plot_persist(unif.phom)
 
 # visualize second dataset as topological barcode
-plot_barcode(circ.hom)
+plot_barcode(circ.phom)
 ```
+
+A more detailed tutorial can be found in the package vignettes or at [this Gist](https://gist.github.com/rrrlw/2fd22a834a883cb66454b1dabab9fdcb).
 
 ## Functionality
 
