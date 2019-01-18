@@ -31,6 +31,11 @@
 #' pers.hom <- calculate_homology(pt.cloud)
 calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
                                standardize = FALSE) {
+  # convert mat to matirx if class of mat is dist
+  if (any(class(mat) == "dist")) {
+    mat <- as.matrix(mat)
+  }
+  
   # make sure matrix has at least 2 columns and at least 2 rows
   if (nrow(mat) < 2 | ncol(mat) < 2) {
     stop("Point cloud must have at least 2 points and at least 2 dimensions.")
