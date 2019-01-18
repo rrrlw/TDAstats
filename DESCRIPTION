@@ -6,7 +6,8 @@ Authors@R: c(
     person("Raoul", "Wadhwa", email = "raoulwadhwa@gmail.com", role = c("aut", "cre")),
     person("Andrew", "Dhawan", role = "aut"),
     person("Drew", "Williamson", role = "aut"),
-    person("Jacob", "Scott", role = "aut"))
+    person("Jacob", "Scott", role = "aut"),
+    person("Shota", "Ochi", role = "ctb"))
 Description: A comprehensive toolset for any
     useR conducting topological data analysis, specifically via the
     calculation of persistent homology in a Vietoris-Rips complex.
