@@ -31,7 +31,7 @@
 #' pers.hom <- calculate_homology(pt.cloud)
 calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
                                standardize = FALSE) {
-  # coerce mat into matirx to work with class object such as dist class object
+  # coerce mat into matrix to work with class object such as dist class object
   mat <- as.matrix(mat)
   
   # make sure matrix has at least 2 columns and at least 2 rows
