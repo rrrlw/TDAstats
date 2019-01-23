@@ -1,3 +1,14 @@
+# v0.5.0
+
+## Changes
+
+* `calculate_homology` now accepts any variable storing a distance matrix as long as it can be coerced to a matrix
+
+## Additions
+
+* added option for `calculate_homology` to return a data frame instead of a matrix
+* added coverage for new code
+
 # v0.4.0
 
 ## Bug Fixes
@@ -6,12 +17,12 @@
 
 ## Changes
 
-* added `standardize` parameter and functionality to standardize point cloud size
-* added `limit.num` parameter and functionality to consider only "significant" topological features
+* added `standardize` parameter to `calculate_homology` and functionality to standardize point cloud size
+* added `limit.num` parameter to `phom.dist` and functionality to consider only "significant" topological features
 
 ## Additions
 
-* code coverage has been extended
+* code coverage has been increased
 * added support for distance matrix format for calculate_homology
 * vignette has been added showing use of new distance matrix format
 * `phom.dist` function to compare persistent homology of two point clouds/matrices

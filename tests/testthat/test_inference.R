@@ -136,4 +136,15 @@ test_that("Distance between persistent homology is calculated correctly", {
                         1, -1, 0), ncol = 3, byrow = TRUE)
   expect_error(phom.dist(phom.1, phom.temp),
                "A homology matrix cannot contain any negative values\\.")
+  
+  # make sure phom.dist makes a difference (<= phom.dist without limit.num)
+  data("unif2d")
+  data("circle2d")
+  phom.unif <- calculate_homology(unif2d, dim = 1)
+  phom.circ <- calculate_homology(circle2d, dim = 1)
+  
+  dists <- phom.dist(phom.unif, phom.circ)
+  dists2<- phom.dist(phom.unif, phom.circ, limit.num = 2)
+  expect_lte(dists2[1], dists[1])
+  expect_lte(dists2[2], dists[2])
 })

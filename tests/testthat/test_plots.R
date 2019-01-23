@@ -43,6 +43,7 @@ test_that("plot_persist produces ggplot object with correct data", {
   data("circle2d")
   circ.phom <- calculate_homology(circle2d)
   gpersist <- plot_persist(circ.phom)
+  flatpersist <- plot_persist(circ.phom, flat = TRUE)
   
   # make sure data in gpersist is correct for circle2d (expected values checked manually)
   #   extra as.character within as.integer to preserve factor levels as 0 and 1 (otherwise become 1 and 2)
@@ -50,6 +51,7 @@ test_that("plot_persist produces ggplot object with correct data", {
   expect_equal(sum(as.integer(as.character(gpersist$data$dimension))), 1)
   expect_equal(sum(gpersist$data$birth == 0), 99)
   expect_equal(sum(gpersist$data$death > 0.21), 1)
+  expect_true("ggplot" %in% class(flatpersist))
 })
 
 test_that("plot_barcode produces ggplot object with correct data", {

@@ -38,3 +38,14 @@ test_that("Point cloud and lower distance matrix formats are equivalent", {
   # make sure both have same persistent homology
   expect_equal(phom.cloud, phom.matrix)
 })
+
+# test output format works as expected
+test_that("Matrix and data frame outputs are equal", {
+  # generate required phoms (both types)
+  data("unif2d")
+  phom.mat <- calculate_homology(unif2d)
+  phom.df <- calculate_homology(unif2d, return_df = TRUE)
+  
+  # compare
+  expect_identical(as.matrix(phom.df), phom.mat)
+})
