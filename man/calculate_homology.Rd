@@ -5,7 +5,7 @@
 \title{Calculate Persistent Homology of a Point Cloud}
 \usage{
 calculate_homology(mat, dim = 1, threshold = -1, format = "cloud",
-  standardize = FALSE)
+  standardize = FALSE, return_df = FALSE)
 }
 \arguments{
 \item{mat}{numeric matrix containing point cloud or distance matrix}
@@ -17,9 +17,12 @@ calculate_homology(mat, dim = 1, threshold = -1, format = "cloud",
 \item{format}{format of `mat`, either "cloud" for point cloud or "distmat" for distance matrix}
 
 \item{standardize}{boolean determining whether point cloud size should be standardized}
+
+\item{return_df}{defaults to `FALSE`, returning a matrix;
+if `TRUE`, returns a data frame}
 }
 \value{
-3-column matrix, with each row representing a TDA feature
+3-column matrix or data frame, with each row representing a TDA feature
 }
 \description{
 Calculates the persistent homology of a point cloud, as represented by

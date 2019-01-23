@@ -17,7 +17,9 @@
 #' @param threshold maximum diameter for computation of Vietoris-Rips complexes
 #' @param format  format of `mat`, either "cloud" for point cloud or "distmat" for distance matrix
 #' @param standardize boolean determining whether point cloud size should be standardized
-#' @return 3-column matrix, with each row representing a TDA feature
+#' @param return_df defaults to `FALSE`, returning a matrix;
+#'   if `TRUE`, returns a data frame
+#' @return 3-column matrix or data frame, with each row representing a TDA feature
 #' @importFrom stats complete.cases
 #' @export
 #' @examples
@@ -30,7 +32,7 @@
 #' # calculate persistent homology (num.pts by 3 numeric matrix)
 #' pers.hom <- calculate_homology(pt.cloud)
 calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
-                               standardize = FALSE) {
+                               standardize = FALSE, return_df = FALSE) {
   # coerce mat into matrix to work with class object such as dist class object
   mat <- as.matrix(mat)
   
@@ -94,5 +96,13 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
                     byrow = TRUE,
                     ncol = 3)
   colnames(ans_mat) <- c("dimension", "birth", "death")
-  return(ans_mat)
+  
+  # convert matrix to data frame - better for visualization, manipulation
+  if (return_df) {
+    ans_df <- as.data.frame(ans_mat)
+    ans_df$dimension <- as.integer(ans_df$dimension)
+    return(ans_df)
+  } else {
+    return(ans_mat)
+  }
 }
