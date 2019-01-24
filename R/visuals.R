@@ -69,7 +69,7 @@ plot_persist <- function(feature.matrix, flat = FALSE,
     # add line for bootstrap if desired
     if (cutoff > 0) {
       g +
-        geom_abline(slope = 0, intercept = cutoff, linetype = 3, colour = "grey")
+        geom_abline(slope = 1, intercept = cutoff, linetype = 3, colour = "grey")
     } else {
       g
     }
@@ -87,7 +87,7 @@ plot_persist <- function(feature.matrix, flat = FALSE,
     # add line for bootstrap if desired
     if (cutoff > 0) {
       g +
-        geom_abline(slope = 1, intercept = cutoff, linetype = 3, colour = "grey")
+        geom_abline(slope = 0, intercept = cutoff, linetype = 3, colour = "grey")
     } else {
       g
     }
