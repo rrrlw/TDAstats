@@ -20,6 +20,7 @@
 #'
 #' @param feature.matrix nx3 matrix representing persistent homology features
 #' @param flat default FALSE; if TRUE, plots flat persistent homology instead
+#' @param cutoff threshold for significant features; line added as marker on plot
 #' @return ggplot instance representing persistence diagram
 #' @import ggplot2
 #' @export
@@ -35,7 +36,8 @@
 #'
 #' # plot calculated homology features as persistence diagram
 #' plot_persist(pers.hom)
-plot_persist <- function(feature.matrix, flat = FALSE) {
+plot_persist <- function(feature.matrix, flat = FALSE,
+                         cutoff = 0) {
   # make sure feature matrix is formatted properly
   validate_matrix(feature.matrix)
 
@@ -53,26 +55,42 @@ plot_persist <- function(feature.matrix, flat = FALSE) {
   if (!flat) {
     df.geompath <- data.frame(x = c(0, axes.max),
                               y = c(0, axes.max))
-    ggplot2::ggplot(data = feature.df) +
+    g <- ggplot2::ggplot(data = feature.df) +
       ggplot2::xlim(axes.min, axes.max) + ggplot2::ylim(axes.min, axes.max) +                           # axis limits
       ggplot2::geom_abline(slope = 1, intercept = 0) +  # reference line
       #ggplot2::geom_path(data = df.geompath, ggplot2::aes_string(x = "x", y = "y")) +          # reference segment
       ggplot2::xlab("Feature appearance") + ggplot2::ylab("Feature disappearance") +                                 # axis titles
       ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),                               # add axis lines
-               panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),         # remove gridlines
-               panel.background = ggplot2::element_blank()) +                                           # remove default background color
-      ggplot2::geom_point(ggplot2::aes_string(x = "birth", y = "death", shape = "dimension", colour = "dimension")) +   # add features as points
+                     panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),         # remove gridlines
+                     panel.background = ggplot2::element_blank()) +                                           # remove default background color
+     ggplot2::geom_point(ggplot2::aes_string(x = "birth", y = "death", shape = "dimension", colour = "dimension")) +   # add features as points
       ggplot2::coord_fixed(ratio = 1)
+    
+    # add line for bootstrap if desired
+    if (cutoff > 0) {
+      g +
+        geom_abline(slope = 0, intercept = cutoff, linetype = 3, colour = "grey")
+    } else {
+      g
+    }
   }
   else {
     feature.df$persistence <- feature.df$death - feature.df$birth
-    ggplot2::ggplot(data = feature.df) +
+    g <- ggplot2::ggplot(data = feature.df) +
       ggplot2::geom_point(ggplot2::aes_string(x = "birth", y = "persistence", shape = "dimension", colour = "dimension")) +
       ggplot2::xlab("Feature appearance") +
       ggplot2::ylab("Feature persistence") +
       ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
                      panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(),
                      panel.background = ggplot2::element_blank())
+    
+    # add line for bootstrap if desired
+    if (cutoff > 0) {
+      g +
+        geom_abline(slope = 1, intercept = cutoff, linetype = 3, colour = "grey")
+    } else {
+      g
+    }
   }
 }
 

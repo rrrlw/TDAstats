@@ -37,7 +37,7 @@ thresh <- id_significant(features = as.data.frame(phom),
                          dim = 1,
                          reps = 500,
                          cutoff = 0.975)
-                         
+
 # generate flat persistence diagram
 # every feature higher than `thresh` is significant
 plot_persist(phom, flat = TRUE)
