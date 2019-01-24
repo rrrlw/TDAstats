@@ -7,7 +7,7 @@
 ## Additions
 
 * added option for `calculate_homology` to return a data frame instead of a matrix
-* added coverage for new code
+* increased code coverage
 * added support for flat persistence diagrams (`flat = TRUE` in `plot_persist`)
 
 # v0.4.0
