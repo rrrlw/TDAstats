@@ -95,6 +95,28 @@ test_that("permutation_test detects invalid parameters correctly", {
                "Permutation test must have at least 2 iterations \\(preferably more\\)\\.")
 })
 
+test_that("Bootstrap for identification of significant features is working", {
+  # do bootstrap on an annulus
+  angles <- runif(100, 0, 2 * pi)
+  x <- cos(angles) + rnorm(100, 0, 0.1)
+  y <- sin(angles) + rnorm(100, 0, 0.1)
+  annulus <- cbind(x, y)
+  
+  phom <- calculate_homology(annulus, return_df = TRUE)
+  
+  thresh <- id_significant(phom,
+                           dim = 1,
+                           reps = 500,
+                           cutoff = 0.975)
+  
+  # check if exactly one feature is above the threshold
+  phom <- phom[phom$dim == 1, ]
+  phom$persist <- phom$death - phom$birth
+  test_sol <- sum(phom$persist >= thresh)
+  
+  expect_equal(test_sol, 1)
+})
+
 test_that("Distance between persistent homology is calculated correctly", {
   # equal persistent homologies should have no difference
   phom.1 <- matrix(c(0, 0, 1,
