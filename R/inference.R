@@ -129,6 +129,67 @@ phom.topn <- function(phom, n) {
   return(phom.adjust)
 }
 
+#####BOOTSTRAPPING#####
+#' Identify Significant Features in Persistent Homology
+#' 
+#' An empirical method (bootstrap) to differentiate between features that
+#' constitute signal versus noise based on the magnitude of their
+#' persistence relative to one another. Note: you must have at
+#' least 5 features of a given dimension to use this function.
+#' 
+#' @param features 3xn data frame of features; the first column must be
+#'   dimension, the second birth, and the third death
+#' @param dim dimension of features of interest
+#' @param reps  number of replicates
+#' @param cutoff  percentile cutoff past which features are considered
+#'   significant
+#' @examples
+#' # get dataset (noisy circle) and calculate persistent homology
+#' angles <- runif(100, 0, 2 * pi)
+#' x <- cos(angles) + rnorm(100, mean = 0, sd = 0.1)
+#' y <- sin(angles) + rnorm(100, mean = 0, sd = 0.1)
+#' annulus <- cbind(x, y)
+#' phom <- calculate_homology(annulus)
+#' 
+#' # find threshold of significance
+#' # expecting 1 significant feature of dimension 1 (Betti-1 = 1 for annulus)
+#' thresh <- id_significant(features = as.data.frame(phom),
+#'                          dim = 1,
+#'                          reps = 500,
+#'                          cutoff = 0.975)
+#'
+#' # generate flat persistence diagram
+#' # every feature higher than `thresh` is significant
+#' plot_persist(phom, flat = TRUE)
+#' @export
+id_significant <- function(features, dim = 1,
+                           reps = 100, cutoff = 0.975) {
+  # subset only features of dimension of interest
+  colnames(features) <- c("dimension", "birth", "death")
+  features <- features[features[, 1] == dim, ]
+  
+  # make sure conditions are met
+  if (nrow(features) < 3) {
+    stop(paste("There are too few (< 3) features of the",
+               "desired dimension in the feature matrix."))
+  }
+  
+  # calculate persistence
+  features$persist <- features$death - features$birth
+  
+  # do bootstrap
+  ans <- numeric(reps)
+  for (i in 1:reps) {
+    curr_sample <- sample(x = features$persist,
+                          size = nrow(features),
+                          replace = TRUE)
+    ans[i] <- mean(curr_sample)
+  }
+  
+  # return threshold above which features count as "significant"
+  stats::quantile(ans, cutoff, names = FALSE)
+}
+
 #####DISTANCE BETWEEN PERSISTENT HOMOLOGY#####
 # calculate distance between two persistent homology matrices (filled with features)
 # inspired from Wasserstein/EMD but not the same (no intrinsic ordering of features, etc.)
