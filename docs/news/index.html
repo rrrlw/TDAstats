@@ -121,12 +121,103 @@
       <small>Source: <a href='https://github.com/rrrlw/TDAstats/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tdastats-0-4-0" class="section level1">
+<h1 class="page-header">
+<a href="#tdastats-0-4-0" class="anchor"></a>TDAstats 0.4.0<small> 2018-11-05 </small>
+</h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
+<ul>
+<li>previous vignettes did not have citations and references section working properly; this has been fixed</li>
+</ul>
+</div>
+<div id="changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes-1" class="anchor"></a>Changes</h2>
+<ul>
+<li>added <code>standardize</code> parameter to <code>calculate_homology</code> and functionality to standardize point cloud size</li>
+<li>added <code>limit.num</code> parameter to <code>phom.dist</code> and functionality to consider only “significant” topological features</li>
+</ul>
+</div>
+<div id="additions-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additions-1" class="anchor"></a>Additions</h2>
+<ul>
+<li>code coverage has been increased</li>
+<li>added support for distance matrix format for calculate_homology</li>
+<li>vignette has been added showing use of new distance matrix format</li>
+<li>
+<code>phom.dist</code> function to compare persistent homology of two point clouds/matrices</li>
+</ul>
+</div>
+</div>
+    <div id="tdastats-0-3-0" class="section level1">
+<h1 class="page-header">
+<a href="#tdastats-0-3-0" class="anchor"></a>TDAstats 0.3.0<small> 2018-08-05 </small>
+</h1>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>fixed bug in <code>plot_persist</code> where setting a shorter axis limit would cause the reference diagonal to disappear (thank you, <a href='https://github.com/corybrunson'>@corybrunson</a>)</li>
+</ul>
+</div>
+<div id="changes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes-2" class="anchor"></a>Changes</h2>
+<ul>
+<li>changing size of <code>plot_persist</code> output figures still preserves one-to-one length ratio of horizontal and vertical axes (fixed coordinate system; thank you, <a href='https://github.com/corybrunson'>@corybrunson</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="tdastats-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#tdastats-0-2-0" class="anchor"></a>TDAstats 0.2.0<small> Unreleased </small>
+</h1>
+<div id="bug-fixes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>fixed bug in <code>permutation_test</code> function that resulted in NAs in output</li>
+<li>fixed naming clash with <code>index_t</code> in C++ code; should make TDAstats compatible with Solaris systems</li>
+</ul>
+</div>
+<div id="changes-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes-3" class="anchor"></a>Changes</h2>
+<ul>
+<li>added <code>dim</code> parameter to <code>permutation_test</code> function to allow users to select maximum dimension for homology comparison</li>
+</ul>
+</div>
+<div id="additions-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additions-2" class="anchor"></a>Additions</h2>
+<ul>
+<li>added automated testing using <code>testthat</code> package</li>
+<li>4 sample datasets for users to learn/test TDAstats (and probably to follow future vignettes): unif2d, unif3d, circle2d, sphere3d</li>
+<li>added 2 vignettes introducing features of TDAstats to user through text and a case study</li>
+</ul>
+</div>
+</div>
+    <div id="tdastats-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#tdastats-0-1-0" class="anchor"></a>TDAstats 0.1.0<small> 2018-07-20 </small>
+</h1>
+<ul>
+<li>This is the first release of TDAstats.</li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tdastats-0-4-0">0.4.0</a></li>
+        <li><a href="#tdastats-0-3-0">0.3.0</a></li>
+        <li><a href="#tdastats-0-2-0">0.2.0</a></li>
+        <li><a href="#tdastats-0-1-0">0.1.0</a></li>
       </ul>
     </div>
   </div>
