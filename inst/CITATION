@@ -2,7 +2,7 @@ citHeader("To cite TDAstats in publications use:")
 
 citEntry(entry = "Article",
   title = "{T}{D}{A}stats: {R} pipeline for computing persistent homology in topological data analysis",
-  author = "Raoul R. Wadhwa and Drew F.K. Williamson and Andrew Dhawan and Jacob G. Scott",
+  author = "Raoul R. Wadhwa and Drew F. K. Williamson and Andrew Dhawan and Jacob G. Scott",
   journal = "Journal of Open Source Software",
   year = "2018",
   volume = "3",
