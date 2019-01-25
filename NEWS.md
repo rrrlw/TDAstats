@@ -1,4 +1,4 @@
-# v0.5.0
+# TDAstats (development version)
 
 ## Changes
 
@@ -10,7 +10,7 @@
 * more code coverage
 * added support for flat persistence diagrams (`flat = TRUE` in `plot_persist`)
 
-# v0.4.0
+# TDAstats 0.4.0
 
 ## Bug Fixes
 
@@ -28,7 +28,7 @@
 * vignette has been added showing use of new distance matrix format
 * `phom.dist` function to compare persistent homology of two point clouds/matrices
 
-# v0.3.0
+# TDAstats 0.3.0
 
 ## Bug fixes
 
@@ -38,7 +38,7 @@
 
 * changing size of `plot_persist` output figures still preserves one-to-one length ratio of horizontal and vertical axes (fixed coordinate system; thank you, @corybrunson)
 
-# v0.2.0
+# TDAstats 0.2.0
 
 ## Bug fixes
 
@@ -54,3 +54,7 @@
 * added automated testing using `testthat` package
 * 4 sample datasets for users to learn/test TDAstats (and probably to follow future vignettes): unif2d, unif3d, circle2d, sphere3d
 * added 2 vignettes introducing features of TDAstats to user through text and a case study
+
+# TDAstats 0.1.0
+
+* This is the first release of TDAstats.
