@@ -51,7 +51,7 @@ references:
   author:
   - family: Wickham
     given: Hadley
-  URL: 'http://ggplot2.org'
+  URL: 'http://ggplot2.tidyverse.org'
   isbn: '978-0-387-98140-6'
   type: book
   issued:
