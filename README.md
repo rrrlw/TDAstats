@@ -82,3 +82,10 @@ the ggplot object returned by TDAstats.
 ## Contribute
 
 To contribute to TDAstats, you can create issues for any bugs/suggestions on the [issues page](https://github.com/rrrlw/TDAstats/issues). You can also fork the TDAstats repository and create pull requests to add features you think will be useful for users.
+
+## Applications and use cases
+
+A list of projects that have used TDAstats:
+
+* [Analyzing finance data](https://github.com/kaitai/Example-with-TDAstats)
+* [R package for visualizing persistent homology](https://github.com/rrrlw/ggtda)
