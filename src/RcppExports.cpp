@@ -20,19 +20,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// test
-void test();
-RcppExport SEXP _TDAstats_test() {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    test();
-    return R_NilValue;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_TDAstats_ripser_cpp", (DL_FUNC) &_TDAstats_ripser_cpp, 5},
-    {"_TDAstats_test", (DL_FUNC) &_TDAstats_test, 0},
     {NULL, NULL, 0}
 };
 

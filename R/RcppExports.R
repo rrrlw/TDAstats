@@ -5,7 +5,3 @@ ripser_cpp <- function(input_points, dim, thresh, p, format) {
     .Call('_TDAstats_ripser_cpp', PACKAGE = 'TDAstats', input_points, dim, thresh, p, format)
 }
 
-test <- function() {
-    invisible(.Call('_TDAstats_test', PACKAGE = 'TDAstats'))
-}
-
