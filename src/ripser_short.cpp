@@ -19,16 +19,6 @@ typedef int16_t coefficient_t_ripser;
 
 static const size_t num_coefficient_bits = 16;
 
-static const index_t_ripser max_simplex_index =
- (1l << (8 * sizeof(index_t_ripser) - 1 - num_coefficient_bits)) - 1;
-
-void check_overflow(index_t_ripser i) {
- if (i > max_simplex_index)
-  throw std::overflow_error("simplex index " + std::to_string((int64_t)i) +
-                            " in filtration is larger than maximum index " +
-                            std::to_string(max_simplex_index));
-}
-
 class binomial_coeff_table {
   std::vector<std::vector<index_t_ripser>> B;
   index_t_ripser n_max, k_max;
