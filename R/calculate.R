@@ -15,6 +15,7 @@
 #' @param mat numeric matrix containing point cloud or distance matrix
 #' @param dim maximum dimension of features to calculate
 #' @param threshold maximum diameter for computation of Vietoris-Rips complexes
+#' @param p number of the prime field Z/pZ to compute the homology over
 #' @param format  format of `mat`, either "cloud" for point cloud or "distmat" for distance matrix
 #' @param standardize boolean determining whether point cloud size should be standardized
 #' @param return_df defaults to `FALSE`, returning a matrix;
@@ -31,7 +32,7 @@
 #'
 #' # calculate persistent homology (num.pts by 3 numeric matrix)
 #' pers.hom <- calculate_homology(pt.cloud)
-calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
+calculate_homology <- function(mat, dim = 1, threshold = -1, p = 2L, format = "cloud",
                                standardize = FALSE, return_df = FALSE) {
   # coerce mat into matrix to work with class object such as dist class object
   mat <- as.matrix(mat)
@@ -68,6 +69,11 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
   }
   threshold <- as.numeric(threshold)
   
+  # make sure p is integer; whether p is prime is checked in C++
+  if (as.integer(p) != p) {
+    stop("p parameter must be of type integer")
+  }
+  
   # make sure format is either "cloud" or "distmat"
   if (!(format %in% c("cloud", "distmat"))) {
     stop("format parameter should be either \"cloud\" or \"distmat\"")
@@ -89,7 +95,7 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, format = "cloud",
   }
   
   # actually do work
-  ans_vec <- ripser_cpp(mat, dim, threshold, int.format)
+  ans_vec <- ripser_cpp(mat, dim, threshold, p, int.format)
 
   # format properly and return
   ans_mat <- matrix(ans_vec,

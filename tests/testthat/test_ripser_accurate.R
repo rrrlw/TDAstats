@@ -19,6 +19,23 @@ test_that("calculate_homology detects 0- and 1-cycles in circle", {
   expect_equal(1, max(vals))
 })
 
+test_that("calculate_homology detects 0- and 1-cycles in circle w/ p != 2", {
+ # make dataset (2-d circle)
+ angles <- runif(100, 0, 2 * pi)
+ circle.data <- cbind(cos(angles), sin(angles))
+ 
+ # calculate homology for p = 3, 5, 7, 11, 13
+ for (p in c(3L, 5L, 7L, 11L, 13L)){
+  circle.hom <- calculate_homology(circle.data, dim = 1, p = 3L)
+  
+  # make sure at least one 0- and 1-cycle is detected (and only those)
+  vals <- unique(circle.hom[, "dimension"])
+  expect_equal(2, length(vals))
+  expect_equal(0, min(vals))
+  expect_equal(1, max(vals))
+ }
+})
+
 test_that("calculate_homology detects 0-, 1-, and 2-cycles in sphere", {
   # not worth running if 2-d test above works, no point wasting CRAN/Travis resources
   skip_on_cran()
