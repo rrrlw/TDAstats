@@ -109,6 +109,8 @@ struct entry_t {
 };
 #pragma pack() // reset 
 
+//  static_assert(sizeof(entry_t) == sizeof(index_t_ripser), "size of entry_t is not the same as index_t");
+
 entry_t make_entry(index_t_ripser i, coefficient_t_ripser c) { return entry_t(i, c); }
 index_t_ripser get_index(const entry_t& e) { return e.index; }
 index_t_ripser get_coefficient(const entry_t& e) { return e.coefficient; }
