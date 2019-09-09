@@ -15,9 +15,9 @@ template <class Key, class T> class hash_map : public std::unordered_map<Key, T>
 
 typedef double value_t_ripser;
 typedef int64_t index_t_ripser;
-typedef int16_t coefficient_t_ripser;
+typedef uint8_t coefficient_t_ripser;
 
-static const size_t num_coefficient_bits = 16;
+static const size_t num_coefficient_bits = 8;
 
 class binomial_coeff_table {
   std::vector<std::vector<index_t_ripser>> B;
@@ -99,16 +99,15 @@ std::vector<index_t_ripser> vertices_of_simplex(const index_t_ripser simplex_ind
   return vertices;
 }
 
-struct __attribute__((packed)) entry_t {
+#pragma pack(1)
+struct entry_t {
  index_t_ripser index : 8 * sizeof(index_t_ripser) - num_coefficient_bits;
  coefficient_t_ripser coefficient : num_coefficient_bits;
- entry_t(index_t_ripser _index, coefficient_t_ripser _coefficient)
-  : index(_index), coefficient(_coefficient) {}
+ entry_t(index_t_ripser _index, coefficient_t_ripser _coefficient) : index(_index), coefficient(_coefficient) {}
  entry_t(index_t_ripser _index) : index(_index), coefficient(0) {}
  entry_t() : index(0), coefficient(0) {}
 };
-
-static_assert(sizeof(entry_t) == sizeof(index_t_ripser), "size of entry_t is not the same as index_t");
+#pragma pack() // reset 
 
 entry_t make_entry(index_t_ripser i, coefficient_t_ripser c) { return entry_t(i, c); }
 index_t_ripser get_index(const entry_t& e) { return e.index; }
@@ -690,4 +689,10 @@ NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int 
     }
 
     return ans;
+}
+
+// [[Rcpp::export]]
+void test(){
+  Rcout << "Size of entry_t: " << sizeof(entry_t) << std::endl; 
+  Rcout << "Size of index_t: " << sizeof(index_t_ripser) << std::endl;
 }
