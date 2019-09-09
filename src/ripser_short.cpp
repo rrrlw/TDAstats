@@ -692,9 +692,3 @@ NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int 
 
     return ans;
 }
-
-// [[Rcpp::export]]
-void test(){
-  Rcout << "Size of entry_t: " << sizeof(entry_t) << std::endl; 
-  Rcout << "Size of index_t: " << sizeof(index_t_ripser) << std::endl;
-}
