@@ -85,7 +85,11 @@ To contribute to TDAstats, you can create issues for any bugs/suggestions on the
 
 ## Applications and use cases
 
-A list of projects that have used TDAstats:
+TDAstats mentions in the wild:
 
+* M'\{e\}moli F, Singhal K. A Primer on Persistent Homology of Finite Metric Spaces. Bulletin of Mathematical Biology. 2019; 81(7): 2074. Links to [paper](https://link.springer.com/article/10.1007/s11538-019-00614-z) and [preprint] (https://arxiv.org/abs/1905.13400)
+* Srinivasan R, Chander A. Understanding Bias in Datasets using Topological Data Analysis. Fujitsu Laboratories of America. 2019. [Link](http://ceur-ws.org/Vol-2419/paper_9.pdf)
+* Rickert J. A Mathematician's Perspective on Topological Data Analysis and R. 2018. [Link](https://rviews.rstudio.com/2018/11/14/a-mathematician-s-perspective-on-topological-data-analysis-and-r/)
+* [Blog post on Data Management](https://www.kaisataipale.net/blog/2019/02/22/data-management/)
 * [Analyzing finance data](https://github.com/kaitai/Example-with-TDAstats)
 * [R package for visualizing persistent homology](https://github.com/rrrlw/ggtda)
