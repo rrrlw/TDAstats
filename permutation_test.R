@@ -2,14 +2,6 @@
 # Script for Statistical Inference using Persistent Hom
 # based on functions in TDAstats source code
 
-# INITIALIZE SCRIPT ----
-setwd("~/R_work_SEB")
-
-rm(list = ls())
-gc()
-options(scipen = 999)
-set.seed(123)
-
 # IMPORT LIBRARIES ----
 library(TDAstats)
 library(clue)
