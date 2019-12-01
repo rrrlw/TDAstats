@@ -3,7 +3,6 @@
 # based on functions in TDAstats source code
 
 # IMPORT LIBRARIES ----
-library(clue)
 library(rdist)
 library(TDA)        # for circleUnif
 library(data.table) # for as.data.table
@@ -96,6 +95,7 @@ error_check <- function(obj1, obj2, iterations,
   if(!is.logical(standardize)) stop("standardize must be either TRUE or FALSE.")
 }
 
+#FUNCTION CHECKED (RRRLW)
 enclosing_radius <- function(point_cloud){
   # function which finds radius beyond which no homology changes
   # point_cloud is a point cloud data frame
@@ -108,7 +108,7 @@ enclosing_radius <- function(point_cloud){
                       FUN.VALUE = numeric(1),
                       FUN = function(i) {
                         max(
-                          pc_dist[(1 + (i - 1) * n - (i - 1) * i / 2):(i * n - i * (i + 1) / 2)]
+                          pc_dist[(1 + (i - 1) * pc_nrow - (i - 1) * i / 2):(i * pc_nrow - i * (i + 1) / 2)]
                         )
                       })
   
@@ -116,19 +116,122 @@ enclosing_radius <- function(point_cloud){
   
 }
 
-loss <- function(barcodes1,barcodes2,dim,p,q){
+#FUNCTION CHECKED (RRRLW)
+#I DONT UNDERSTAND THIS WELL, DOESNT MATCH OUTPUT OF TDA::WASSERSTEIN
+d <- function(B1,B2,dim,p){
+  # function to compute the wasserstein metric between two barcodes
+  # B1 and B2 are barcodes as outputted from the function calculate_homology
+  # dim is the maximum dimension to consider
+  # p is the finite power of the wasserstein distance, p >= 1
+  
+  # calculate the wasserstein metric in each dimension
+  metrics <- vapply(X = 0:dim,
+                    FUN.VALUE = numeric(1),
+                    FUN = function(curr_dim){
+    
+    # subset both barcodes by dimension X
+    B1_subset <- subset(data.frame(B1),
+                        subset = (dimension == curr_dim),
+                        select = 2:3)
+    B2_subset <- subset(data.frame(B2),
+                        subset = (dimension == curr_dim),
+                        select = 2:3)
+    
+    # create empty diagonals for the persistence landscapes
+    diag1 <- B1_subset[0,]
+    diag2 <- B2_subset[0,]
+    
+    # if both subsets are empty then set their distance to 0
+    if(nrow(B1_subset) == 0 & nrow(B2_subset) == 0) return(0)
+    
+    if(nrow(B1_subset) > 0)
+    {
+      for(i in 1:nrow(B1_subset))
+      {
+        if(B1_subset[i,1] != B1_subset[i,2])
+        {
+          # for each non-trivial element in B1_subset we add its projection onto the diagonal in diag1
+          proj_diag <- mean(as.numeric(B1_subset[i,]))
+          diag1 <- rbind(diag1,
+                         data.frame(birth = proj_diag,
+                                    death = proj_diag))
+        }
+      }
+    }
+    
+    if(nrow(B2_subset) > 0)
+    {
+      for(i in 1:nrow(B2_subset))
+      {
+        if(B2_subset[i,1] != B2_subset[i,2])
+        {
+          # for each non-trivial element in B2_subset we add its projection onto the diagonal in diag2
+          proj_diag <- mean(as.numeric(B2_subset[i,]))
+          diag2 <- rbind(diag2,
+                         data.frame(birth = proj_diag,
+                                    death = proj_diag))
+        }
+      }
+    }
+    
+    # since an element b of B1_subset is either matched to an element of B2 or to the projection of b onto the diagonal
+    # we form the two sets to be matched by row binding B1_subset with diag2 and B2_subset with diag1
+    B1_subset <- rbind(B1_subset,diag2)
+    B2_subset <- rbind(B2_subset,diag1)
+    
+    # use cdist function from the rdist package to find the wasserstein
+    # distance matrix between rows of the updated B1_subset and B2_subset
+    dist_mat <- as.matrix(rdist::cdist(B1_subset,
+                                       B2_subset,
+                                       metric = "minkowski",
+                                       p = p))
+    
+    # use the Hungarian algorithm from the clue package to find the
+    # minimal weight matching
+    best_match <- clue::solve_LSAP(x = dist_mat, maximum = FALSE)
+    
+    # return the distance for dimension X
+    return(
+      sum(dist_mat[cbind(seq_along(best_match), best_match)] ^ p) ^ (1 / p)
+    )
+    
+  })
+  
+  # merge and organize 
+  ret_dt = as.data.table(t(as.matrix(metrics)))
+  setnames(ret_dt,
+           old = colnames(ret_dt),
+           new = paste("dimension_", 0:dim, sep = ""))
+  return(ret_dt)
+}
+
+loss <- function(barcodes1, barcodes2,
+                 dim, p, q){
   # function to compute the F_{p,q} loss between two sets of barcodes
   # barcodes1 and barcodes2 are two lists of barcodes as outputted from the calculate homology function
   # dim is the maximum dimension of barcodes to consider
   # p and q are finite numbers >=1
   
   # get all possible pairs of distinct members of each list of barcodes
-  comb1 = combn(1:length(barcodes1),m = 2,simplify = FALSE)
-  comb2 = combn(1:length(barcodes2),m = 2,simplify = FALSE)
+  comb1 <- utils::combn(1:length(barcodes1), m = 2, simplify = FALSE)
+  comb2 <- utils::combn(1:length(barcodes2), m = 2, simplify = FALSE)
   
   # compute the pairwise barcode distances for both lists
-  d1_tot = do.call(rbind,lapply(X = comb1,FUN = function(X){ return(d(B1 = as.data.frame(barcodes1[[X[[1]]]]),B2 = as.data.frame(barcodes1[[X[[2]]]]),dim = dim,p = p)^q) }))
-  d2_tot = do.call(rbind,lapply(X = comb2,FUN = function(X){ return(d(B1 = as.data.frame(barcodes2[[X[[1]]]]),B2 = as.data.frame(barcodes2[[X[[2]]]]),dim = dim,p = p)^q) }))
+  d1_tot <- do.call(rbind,
+                    lapply(X = comb1,
+                           FUN = function(curr_comb) {
+                             return(d(B1 = as.data.frame(barcodes1[[curr_comb[[1]]]]),
+                                      B2 = as.data.frame(barcodes1[[curr_comb[[2]]]]),
+                                      dim = dim, p = p) ^ q)
+                           }))
+  
+  d2_tot <- do.call(rbind,
+                    lapply(X = comb2,
+                           FUN = function(curr_comb) {
+                             return(d(B1 = as.data.frame(barcodes2[[curr_comb[[1]]]]),
+                                      B2 = as.data.frame(barcodes2[[curr_comb[[2]]]]),
+                                      dim = dim, p = p) ^ q)
+                           }))
   
   # for each dimension we compute the total loss function as described in Robinson & Turner
   res = lapply(X = 0:dim,FUN = function(X){
@@ -141,81 +244,6 @@ loss <- function(barcodes1,barcodes2,dim,p,q){
   
   # return list of distances, one for each dimension
   return(res)
-  
-}
-
-d <- function(B1,B2,dim,p){
-  # function to compute the wasserstein metric between two barcodes
-  # B1 and B2 are barcodes as outputted from the function calculate_homology
-  # dim is the maximum dimension to consider
-  # p is the finite power of the wasserstein distance, p >= 1
-  
-  # calculate the wasserstein metric in each dimension
-  metrics = lapply(X = 0:dim,FUN = function(X){
-    
-    # subset both barcodes by dimension X
-    B1_subset = B1[which(B1$dimension == X),]
-    B2_subset = B2[which(B2$dimension == X),]
-    B1_subset = B1_subset[,2:3]
-    B2_subset = B2_subset[,2:3]
-    
-    # create empty diagonals for the persistence landscapes
-    diag1 = B1_subset[0,]
-    diag2 = B2_subset[0,]
-    
-    # if both subsets are empty then set their distance to 0
-    if(nrow(B1_subset) == 0 & nrow(B2_subset) == 0)
-    {
-      return(0)
-    }
-    
-    if(nrow(B1_subset) > 0)
-    {
-      for(i in 1:nrow(B1_subset))
-      {
-        if(B1_subset[i,1] != B1_subset[i,2])
-        {
-          # for each non-trivial element in B1_subset we add its projection onto the diagonal in diag1
-          proj_diag = mean(as.numeric(B1_subset[i,]))
-          diag1 = rbind(diag1,data.frame(birth = proj_diag,death = proj_diag))
-        }
-      }
-    }
-    
-    if(nrow(B2_subset) > 0)
-    {
-      for(i in 1:nrow(B2_subset))
-      {
-        if(B2_subset[i,1] != B2_subset[i,2])
-        {
-          # for each non-trivial element in B2_subset we add its projection onto the diagonal in diag2
-          proj_diag = mean(as.numeric(B2_subset[i,]))
-          diag2 = rbind(diag2,data.frame(birth = proj_diag,death = proj_diag))
-        }
-      }
-    }
-   
-    # since an element b of B1_subset is either matched to an element of B2 or to the projection of b onto the diagonal
-    # we form the two sets to be matched by row binding B1_subset with diag2 and B2_subset with diag1
-    B1_subset = rbind(B1_subset,diag2)
-    B2_subset = rbind(B2_subset,diag1)
-    
-    # use cdist function from the rdist package to find the wasserstein distance matrix between rows of the updated B1_subset and B2_subset
-    dist_mat = as.matrix(cdist(B1_subset,B2_subset,metric = "minkowski",p = p))
-    
-    # use the Hungarian algorithm from the clue package to find the minimal weight matching
-    best_match = solve_LSAP(x = dist_mat,maximum = FALSE)
-    
-    # return the distance for dimension X
-    return(sum(dist_mat[cbind(seq_along(best_match), best_match)]^(p))^(1/p))
-    
-  })
-  
-  # merge and organize 
-  ret_dt = as.data.table(t(as.matrix(unlist(metrics))))
-  setnames(ret_dt,old = colnames(ret_dt),new = paste("dimension_",c(0:dim),sep = ""))
-  
-  return(ret_dt)
   
 }
 
@@ -310,8 +338,8 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
     ind2 = setdiff(ind,ind1) - n1
     sample1 = rbind(df1[ind1,],df2[ind2,])
     sample2 = rbind(df1[setdiff(1:n1,ind1),],df2[setdiff(1:n2,ind2),])
-    barcode_sample1 = calculate_homology(as.matrix(sample1),format = format,standardize = standardize,dim = dim,threshold = enclosing_radius(X = sample1))
-    barcode_sample2 = calculate_homology(as.matrix(sample2),format = format,standardize = standardize,dim = dim,threshold = enclosing_radius(X = sample2))
+    barcode_sample1 = calculate_homology(as.matrix(sample1),format = format,standardize = standardize,dim = dim,threshold = enclosing_radius(sample1))
+    barcode_sample2 = calculate_homology(as.matrix(sample2),format = format,standardize = standardize,dim = dim,threshold = enclosing_radius(sample2))
     
     # return loss function
     ret_loss = t(as.matrix(unlist(d(B1 = as.data.frame(barcode_sample1),B2 = as.data.frame(barcode_sample2),dim = dim,p = p)^q)))
