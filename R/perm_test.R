@@ -10,13 +10,15 @@ library(data.table) # for as.data.table
 
 # FUNCTIONS ----
 
-error_check <- function(obj1,obj2,iterations,p,q,dim,format,standardize,type_of_input){
+error_check <- function(obj1, obj2, iterations,
+                        p, q, dim, format, standardize,
+                        input_type){
   # function which performs all necessary error checks for the permutation_test_two_groups function
   # each parameter is exactly the same as in the permutation_test_two_groups function
   
-  if(type_of_input == "list")
+  if (input_type == "list")
   {
-    if(missing(obj1) | missing(obj2))
+    if (missing(obj1) | missing(obj2))
     {
       return("l1 and l2 must both be supplied.")
     }
@@ -273,7 +275,7 @@ permutation_test_two_groups <- function(l1,l2,iterations,p,q,dim,format,standard
   # p is the finite wasserstein distance parameter, p >= 1
   
   # perform all error checks, return from function if error found
-  e = error_check(obj1 = l1,obj2 = l2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize,type_of_input = "list")
+  e = error_check(obj1 = l1,obj2 = l2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize, input_type = "list")
   if(e != "No errors :)")
   {
     stop(e)
@@ -332,7 +334,7 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
   # p is the finite wasserstein distance parameter, p >= 1
   
   # perform all error checks, return from function if error found
-  e = error_check(obj1 = df1,obj2 = df2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize,type_of_input = "sample")
+  e = error_check(obj1 = df1,obj2 = df2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize, input_type = "sample")
   if(e != "No errors :)")
   {
     stop(e)
