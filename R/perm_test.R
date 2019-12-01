@@ -287,7 +287,7 @@ permutation_test_two_groups <- function(l1,l2,iterations,p,q,dim,format,standard
   }
   if(missing(standardize))
   {
-    standardize = F
+    standardize = FALSE
   }
   
   # perform all error checks, return from function if error found
