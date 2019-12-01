@@ -3,7 +3,6 @@
 # based on functions in TDAstats source code
 
 # IMPORT LIBRARIES ----
-library(TDAstats)
 library(clue)
 library(rdist)
 
