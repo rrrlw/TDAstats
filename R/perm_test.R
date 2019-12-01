@@ -28,31 +28,31 @@ error_check <- function(obj1,obj2,iterations,p,q,dim,format,standardize,type_of_
       
       if(!is.data.frame(obj1[[X]]) & !is.matrix(obj1[[X]]))
       {
-        return(F)
+        return(FALSE)
       }
       
       if(nrow(obj1[[X]])<=1 | ncol(obj1[[X]]) == 0)
       {
-        return(F)
+        return(FALSE)
       }
       
-      return(T) }))
+      return(TRUE) }))
     
     data_frame_and_matrix_check2 = unlist(lapply(X = 1:length(obj2),FUN = function(X){ 
       
       if(!is.data.frame(obj2[[X]]) & !is.matrix(obj2[[X]]))
       {
-        return(F)
+        return(FALSE)
       }
       
       if(nrow(obj2[[X]])<=1 | ncol(obj2[[X]]) == 0)
       {
-        return(F)
+        return(FALSE)
       }
       
-      return(T) }))
+      return(TRUE) }))
     
-    if(length(which(data_frame_and_matrix_check1 == F)) > 0 | length(which(data_frame_and_matrix_check2 == F)) > 0)
+    if(length(which(data_frame_and_matrix_check1 == FALSE)) > 0 | length(which(data_frame_and_matrix_check2 == FALSE)) > 0)
     {
       return("all list elements must either be multi-row dataframes or multi-row matrices of at least 1 column.")
     }
@@ -165,8 +165,8 @@ loss <- function(barcodes1,barcodes2,dim,p,q){
   # p and q are finite numbers >=1
   
   # get all possible pairs of distinct members of each list of barcodes
-  comb1 = combn(1:length(barcodes1),m = 2,simplify = F)
-  comb2 = combn(1:length(barcodes2),m = 2,simplify = F)
+  comb1 = combn(1:length(barcodes1),m = 2,simplify = FALSE)
+  comb2 = combn(1:length(barcodes2),m = 2,simplify = FALSE)
   
   # compute the pairwise barcode distances for both lists
   d1_tot = do.call(rbind,lapply(X = comb1,FUN = function(X){ return(d(B1 = as.data.frame(barcodes1[[X[[1]]]]),B2 = as.data.frame(barcodes1[[X[[2]]]]),dim = dim,p = p)^q) }))
@@ -246,7 +246,7 @@ d <- function(B1,B2,dim,p){
     dist_mat = as.matrix(cdist(B1_subset,B2_subset,metric = "minkowski",p = p))
     
     # use the Hungarian algorithm from the clue package to find the minimal weight matching
-    best_match = solve_LSAP(x = dist_mat,maximum = F)
+    best_match = solve_LSAP(x = dist_mat,maximum = FALSE)
     
     # return the distance for dimension X
     return(sum(dist_mat[cbind(seq_along(best_match), best_match)]^(p))^(1/p))
@@ -310,7 +310,7 @@ permutation_test_two_groups <- function(l1,l2,iterations,p,q,dim,format,standard
   perm_values = lapply(X = 1:iterations,FUN = function(X){
     
     # sample two groups of size n1 and n2 from l1 union l2
-    ind = sample(1:(n1+n2),size = n1,replace = F)
+    ind = sample(1:(n1+n2),size = n1,replace = FALSE)
     ind1 = ind[which(ind <= n1)]
     ind2 = setdiff(ind,ind1) - n1
     barcodes1_sample = c(barcodes1[ind1],barcodes2[ind2])
@@ -362,7 +362,7 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
   }
   if(missing(standardize))
   {
-    standardize = F
+    standardize = FALSE
   }
   
   # perform all error checks, return from function if error found
@@ -387,7 +387,7 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
   perm_values = lapply(X = 1:iterations,FUN = function(X){
     
     # sample two datasets of size n1 and n2 from df1 union df2
-    ind = sample(1:(n1+n2),size = n1,replace = F)
+    ind = sample(1:(n1+n2),size = n1,replace = FALSE)
     ind1 = ind[which(ind <= n1)]
     ind2 = setdiff(ind,ind1) - n1
     sample1 = rbind(df1[ind1,],df2[ind2,])
