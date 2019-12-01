@@ -272,24 +272,6 @@ permutation_test_two_groups <- function(l1,l2,iterations,p,q,dim,format,standard
   # dim is the maximum dimension in which to calculate homology for barcodes
   # p is the finite wasserstein distance parameter, p >= 1
   
-  # set default values for certain missing parameters
-  if(missing(p))
-  {
-    p = 2
-  }
-  if(missing(q))
-  {
-    q = 2
-  }
-  if(missing(format))
-  {
-    format = "cloud"
-  }
-  if(missing(standardize))
-  {
-    standardize = FALSE
-  }
-  
   # perform all error checks, return from function if error found
   e = error_check(obj1 = l1,obj2 = l2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize,type_of_input = "list")
   if(e != "No errors :)")
@@ -349,24 +331,6 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
   # dim is the maximum dimension in which to calculate homology for barcodes
   # p is the finite wasserstein distance parameter, p >= 1
   
-  # set default values for certain missing parameters
-  if(missing(p))
-  {
-    p = 2
-  }
-  if(missing(q))
-  {
-    q = 2
-  }
-  if(missing(format))
-  {
-    format = "cloud"
-  }
-  if(missing(standardize))
-  {
-    standardize = FALSE
-  }
-  
   # perform all error checks, return from function if error found
   e = error_check(obj1 = df1,obj2 = df2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize,type_of_input = "sample")
   if(e != "No errors :)")
@@ -420,8 +384,8 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
 }
 
 #NEED TO ADD PARAM ERROR CHECKING OR DEFAULT VALUES
-permutation_test <- function(param1, param2,iterations,p,q,dim,format,standardize,
-                             type){
+permutation_test <- function(param1, param2, iterations, p = 2, q = 2, dim,
+                             format = "cloud", standardize = FALSE, type){
   # wrapper function for the two kinds of tests
   if (type == "samples") {
     permutation_test_two_samples(df1 = param1, df2 = param2, iterations = iterations,
