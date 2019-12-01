@@ -118,7 +118,7 @@ enclosing_radius <- function(point_cloud){
 
 #FUNCTION CHECKED (RRRLW)
 #I DONT UNDERSTAND THIS WELL, DOESNT MATCH OUTPUT OF TDA::WASSERSTEIN
-d <- function(B1,B2,dim,p){
+wass <- function(B1,B2,dim,p){
   # function to compute the wasserstein metric between two barcodes
   # B1 and B2 are barcodes as outputted from the function calculate_homology
   # dim is the maximum dimension to consider
@@ -220,17 +220,17 @@ loss <- function(barcodes1, barcodes2,
   d1_tot <- do.call(rbind,
                     lapply(X = comb1,
                            FUN = function(curr_comb) {
-                             return(d(B1 = as.data.frame(barcodes1[[curr_comb[[1]]]]),
-                                      B2 = as.data.frame(barcodes1[[curr_comb[[2]]]]),
-                                      dim = dim, p = p) ^ q)
+                             return(wass(B1 = as.data.frame(barcodes1[[curr_comb[[1]]]]),
+                                         B2 = as.data.frame(barcodes1[[curr_comb[[2]]]]),
+                                         dim = dim, p = p) ^ q)
                            }))
   
   d2_tot <- do.call(rbind,
                     lapply(X = comb2,
                            FUN = function(curr_comb) {
-                             return(d(B1 = as.data.frame(barcodes2[[curr_comb[[1]]]]),
-                                      B2 = as.data.frame(barcodes2[[curr_comb[[2]]]]),
-                                      dim = dim, p = p) ^ q)
+                             return(wass(B1 = as.data.frame(barcodes2[[curr_comb[[1]]]]),
+                                         B2 = as.data.frame(barcodes2[[curr_comb[[2]]]]),
+                                         dim = dim, p = p) ^ q)
                            }))
   
   # for each dimension we compute the total loss function as described in Robinson & Turner
@@ -327,7 +327,8 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
   n2 = nrow(df2)
   
   # compute loss function on observed data
-  test_loss = d(B1 = as.data.frame(barcode1),B2 = as.data.frame(barcode2),dim = dim,p = p)^q
+  # ^^should this comment say wasserstein instead of loss? (RRRLW)
+  test_loss = wass(B1 = as.data.frame(barcode1),B2 = as.data.frame(barcode2),dim = dim,p = p)^q
   
   # get permutation values
   perm_values = lapply(X = 1:iterations,FUN = function(X){
@@ -342,7 +343,7 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
     barcode_sample2 = calculate_homology(as.matrix(sample2),format = format,standardize = standardize,dim = dim,threshold = enclosing_radius(sample2))
     
     # return loss function
-    ret_loss = t(as.matrix(unlist(d(B1 = as.data.frame(barcode_sample1),B2 = as.data.frame(barcode_sample2),dim = dim,p = p)^q)))
+    ret_loss = t(as.matrix(unlist(wass(B1 = as.data.frame(barcode_sample1),B2 = as.data.frame(barcode_sample2),dim = dim,p = p)^q)))
     return(ret_loss)
     
   })
