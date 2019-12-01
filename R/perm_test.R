@@ -400,8 +400,8 @@ permutation_test <- function(param1, param2, iterations, p = 2, q = 2, dim,
 
 # TEST ----
 set.seed(42)
-l1 = list(as.data.frame(circleUnif(n = 20)),as.data.frame(2*circleUnif(n = 15)))
-l2 = list(as.data.frame(circleUnif(n = 20)),as.data.frame(1.5*circleUnif(n = 20)))
+l1 = list(data.frame(circleUnif(n = 20)), data.frame(2*circleUnif(n = 15)))
+l2 = list(data.frame(circleUnif(n = 20)), data.frame(1.5*circleUnif(n = 20)))
 iterations = 2L
 dim = 1L
 test1 = permutation_test(l1, l2, iterations = iterations,
@@ -409,6 +409,7 @@ test1 = permutation_test(l1, l2, iterations = iterations,
 
 df1 = l1[[1]]
 colnames(df1) <- c("x","y")
-df2 = as.data.frame(data.table(x = c(1:20),y = runif(n = 20,min = 0,max = 1)))
+df2 = data.frame(x = 1:20,
+                 y = runif(n = 20, min = 0, max = 1))
 test2 = permutation_test(df1, df2, iterations = iterations,
                          dim = dim, type = "samples")
