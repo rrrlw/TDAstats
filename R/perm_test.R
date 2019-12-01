@@ -5,6 +5,8 @@
 # IMPORT LIBRARIES ----
 library(clue)
 library(rdist)
+library(TDA) # for circleUnif
+library(data.table) # for as.data.table
 
 # FUNCTIONS ----
 
