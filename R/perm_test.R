@@ -403,15 +403,12 @@ set.seed(42)
 l1 = list(as.data.frame(circleUnif(n = 20)),as.data.frame(2*circleUnif(n = 15)))
 l2 = list(as.data.frame(circleUnif(n = 20)),as.data.frame(1.5*circleUnif(n = 20)))
 iterations = 2L
-p = 2
-q = 2
 dim = 1L
-format = "cloud"
-test1 = permutation_test(l1,l2,iterations = iterations,p = p,q = q,dim = dim,format = format,
-                         type = "groups")
+test1 = permutation_test(l1, l2, iterations = iterations,
+                         dim = dim, type = "groups")
 
 df1 = l1[[1]]
 colnames(df1) <- c("x","y")
 df2 = as.data.frame(data.table(x = c(1:20),y = runif(n = 20,min = 0,max = 1)))
-test2 = permutation_test(df1,df2,iterations = iterations,p = p,q = q,dim = dim,format = format,
-                         type = "samples")
+test2 = permutation_test(df1, df2, iterations = iterations,
+                         dim = dim, type = "samples")
