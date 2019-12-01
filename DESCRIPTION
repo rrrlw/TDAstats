@@ -7,6 +7,7 @@ Authors@R: c(
     person("Andrew", "Dhawan", role = "aut"),
     person("Drew", "Williamson", role = "aut"),
     person("Jacob", "Scott", role = "aut"),
+    person("Shael", "Brown", role = "aut"),
     person("Jason Cory", "Brunson", role = "ctb"),
     person("Shota", "Ochi", role = "ctb"))
 Description: A comprehensive toolset for any
