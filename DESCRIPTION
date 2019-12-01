@@ -36,7 +36,8 @@ LazyData: true
 Depends: R (>= 3.3)
 Imports: ggplot2 (>= 2.2.1),
     Rcpp (>= 0.12.15),
-    clue (>= 0.3)
+    clue (>= 0.3),
+    rdist (>= 0.0.3)
 URL: https://github.com/rrrlw/TDAstats
 BugReports: https://github.com/rrrlw/TDAstats/issues
 LinkingTo: Rcpp
