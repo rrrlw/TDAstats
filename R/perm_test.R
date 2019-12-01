@@ -419,24 +419,23 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
   
 }
 
-permutation_test <- function(l1,l2,df1,df2,iterations,p,q,dim,format,standardize){
-  
+#NEED TO ADD PARAM ERROR CHECKING OR DEFAULT VALUES
+permutation_test <- function(param1, param2,iterations,p,q,dim,format,standardize,
+                             type){
   # wrapper function for the two kinds of tests
-  if(missing(l1) & missing(l2) & !missing(df1) & !missing(df2))
-  {
-    return(permutation_test_two_samples(df1 = df1,df2 = df2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize))
+  if (type == "samples") {
+    permutation_test_two_samples(df1 = param1, df2 = param2, iterations = iterations,
+                                 p = p, q = q, dim = dim, format = format,
+                                 standardize = standardize)
+  } else if (type == "groups") {
+    permutation_test_two_groups(l1 = param1, l2 = param2, iterations = iterations,
+                                p = p, q = q, dim = dim, format = format,
+                                standardize = standardize)
   }
-  if(!missing(l1) & !missing(l2) & missing(df1) & missing(df2))
-  {
-    return(permutation_test_two_groups(l1 = l1,l2 = l2,iterations = iterations,p = p,q = q,dim = dim,format = format,standardize = standardize))
-  }
-  
-  stop("either df1 and df2 must be supplied and not l1 or l2, or l1 and l2 must be supplied and not df1 or df2.")
-  
 }
 
 # TEST ----
-
+set.seed(42)
 l1 = list(as.data.frame(circleUnif(n = 20)),as.data.frame(2*circleUnif(n = 15)))
 l2 = list(as.data.frame(circleUnif(n = 20)),as.data.frame(1.5*circleUnif(n = 20)))
 iterations = 2L
@@ -444,9 +443,11 @@ p = 2
 q = 2
 dim = 1L
 format = "cloud"
-test1 = permutation_test(l1 = l1,l2 = l2,iterations = iterations,p = p,q = q,dim = dim,format = format)
+test1 = permutation_test(l1,l2,iterations = iterations,p = p,q = q,dim = dim,format = format,
+                         type = "groups")
 
 df1 = l1[[1]]
 colnames(df1) <- c("x","y")
 df2 = as.data.frame(data.table(x = c(1:20),y = runif(n = 20,min = 0,max = 1)))
-test2 = permutation_test(df1 = df1,df2 = df2,iterations = iterations,p = p,q = q,dim = dim,format = format)
+test2 = permutation_test(df1,df2,iterations = iterations,p = p,q = q,dim = dim,format = format,
+                         type = "samples")
