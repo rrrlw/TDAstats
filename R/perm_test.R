@@ -96,13 +96,23 @@ error_check <- function(obj1, obj2, iterations,
   if(!is.logical(standardize)) stop("standardize must be either TRUE or FALSE.")
 }
 
-enclosing_radius <- function(X){
+enclosing_radius <- function(point_cloud){
   # function which finds radius beyond which no homology changes
-  # X is a point cloud data frame
+  # point_cloud is a point cloud data frame
   
-  d = dist(X)
-  n = nrow(X)
-  return(min(unlist(lapply(X = 1:(nrow(X) - 1), FUN = function(X){ return(max(d[(1+(X-1)*n-(X-1)*X/2):(X*n-X*(X+1)/2)])) }))))
+  pc_dist <- dist(point_cloud)
+  pc_nrow <- nrow(point_cloud)
+  
+  #I DONT UNDERSTAND HOW/WHY THIS WORKS (RRRLW)
+  dist_calc <- vapply(X = 1:(pc_nrow - 1),
+                      FUN.VALUE = numeric(1),
+                      FUN = function(i) {
+                        max(
+                          pc_dist[(1 + (i - 1) * n - (i - 1) * i / 2):(i * n - i * (i + 1) / 2)]
+                        )
+                      })
+  
+  return(min(dist_calc))
   
 }
 
@@ -224,8 +234,8 @@ permutation_test_two_groups <- function(l1,l2,iterations,p,q,dim,format,standard
               standardize = standardize, input_type = "list")
   
   # calculate barcodes for each group
-  barcodes1 = lapply(X = l1,FUN = function(X){return(calculate_homology(as.matrix(X), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(X = X)))})
-  barcodes2 = lapply(X = l2,FUN = function(X){return(calculate_homology(as.matrix(X), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(X = X)))})
+  barcodes1 = lapply(X = l1,FUN = function(X){return(calculate_homology(as.matrix(X), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(X)))})
+  barcodes2 = lapply(X = l2,FUN = function(X){return(calculate_homology(as.matrix(X), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(X)))})
   
   # get group sizes
   n1 = length(l1)
@@ -281,8 +291,8 @@ permutation_test_two_samples <- function(df1,df2,iterations,p,q,dim,format,stand
               standardize = standardize, input_type = "sample")
   
   # calculate barcode for each dataset
-  barcode1 = calculate_homology(as.matrix(df1), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(X = df1))
-  barcode2 = calculate_homology(as.matrix(df2), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(X = df2))
+  barcode1 = calculate_homology(as.matrix(df1), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(df1))
+  barcode2 = calculate_homology(as.matrix(df2), format = format, standardize = standardize, dim = dim,threshold = enclosing_radius(df2))
   
   # get group sizes
   n1 = nrow(df1)
