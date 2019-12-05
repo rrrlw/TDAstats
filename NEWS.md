@@ -1,5 +1,9 @@
 # TDAstats (development version)
 
+## Bug Fixes
+
+* fixed potential error with updates in r-devel (`matrix` inherits from `array`)
+
 ## Changes
 
 * `calculate_homology` now accepts any variable storing a distance matrix as long as it can be coerced to a matrix
