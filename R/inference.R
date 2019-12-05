@@ -293,8 +293,8 @@ permutation_test <- function(data1, data2, iterations,
   
   # make sure both are matrices with same number of columns,
   # sufficient number of rows, and no missing values
-  if (class(data1) != "matrix" |
-      class(data2) != "matrix") {
+  if (!("matrix" %in% class(data1)) |
+      !("matrix" %in% class(data2))) {
     stop("Both point clouds must be passed as matrices.")
   }
   if (update > 0) {
