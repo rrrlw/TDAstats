@@ -1,4 +1,4 @@
-# TDAstats (development version)
+# TDAstats 0.4.1
 
 ## Bug Fixes
 
