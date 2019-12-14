@@ -83,9 +83,7 @@ the ggplot object returned by TDAstats.
 
 To contribute to TDAstats, you can create issues for any bugs/suggestions on the [issues page](https://github.com/rrrlw/TDAstats/issues). You can also fork the TDAstats repository and create pull requests to add features you think will be useful for users.
 
-## Applications and use cases
-
-TDAstats uses and mentions in the wild:
+## Real-world applications, use cases, and mentions
 
 * Mémoli F, Singhal K. A Primer on Persistent Homology of Finite Metric Spaces. Bulletin of Mathematical Biology. 2019; 81(7): 2074. Links to [paper](https://link.springer.com/article/10.1007/s11538-019-00614-z) and [preprint](https://arxiv.org/abs/1905.13400)
 * Srinivasan R, Chander A. Understanding Bias in Datasets using Topological Data Analysis. Fujitsu Laboratories of America. 2019. [Link](http://ceur-ws.org/Vol-2419/paper_9.pdf)
