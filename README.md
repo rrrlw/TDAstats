@@ -85,6 +85,7 @@ To contribute to TDAstats, you can create issues for any bugs/suggestions on the
 
 ## Real-world applications, use cases, and mentions
 
+* Gommel M. A Machine Learning Exploration of Topological Data Analysis Applied to Low and High Dimensional fMRI Data. Doctoral Thesis: University of Iowa. 2019. doi: [10.17077/etd.005247](https://doi.org/10.17077/etd.005247). Link to [thesis](https://iro.uiowa.edu/discovery/fulldisplay/alma9983779398602771/01IOWA_INST:ResearchRepository?tags=scholar).
 * Mémoli F, Singhal K. A Primer on Persistent Homology of Finite Metric Spaces. Bulletin of Mathematical Biology. 2019; 81(7): 2074. Links to [paper](https://link.springer.com/article/10.1007/s11538-019-00614-z) and [preprint](https://arxiv.org/abs/1905.13400)
 * Srinivasan R, Chander A. Understanding Bias in Datasets using Topological Data Analysis. Fujitsu Laboratories of America. 2019. [Link](http://ceur-ws.org/Vol-2419/paper_9.pdf)
 * Kough D, Neuzil M, Simpson C, Glover R. Analyzing State of the Union Addresses using Topology. University of St. Thomas. 2019. [Link](https://www.stthomas.edu/media/collegeofartsandsciences/mathematics/pdf/camsummer2019/CAMReport2019TDANeuzilKoughSimpson.pdf)
