@@ -83,6 +83,13 @@ the ggplot object returned by TDAstats.
 
 To contribute to TDAstats, you can create issues for any bugs/suggestions on the [issues page](https://github.com/rrrlw/TDAstats/issues). You can also fork the TDAstats repository and create pull requests to add features you think will be useful for users.
 
+## Citation
+
+If you use TDAstats, please consider citing the following (based on use):
+* **General use of TDAstats**: Wadhwa RR, Williamson DFK, Dhawan A, Scott JG. TDAstats: R pipeline for computing persistent homology in topological data analysis. *Journal of Open Source Software*. 2018; 3(28): 860. doi: [10.21105/joss.00860](https://doi.org/10.21105/joss.00860)
+* **TDAstats to calculate persistent homology (Ripser)**: Bauer U. Ripser: Efficient computation of Vietoris-Rips persistence barcodes. 2019; *arXiv*: 1908.02518.
+* **TDAstats to perform statistical test**: Robinson A, Turner K. Hypothesis testing for topological data analysis. *J Appl Comput Topol*. 2017; 1: 241.
+
 ## Real-world applications, use cases, and mentions
 
 * Gommel M. A Machine Learning Exploration of Topological Data Analysis Applied to Low and High Dimensional fMRI Data. Doctoral Thesis: University of Iowa. 2019. doi: [10.17077/etd.005247](https://doi.org/10.17077/etd.005247). Link to [thesis](https://iro.uiowa.edu/discovery/fulldisplay/alma9983779398602771/01IOWA_INST:ResearchRepository?tags=scholar).
