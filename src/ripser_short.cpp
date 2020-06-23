@@ -530,7 +530,7 @@ template <typename T> T read(std::istream& s) {
   return result; // on little endian: boost::endian::little_to_native(result);
 }
 
-compressed_lower_distance_matrix getPointCloud(NumericMatrix inputMat) {
+compressed_lower_distance_matrix getPointCloud(const NumericMatrix& inputMat) {
   std::vector<std::vector<value_t_ripser>> points;
 
   int numRows = inputMat.nrow(),
@@ -562,7 +562,7 @@ compressed_lower_distance_matrix getPointCloud(NumericMatrix inputMat) {
   return compressed_lower_distance_matrix(std::move(distances));
 }
 
-compressed_lower_distance_matrix getLowerDistMatrix(NumericMatrix inputMat) {
+compressed_lower_distance_matrix getLowerDistMatrix(const NumericMatrix& inputMat) {
 	std::vector<value_t_ripser> distances;
 	value_t_ripser value;
 
@@ -582,7 +582,7 @@ compressed_lower_distance_matrix getLowerDistMatrix(NumericMatrix inputMat) {
 }
 
 // convert from user format into lower distance matrix
-compressed_lower_distance_matrix read_file(NumericMatrix input_points, int format) {
+compressed_lower_distance_matrix read_file(const NumericMatrix& input_points, int format) {
 	switch (format) {
 		case 0:
 			return getPointCloud(input_points);
@@ -595,15 +595,11 @@ compressed_lower_distance_matrix read_file(NumericMatrix input_points, int forma
 	}
 }
 
-// Altered version of Ripser by Ulrich Bauer
-// format = 0 --> point cloud
-// format = 1 --> lower distance matrix
-// [[Rcpp::export]]
-NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int p, int format) {
-  NumericVector ansx(1);
-  ansx[0] = 1;
-
-  //MY VARS
+// Given distances and parameters, computes barcodes 
+template < typename DistanceMatrix >
+NumericVector ripser_compute(const DistanceMatrix& dist, int dim, float thresh, int p){
+ 
+   //MY VARS
   int currDim = 0;
   std::vector<std::vector<value_t_ripser>> pers_hom;
 
@@ -615,13 +611,7 @@ NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int 
   // MJP - Check coefficient p is prime (and positive). 
   if (p < 0 || !is_prime(p)){ Rcpp::stop("Non-prime supplied to p."); }
   const coefficient_t_ripser modulus = p;
-  
-  //make sure a valid format is used
-  assert(format == 0 || format == 1);
-  
-  //get distance matrix based on input format
-  compressed_lower_distance_matrix dist = read_file(input_points, format);
-
+ 
   index_t_ripser n = dist.size();
   dim_max = std::min(dim_max, n - 2);
   binomial_coeff_table binomial_coeff(n, dim_max + 2);
@@ -684,11 +674,35 @@ NumericVector ripser_cpp(NumericMatrix input_points, int dim, float thresh, int 
 
   NumericVector ans(pers_hom.size() * 3);
   int ind = 0;
-  for (int i = 0; i < pers_hom.size(); i++)
-    for (int j = 0; j < 3; j++)
-    {
+  for (int i = 0; i < pers_hom.size(); i++){
+   for (int j = 0; j < 3; j++) {
       ans[ind++] = pers_hom[i][j];
     }
+  } 
+  return(ans);
+}
+  
+  
+// [[Rcpp::export]]
+NumericVector ripser_cpp_dist(const NumericVector& dist_r, int dim, float thresh, int p){
+ std::vector< value_t_ripser > distances( dist_r.size() );
+ std::move(dist_r.begin(), dist_r.end(), distances.begin());
+ compressed_upper_distance_matrix dist = compressed_upper_distance_matrix(std::move(distances));
+ return ripser_compute(dist, dim, thresh, p);
+}
 
-    return ans;
+// Altered version of Ripser by Ulrich Bauer
+// format = 0 --> point cloud
+// format = 1 --> lower distance matrix
+// [[Rcpp::export]]
+NumericVector ripser_cpp(const NumericMatrix& input_points, int dim, float thresh, int p, int format) {
+
+  //make sure a valid format is used
+  assert(format == 0 || format == 1);
+  
+  //get distance matrix based on input format
+  compressed_lower_distance_matrix dist = read_file(input_points, format);
+  
+  // Return barcodes 
+  return ripser_compute(dist, dim, thresh, p);
 }
