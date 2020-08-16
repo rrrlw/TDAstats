@@ -4,8 +4,8 @@
 \alias{calculate_homology}
 \title{Calculate Persistent Homology of a Point Cloud}
 \usage{
-calculate_homology(mat, dim = 1, threshold = -1, format = "cloud",
-  standardize = FALSE, return_df = FALSE)
+calculate_homology(mat, dim = 1, threshold = -1, p = 2L,
+  format = "cloud", standardize = FALSE, return_df = FALSE)
 }
 \arguments{
 \item{mat}{numeric matrix containing point cloud or distance matrix}
@@ -13,6 +13,8 @@ calculate_homology(mat, dim = 1, threshold = -1, format = "cloud",
 \item{dim}{maximum dimension of features to calculate}
 
 \item{threshold}{maximum diameter for computation of Vietoris-Rips complexes}
+
+\item{p}{number of the prime field Z/pZ to compute the homology over}
 
 \item{format}{format of `mat`, either "cloud" for point cloud or "distmat" for distance matrix}
 

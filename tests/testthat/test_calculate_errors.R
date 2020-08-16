@@ -34,6 +34,10 @@ test_that("calculate_homology recognizes invalid parameters", {
   # threshold is of type character
   expect_error(calculate_homology(test.mat, threshold = "hello"),
                "threshold parameter must be of type numeric")
+  
+  # p should be positive integer and prime number
+  expect_error(calculate_homology(test.mat, p = -1),
+               "Non-prime supplied to p")
 
   # invalid format parameter
   expect_error(calculate_homology(test.mat, format = "hello"),
