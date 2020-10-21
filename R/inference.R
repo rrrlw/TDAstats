@@ -1,7 +1,7 @@
 #####WASSERSTEIN CALCULATION#####
 # convenience function using `wass_mat_calc` as main (`wass_workhorse` indirectly)
 # as main workhorse
-# ellipsis includes dim, format, threshold for calculate_homology
+# ellipsis includes dim, format, threshold for ripserr::vietoris_rips
 wass_cloud_calc <- function(pts1, pts2, pow.val = 1, ...) {
   # make sure pts1 and pts2 (matrices) have same # of cols
   if (ncol(pts1) != ncol(pts2)) {
@@ -9,8 +9,8 @@ wass_cloud_calc <- function(pts1, pts2, pow.val = 1, ...) {
   }
 
   # calculate persistent homology
-  phom1 <- calculate_homology(pts1, ...)
-  phom2 <- calculate_homology(pts2, ...)
+  phom1 <- ripserr::vietoris_rips(pts1, return_format = "mat", ...)
+  phom2 <- ripserr::vietoris_rips(pts2, return_format = "mat", ...)
   
   # check if dim is present as parameter within ...
   dim <- 1 # default
@@ -149,7 +149,7 @@ phom.topn <- function(phom, n) {
 #' x <- cos(angles) + rnorm(100, mean = 0, sd = 0.1)
 #' y <- sin(angles) + rnorm(100, mean = 0, sd = 0.1)
 #' annulus <- cbind(x, y)
-#' phom <- calculate_homology(annulus)
+#' phom <- ripserr::vietoris_rips(annulus, return_format = "mat")
 #' 
 #' # find threshold of significance
 #' # expecting 1 significant feature of dimension 1 (Betti-1 = 1 for annulus)
@@ -196,7 +196,7 @@ id_significant <- function(features, dim = 1,
 #' Calculate Distance between Homology Matrices
 #' 
 #' Calculates the distance between two matrices containing persistent homology
-#' features, usually as returned by the `calculate_homology` function.
+#' features, usually as returned by the `ripserr::vietoris_rips` function.
 #' 
 #' Note that the absolute value of this measure of distance is not meaningful
 #' without a null distribution or at least another value for relative
@@ -267,7 +267,8 @@ phom.dist <- function(phom1, phom2, limit.num = 0) {
 #' @param iterations number of iterations for distribution in permutation test
 #' @param exponent parameter `p` that returns Wasserstein-p metric
 #' @param update if greater than zero, will print a message every `update` iterations
-#' @param ... arguments for `calculate_homology` used for each permutation; this includes the `format`, `dim`, and `threshold` parameters
+#' @param ... arguments for `ripserr::vietoris_rips` used for each permutation;
+#'   this includes the `format`, `dim`, and `threshold` parameters
 #' @return list containing results of permutation test
 #' @export
 permutation_test <- function(data1, data2, iterations,
