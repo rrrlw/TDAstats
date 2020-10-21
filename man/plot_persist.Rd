@@ -26,7 +26,7 @@ row corresponding to a single feature. It should have 3 columns
 corresponding to feature dimension (col 1), feature birth (col 2), and
 feature death (col 3). The first column should be filled with integers,
 and the next two columns should be filled with numeric values.
-The output from the `calculate_homology` function in this package will be a
+Matrix output from the `ripserr::vietoris_rips` function will be a
 valid value for the `feature.matrix` parameter.
 
 This function uses the ggplot2 framework to generate persistence diagrams.
@@ -41,7 +41,7 @@ rand.angle <- runif(num.pts, 0, 2*pi)
 pt.cloud <- cbind(cos(rand.angle), sin(rand.angle))
 
 # calculate persistent homology (num.pts by 3 numeric matrix)
-pers.hom <- calculate_homology(pt.cloud)
+pers.hom <- ripserr::vietoris_rips(pt.cloud, return_format = "mat")
 
 # plot calculated homology features as persistence diagram
 plot_persist(pers.hom)
