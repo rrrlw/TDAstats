@@ -10,7 +10,8 @@ test_that("calculate_homology detects 0- and 1-cycles in circle", {
   circle.data <- cbind(cos(angles), sin(angles))
   
   # calculate homology
-  circle.hom <- calculate_homology(circle.data, dim = 1)
+  circle.hom <- ripserr::vietoris_rips(circle.data, dim = 1,
+                                       return_format = "mat")
   
   # make sure at least one 0- and 1-cycle is detected (and only those)
   vals <- unique(circle.hom[, "dimension"])
@@ -26,7 +27,8 @@ test_that("calculate_homology detects 0- and 1-cycles in circle w/ p != 2", {
  
  # calculate homology for p = 3, 5, 7, 11, 13
  for (p in c(3L, 5L, 7L, 11L, 13L)){
-  circle.hom <- calculate_homology(circle.data, dim = 1, p = 3L)
+  circle.hom <- ripserr::vietoris_rips(circle.data, dim = 1, p = 3L,
+                                       return_format = "mat")
   
   # make sure at least one 0- and 1-cycle is detected (and only those)
   vals <- unique(circle.hom[, "dimension"])
@@ -73,7 +75,8 @@ test_that("calculate_homology detects 0-, 1-, and 2-cycles in sphere", {
          })
   
   # calculate homology for sphere
-  sphere.hom <- calculate_homology(sphere.data, dim = 2)
+  sphere.hom <- ripserr::vietoris_rips(sphere.data, dim = 2,
+                                       return_format = "mat")
   
   # make sure at least one 0-, 1-, and 2-cycle is detected (and only those)
   vals <- unique(sphere.hom[, "dimension"])

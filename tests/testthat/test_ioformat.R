@@ -32,8 +32,9 @@ test_that("Point cloud and lower distance matrix formats are equivalent", {
   matrix.data <- calc.distmat(cloud.data)
   
   # get persistent homology for both
-  phom.cloud <- calculate_homology(cloud.data)
-  phom.matrix<- calculate_homology(matrix.data, format = "distmat")
+  phom.cloud <- ripserr::vietoris_rips(cloud.data, return_format = "mat")
+  phom.matrix<- ripserr::vietoris_rips(matrix.data, format = "distmat",
+                                       return_format = "mat")
   
   # make sure both have same persistent homology
   expect_equal(phom.cloud, phom.matrix)
@@ -43,8 +44,8 @@ test_that("Point cloud and lower distance matrix formats are equivalent", {
 test_that("Matrix and data frame outputs are equal", {
   # generate required phoms (both types)
   data("unif2d")
-  phom.mat <- calculate_homology(unif2d)
-  phom.df <- calculate_homology(unif2d, return_df = TRUE)
+  phom.mat <- ripserr::vietoris_rips(unif2d, return_format = "mat")
+  phom.df <- ripserr::vietoris_rips(unif2d)
   
   # compare
   expect_identical(as.matrix(phom.df), phom.mat)

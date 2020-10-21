@@ -41,7 +41,7 @@ test_that("plot methods detect invalid feature matrices", {
 test_that("plot_persist produces ggplot object with correct data", {
   # use known circle2d dataset (provided with TDAstats)
   data("circle2d")
-  circ.phom <- calculate_homology(circle2d)
+  circ.phom <- ripserr::vietoris_rips(circle2d, return_format = "mat")
   gpersist <- plot_persist(circ.phom)
   flatpersist <- plot_persist(circ.phom, flat = TRUE)
   
@@ -57,7 +57,7 @@ test_that("plot_persist produces ggplot object with correct data", {
 test_that("plot_barcode produces ggplot object with correct data", {
   # use known unif2d dataset (provided with TDAstats)
   data("unif2d")
-  unif.phom <- calculate_homology(unif2d)
+  unif.phom <- ripserr::vietoris_rips(unif2d, return_format = "mat")
   gbarcode <- plot_barcode(unif.phom)
   
   # make sure data in gbarcode is correct for unif2d (expected values checked manually)

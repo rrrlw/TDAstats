@@ -102,7 +102,7 @@ test_that("Bootstrap for identification of significant features is working", {
   y <- sin(angles) + rnorm(100, 0, 0.1)
   annulus <- cbind(x, y)
   
-  phom <- calculate_homology(annulus, return_df = TRUE)
+  phom <- ripserr::vietoris_rips(annulus)
   
   thresh <- id_significant(phom,
                            dim = 1,
@@ -162,8 +162,8 @@ test_that("Distance between persistent homology is calculated correctly", {
   # make sure phom.dist makes a difference (<= phom.dist without limit.num)
   data("unif2d")
   data("circle2d")
-  phom.unif <- calculate_homology(unif2d, dim = 1)
-  phom.circ <- calculate_homology(circle2d, dim = 1)
+  phom.unif <- ripserr::vietoris_rips(unif2d, dim = 1, return_format = "mat")
+  phom.circ <- ripserr::vietoris_rips(circle2d, dim = 1, return_format = "mat")
   
   dists <- phom.dist(phom.unif, phom.circ)
   dists2<- phom.dist(phom.unif, phom.circ, limit.num = 2)
