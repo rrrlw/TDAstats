@@ -9,8 +9,9 @@ test_that("calculate_homology is consistent with standardization", {
   square.data <- cbind(runif(50), runif(50))
   
   # test homology calculation for 0-cycles and 1-cycles
-  expect_equal_to_reference(calculate_homology(square.data, dim = 1,
-                                               standardize = TRUE),
+  expect_equal_to_reference(ripserr::vietoris_rips(square.data, dim = 1,
+                                                   standardize = TRUE,
+                                                   return_format = "mat"),
                             file = "2dconsist-std")
 })
 
@@ -22,7 +23,8 @@ test_that("calculate_homology is consistent in 2-d", {
   square.data <- cbind(runif(50), runif(50))
   
   # test homology calculation for 0-cycles and 1-cycles
-  expect_equal_to_reference(calculate_homology(square.data, dim = 1),
+  expect_equal_to_reference(ripserr::vietoris_rips(square.data, dim = 1,
+                                                   return_format = "mat"),
                             file = "2dconsist-1")
   
   # make dataset (circle in 2-d)
@@ -30,7 +32,8 @@ test_that("calculate_homology is consistent in 2-d", {
   circle.data <- cbind(cos(angles), sin(angles))
   
   # test homology calculation for 0-cycles and 1-cycles
-  expect_equal_to_reference(calculate_homology(square.data, dim = 1),
+  expect_equal_to_reference(ripserr::vietoris_rips(square.data, dim = 1,
+                                                   return_format = "mat"),
                             file = "2dconsist-2")
 })
 
@@ -47,7 +50,8 @@ test_that("calculate_homology is consistent in 3-d", {
   cube.data <- cbind(runif(50), runif(50), runif(50))
   
   # test homology calculation for 0-cycles, 1-cycles, and 2-cycles
-  expect_equal_to_reference(calculate_homology(cube.data, dim = 2),
+  expect_equal_to_reference(ripserr::vietoris_rips(cube.data, dim = 2,
+                                                   return_format = "mat"),
                             file = "3dconsist-1")
   
   # make dataset (sphere in 2-d with Marsaglia method)
@@ -80,6 +84,7 @@ test_that("calculate_homology is consistent in 3-d", {
          })
   
   # test homology calculation for 0-cycles, 1-cycles, and 2-cycles
-  expect_equal_to_reference(calculate_homology(sphere.data, dim = 2),
+  expect_equal_to_reference(ripserr::vietoris_rips(sphere.data, dim = 2,
+                                                   return_format = "mat"),
                             file = "3dconsist-2")
 })

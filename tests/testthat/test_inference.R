@@ -9,7 +9,7 @@ test_that("Basic permutation test (2-d) works correctly", {
   # do permutation test on datasets provided with TDAstats
   data("circle2d")
   data("unif2d")
-  perm.test <- permutation_test(circle2d, unif2d, iterations = N.ITER, update = 0)
+  perm.test <- permutation_test(circle2d, unif2d, iterations = N.ITER)
   expect_equal(length(perm.test), 2)
   expect_equal(perm.test[[1]]$dimension, 0)
   expect_equal(perm.test[[2]]$dimension, 1)
@@ -18,7 +18,7 @@ test_that("Basic permutation test (2-d) works correctly", {
   expect_true(perm.test[[1]]$pvalue < 0.05)
   
   # make sure it's commutative
-  perm.test <- permutation_test(unif2d, circle2d, iterations = N.ITER, update = 0)
+  perm.test <- permutation_test(unif2d, circle2d, iterations = N.ITER)
   expect_equal(length(perm.test), 2)
   expect_equal(perm.test[[1]]$dimension, 0)
   expect_equal(perm.test[[2]]$dimension, 1)
@@ -36,7 +36,7 @@ test_that("Basic permutation test (3-d) works correctly", {
   skip_on_cran()
   data("sphere3d")
   data("unif3d")
-  perm.test <- permutation_test(sphere3d, unif3d, iterations = N.ITER, update = 1, dim = 2)
+  perm.test <- permutation_test(sphere3d, unif3d, iterations = N.ITER, dim = 2)
   expect_equal(length(perm.test), 3)
   expect_equal(perm.test[[1]]$dimension, 0)
   expect_equal(perm.test[[2]]$dimension, 1)
