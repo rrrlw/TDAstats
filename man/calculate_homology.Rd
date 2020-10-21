@@ -4,15 +4,26 @@
 \alias{calculate_homology}
 \title{Calculate Persistent Homology of a Point Cloud}
 \usage{
-calculate_homology(mat, dim = 1, threshold = -1, p = 2L,
-  format = "cloud", standardize = FALSE, return_df = FALSE)
+calculate_homology(
+  dataset,
+  dim = 1,
+  threshold = -1,
+  type = "vr",
+  p = 2L,
+  format = "cloud",
+  standardize = FALSE,
+  return_df = FALSE
+)
 }
 \arguments{
-\item{mat}{numeric matrix containing point cloud or distance matrix}
+\item{dataset}{numeric matrix containing point cloud or distance matrix}
 
 \item{dim}{maximum dimension of features to calculate}
 
 \item{threshold}{maximum diameter for computation of Vietoris-Rips complexes}
+
+\item{type}{choose between "vr" for Vietoris-Rips complex or "cub" for
+cubical complex}
 
 \item{p}{number of the prime field Z/pZ to compute the homology over}
 

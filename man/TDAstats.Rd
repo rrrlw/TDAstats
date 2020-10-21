@@ -3,7 +3,6 @@
 \docType{package}
 \name{TDAstats}
 \alias{TDAstats}
-\alias{TDAstats-package}
 \title{Statistical Inference for Persistent Homology in Topological Data Analysis}
 \description{
 This package aims to be a comprehensive toolset for any

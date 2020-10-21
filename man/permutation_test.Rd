@@ -4,8 +4,7 @@
 \alias{permutation_test}
 \title{Statistical Inference for Topological Data Analysis}
 \usage{
-permutation_test(data1, data2, iterations, exponent = 1, update = 0,
-  ...)
+permutation_test(data1, data2, iterations, exponent = 1, update = 0, ...)
 }
 \arguments{
 \item{data1}{first dataset}
@@ -18,7 +17,8 @@ permutation_test(data1, data2, iterations, exponent = 1, update = 0,
 
 \item{update}{if greater than zero, will print a message every `update` iterations}
 
-\item{...}{arguments for `calculate_homology` used for each permutation; this includes the `format`, `dim`, and `threshold` parameters}
+\item{...}{arguments for `ripserr::vietoris_rips` used for each permutation;
+this includes the `format`, `dim`, and `threshold` parameters}
 }
 \value{
 list containing results of permutation test

@@ -8,8 +8,6 @@
 #' conducting statistical inference on persistent homology calculations;
 #' (3) visualizing persistent homology and statistical inference.
 #'
-#' @useDynLib TDAstats
-#' @importFrom Rcpp sourceCpp
 #' @name TDAstats
 #' @docType package
 NULL

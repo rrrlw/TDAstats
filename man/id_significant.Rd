@@ -29,7 +29,7 @@ angles <- runif(100, 0, 2 * pi)
 x <- cos(angles) + rnorm(100, mean = 0, sd = 0.1)
 y <- sin(angles) + rnorm(100, mean = 0, sd = 0.1)
 annulus <- cbind(x, y)
-phom <- calculate_homology(annulus)
+phom <- ripserr::vietoris_rips(annulus, return_format = "mat")
 
 # find threshold of significance
 # expecting 1 significant feature of dimension 1 (Betti-1 = 1 for annulus)

@@ -1,3 +1,13 @@
+# TDAstats 0.5.0
+
+## Changes
+
+* `ripserr` has been added as a dependency
+* All C++ code (and associated `Rcpp` code and dependencies) has been removed
+from TDAstats and ported to `ripserr` (v0.1.1 on CRAN)
+* `calculate_homology` is now deprecated in favor of `ripserr::vietoris_rips`
+and `ripserr::cubical`
+
 # TDAstats 0.4.1
 
 ## Bug Fixes

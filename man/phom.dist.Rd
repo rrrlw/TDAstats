@@ -18,7 +18,7 @@ distance vector (1 element per dimension) between `phom1` and `phom2`
 }
 \description{
 Calculates the distance between two matrices containing persistent homology
-features, usually as returned by the `calculate_homology` function.
+features, usually as returned by the `ripserr::vietoris_rips` function.
 }
 \details{
 Note that the absolute value of this measure of distance is not meaningful

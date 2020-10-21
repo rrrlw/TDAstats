@@ -4,7 +4,9 @@
 \name{sphere3d}
 \alias{sphere3d}
 \title{3-dimensional point cloud of a unit sphere}
-\format{A matrix with 100 rows and 3 columns: the x-, y-, and z-coordinates}
+\format{
+A matrix with 100 rows and 3 columns: the x-, y-, and z-coordinates
+}
 \source{
 \url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/sphere3d.R}
 }

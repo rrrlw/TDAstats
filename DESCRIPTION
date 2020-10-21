@@ -1,7 +1,7 @@
 Package: TDAstats
 Type: Package
 Title: Pipeline for Topological Data Analysis
-Version: 0.4.1
+Version: 0.5.0
 Authors@R: c(
     person("Raoul", "Wadhwa", email = "raoulwadhwa@gmail.com", role = c("aut", "cre")),
     person("Andrew", "Dhawan", role = "aut"),
@@ -33,16 +33,13 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.3)
-Imports: ggplot2 (>= 2.2.1),
-    Rcpp (>= 0.12.15),
+Imports: ggplot2 (>= 3.3),
     ripserr (>= 0.1.1)
 URL: https://rrrlw.github.io/TDAstats
 BugReports: https://github.com/rrrlw/TDAstats/issues
-LinkingTo: Rcpp
-RoxygenNote: 6.1.0
-SystemRequirements: C++11
-Suggests: testthat (>= 2.0.0),
-    knitr,
-    rmarkdown,
-    covr
+RoxygenNote: 7.1.1
+Suggests: testthat (>= 2.3),
+    knitr (>= 1.30),
+    rmarkdown (>= 2.4),
+    covr (>= 3.5)
 VignetteBuilder: knitr

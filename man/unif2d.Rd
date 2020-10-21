@@ -4,7 +4,9 @@
 \name{unif2d}
 \alias{unif2d}
 \title{2-dimensional point cloud of a unit square}
-\format{A matrix with 100 rows and 2 columns: the x- and y-coordinates}
+\format{
+A matrix with 100 rows and 2 columns: the x- and y-coordinates
+}
 \source{
 \url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/unif2d.R}
 }
