@@ -38,12 +38,16 @@ if `TRUE`, returns a data frame}
 3-column matrix or data frame, with each row representing a TDA feature
 }
 \description{
+Since TDAstats v0.5.0, `calculate_homology` has been deprecated in favor
+of methods in the `ripserr` package (`ripserr::vietoris_rips` and
+`ripserr::cubical`).
+}
+\details{
 Calculates the persistent homology of a point cloud, as represented by
 a Vietoris-Rips complex. This function is an R wrapper for Ulrich Bauer's
 Ripser C++ library for calculating persistent homology. For more
 information on the C++ library, see <https://github.com/Ripser/ripser>.
-}
-\details{
+
 The `mat` parameter should be a numeric matrix with each row corresponding
 to a single point, and each column corresponding to a single dimension. Thus,
 if `mat` has 50 rows and 5 columns, it represents a point cloud with 50 points
@@ -52,7 +56,7 @@ Alternatively, the `mat` parameter could be a distance matrix (upper
 triangular half is ignored); note: `format` should be specified as "ldm".
 }
 \examples{
-
+\dontrun{
 # create a 2-d point cloud of a circle (100 points)
 num.pts <- 100
 rand.angle <- runif(num.pts, 0, 2*pi)
@@ -60,4 +64,5 @@ pt.cloud <- cbind(cos(rand.angle), sin(rand.angle))
 
 # calculate persistent homology (num.pts by 3 numeric matrix)
 pers.hom <- calculate_homology(pt.cloud)
+}
 }
