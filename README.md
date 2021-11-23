@@ -92,7 +92,10 @@ If you use TDAstats, please consider citing the following (based on use):
 
 ## Real-world applications, use cases, and mentions
 
+* Stenseke J. Persistent homology and the shape of evolutionary games. Journal of Theoretical Biology. 2021; 531: 110903. Link to [paper](https://www.sciencedirect.com/science/article/pii/S0022519321003222).
+* Torres-Espin A, Haefeli J, Ehsanian R, et al. Topological network analysis of patient similarity for precision management of acute blood pressure in spinal cord injury. eLife. 2021; 10: e68015. Link to [paper](https://elifesciences.org/articles/68015).
 * Somasundaram E, Litzler A, Wadhwa R, Owen S, Scott J. Persistent homology of tumor CT scans is associated with survival in lung cancer. Medical Physics. 2021; 48(11): 7043-7051. Link to [paper](https://aapm.onlinelibrary.wiley.com/doi/abs/10.1002/mp.15255) and [preprint](https://www.medrxiv.org/content/10.1101/2020.12.06.20244863v1).
+* Richardson M, Verma R, Singhania A, Tabone O, Das M, Rodrigue M, Leissner P, Woltmann G, Cooper A, O'Garra A, Haldar P. Blood transcriptional phenotypes of progressive latent M. tuberculosis infection inform novel signatures that improve prediction of tuberculosis risk. Cell Reports Medicine. 2021. Link to [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3815986).
 * Perez-Moraga R, Fores-Martos J, Suay-Garcia B, Duval J-L, Falco A, Climent J. A COVID-19 Drug Repurposing Strategy through Quantitative Homological Similarities Using a Topological Data Analysis-Based Framework. Pharmaceutics. 2021; 13(4): 488. Link to [paper](https://www.mdpi.com/1999-4923/13/4/488).
 * Kandanaarachchi S, Hyndman RJ. Leave-one-out kernel density estimates for outlier detection. Monash University. 2021. Link to [paper](https://www.monash.edu/business/ebs/research/publications/ebs/wp02-2021.pdf).
 * Somasundaram EV, Brown SE, Litzler A, Scott JG, Wadhwa RR. Benchmarking R packages for calculation of persistent homology. R Journal. 2021; 13(1): 184-193. Link to [paper](https://journal.r-project.org/archive/2021/RJ-2021-033/RJ-2021-033.pdf).
