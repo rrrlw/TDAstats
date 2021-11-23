@@ -92,6 +92,10 @@ If you use TDAstats, please consider citing the following (based on use):
 
 ## Real-world applications, use cases, and mentions
 
+* Somasundaram E, Litzler A, Wadhwa R, Owen S, Scott J. Persistent homology of tumor CT scans is associated with survival in lung cancer. Medical Physics. 2021; 48(11): 7043-7051. Link to [paper](https://aapm.onlinelibrary.wiley.com/doi/abs/10.1002/mp.15255) and [preprint](https://www.medrxiv.org/content/10.1101/2020.12.06.20244863v1).
+* Perez-Moraga R, Fores-Martos J, Suay-Garcia B, Duval J-L, Falco A, Climent J. A COVID-19 Drug Repurposing Strategy through Quantitative Homological Similarities Using a Topological Data Analysis-Based Framework. Pharmaceutics. 2021; 13(4): 488. Link to [paper](https://www.mdpi.com/1999-4923/13/4/488).
+* Kandanaarachchi S, Hyndman RJ. Leave-one-out kernel density estimates for outlier detection. Monash University. 2021. Link to [paper](https://www.monash.edu/business/ebs/research/publications/ebs/wp02-2021.pdf).
+* Somasundaram EV, Brown SE, Litzler A, Scott JG, Wadhwa RR. Benchmarking R packages for calculation of persistent homology. R Journal. 2021; 13(1): 184-193. Link to [paper](https://journal.r-project.org/archive/2021/RJ-2021-033/RJ-2021-033.pdf).
 * Brochard A, Blaszczyszyn B, Mallat S, Zhang S. Particle gradient descent model for point process generation. 2020. arXiv:2010.14928. Link to [preprint](https://arxiv.org/abs/2010.14928).
 * Nguyen DQN, Xing L, Lin L. Community detection, pattern recognition, and hypergraph-based learning: approches using metric geometry and persistent homology. 2020. arXiv:2010.00435. Link to [preprint](https://arxiv.org/abs/2010.00435).
 * Pinto GVF. Motivic constructions on graphs and networks with stability results. Doctoral Thesis: Universidade Estadual Paulista Rio Claro & Ohio State University. 2020. Link to [thesis](http://hdl.handle.net/11449/192494).
