@@ -7,7 +7,7 @@ Authors@R: c(
     person("Andrew", "Dhawan", role = "aut"),
     person("Drew", "Williamson", role = "aut"),
     person("Jacob", "Scott", role = "aut"),
-    person("Jason Cory", "Brunson", email = "jason.brunson@medicine.ufl.edu", role = c("aut", "cre")),
+    person("Jason Cory", "Brunson", email = "cornelioid@gmail.com", role = c("aut", "cre")),
     person("Shota", "Ochi", role = "ctb"))
 Description: A comprehensive toolset for any
     useR conducting topological data analysis, specifically via the
