@@ -1,10 +1,7 @@
 ## Test environments
 
-* local Windows 10, r-release
-* Travis CI, r-release
-* AppVeyor CI, r-release
-* r-hub macOS, r-release
-* r-hub Linux, r-devel
+* local macOS: Sequoia (15.6.1) & Tahoe (26.2), R 4.5.2
+* `win-builder`: old release, release, development
 
 ## R CMD check results
 
