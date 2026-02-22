@@ -12,3 +12,5 @@ LICENSE
 ^codecov\.yml$
 ^appveyor\.yml$
 ^hexbin$
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$

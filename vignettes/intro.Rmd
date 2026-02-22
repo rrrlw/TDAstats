@@ -51,7 +51,7 @@ references:
   author:
   - family: Wickham
     given: Hadley
-  URL: 'http://ggplot2.tidyverse.org'
+  URL: 'https://ggplot2.tidyverse.org/'
   isbn: '978-0-387-98140-6'
   type: book
   issued:
@@ -158,7 +158,7 @@ This task is done far more easily with an appropriate visualization than by eyeb
 
 ## Visualizing persistent homology
 
-TDAstats uses the [ggplot2](http://ggplot2.tidyverse.org) R package to create visualizations for persistent homology [@ggplot2-book].
+TDAstats uses the [ggplot2](https://ggplot2.tidyverse.org/) R package to create visualizations for persistent homology [@ggplot2-book].
 One method of visualizing persistent homology is the topological barcode.
 Each feature is depicted by a single bar (ergo, a topological *barcode*) with its left edge at feature birth and its right edge at feature death.
 Thus, the persistence of a feature is depicted as the length of the bar.

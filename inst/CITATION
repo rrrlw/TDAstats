@@ -1,6 +1,6 @@
 citHeader("To cite TDAstats in publications use:")
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title = "{T}{D}{A}stats: {R} pipeline for computing persistent homology in topological data analysis",
   author = "Raoul R. Wadhwa and Drew F. K. Williamson and Andrew Dhawan and Jacob G. Scott",
   journal = "Journal of Open Source Software",
@@ -9,9 +9,5 @@ citEntry(entry = "Article",
   number = "28",
   pages = "860",
   url = "https://doi.org/10.21105/joss.00860",
-  doi = "10.21105/joss.00860",
-  textVersion = paste("Wadhwa RR, Williamson DFK, Dhawan A, Scott JG (2018).",
-    "TDAstats: R pipeline for computing persistent homology in topological data analysis.",
-    "Journal of Open Source Software, 3(28): 860.",
-    "doi:10.21105/joss.00860")
+  doi = "10.21105/joss.00860"
 )

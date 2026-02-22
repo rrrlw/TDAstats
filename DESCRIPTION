@@ -1,13 +1,13 @@
 Package: TDAstats
 Type: Package
 Title: Pipeline for Topological Data Analysis
-Version: 0.4.1
+Version: 0.4.2
 Authors@R: c(
-    person("Raoul", "Wadhwa", email = "raoulwadhwa@gmail.com", role = c("aut", "cre")),
+    person("Raoul", "Wadhwa", role = "aut"),
     person("Andrew", "Dhawan", role = "aut"),
     person("Drew", "Williamson", role = "aut"),
     person("Jacob", "Scott", role = "aut"),
-    person("Jason Cory", "Brunson", role = "ctb"),
+    person("Jason Cory", "Brunson", email = "jason.brunson@medicine.ufl.edu", role = c("aut", "cre")),
     person("Shota", "Ochi", role = "ctb"))
 Description: A comprehensive toolset for any
     useR conducting topological data analysis, specifically via the
@@ -34,8 +34,9 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.3)
 Imports: ggplot2 (>= 2.2.1),
-    Rcpp (>= 0.12.15)
-URL: https://rrrlw.github.io/TDAstats
+    Rcpp (>= 0.12.15),
+    methods (>= 3.6.2)
+URL: https://rrrlw.github.io/TDAstats/
 BugReports: https://github.com/rrrlw/TDAstats/issues
 LinkingTo: Rcpp
 RoxygenNote: 6.1.0

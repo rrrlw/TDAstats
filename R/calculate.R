@@ -73,7 +73,7 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, p = 2L, format = "c
    # assumption: matrix can only hold objects of one class so only need to check
    #   one element
    temp <- mat[1, 1]
-   if (class(temp) != "numeric" && class(temp) != "integer") {
+   if (!inherits(temp, "numeric") && !inherits(temp, "integer")) {
      stop("Point cloud must contain values of class `numeric` or `integer` only.")
    }
  
