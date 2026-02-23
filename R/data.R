@@ -4,7 +4,7 @@
 #' on the circumference of a unit circle.
 #' 
 #' @format A matrix with 100 rows and 2 columns: the x- and y-coordinates
-#' @source \url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/circle2d.R}
+#' @source \url{https://github.com/tdaverse/TDAstats/blob/master/data-raw/circle2d.R}
 "circle2d"
 
 #' 2-dimensional point cloud of a unit square
@@ -13,7 +13,7 @@
 #' within a unit square.
 #' 
 #' @format A matrix with 100 rows and 2 columns: the x- and y-coordinates
-#' @source \url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/unif2d.R}
+#' @source \url{https://github.com/tdaverse/TDAstats/blob/master/data-raw/unif2d.R}
 "unif2d"
 
 #' 3-dimensional point cloud of a unit cube
@@ -22,7 +22,7 @@
 #' within a unit cube.
 #' 
 #' @format A matrix with 100 rows and 3 columns: the x-, y-, and z-coordinates
-#' @source \url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/unif3d.R}
+#' @source \url{https://github.com/tdaverse/TDAstats/blob/master/data-raw/unif3d.R}
 "unif3d"
 
 #' 3-dimensional point cloud of a unit sphere
@@ -31,5 +31,5 @@
 #' on the surface of a unit sphere.
 #' 
 #' @format A matrix with 100 rows and 3 columns: the x-, y-, and z-coordinates
-#' @source \url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/sphere3d.R}
+#' @source \url{https://github.com/tdaverse/TDAstats/blob/master/data-raw/sphere3d.R}
 "sphere3d"

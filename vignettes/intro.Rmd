@@ -81,7 +81,7 @@ To learn more about the computation of persistent homology, see @roadmap-ph.
 
 ## Installation
 
-TDAstats is available on CRAN. The development version can also be installed from its [GitHub repo](https://github.com/rrrlw/TDAstats).
+TDAstats is available on CRAN. The development version can also be installed from its [GitHub repo](https://github.com/tdaverse/TDAstats).
 Use the appropriate selections of the R code below to install your preferred version.
 
 *N.B.:* if you are new to R, installing TDAstats from CRAN is recommended. The development version on GitHub may be unstable.

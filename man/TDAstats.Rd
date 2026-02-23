@@ -2,8 +2,8 @@
 % Please edit documentation in R/TDAstats.R
 \docType{package}
 \name{TDAstats}
-\alias{TDAstats}
 \alias{TDAstats-package}
+\alias{TDAstats}
 \title{Statistical Inference for Persistent Homology in Topological Data Analysis}
 \description{
 This package aims to be a comprehensive toolset for any
@@ -13,4 +13,29 @@ The tools this package currently provides can be conveniently split
 into three main sections: (1) calculating persistent homology; (2)
 conducting statistical inference on persistent homology calculations;
 (3) visualizing persistent homology and statistical inference.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://tdaverse.github.io/TDAstats/}
+  \item Report bugs at \url{https://github.com/tdaverse/TDAstats/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Jason Cory Brunson \email{cornelioid@gmail.com}
+
+Authors:
+\itemize{
+  \item Raoul Wadhwa
+  \item Andrew Dhawan
+  \item Drew Williamson
+  \item Jacob Scott
+}
+
+Other contributors:
+\itemize{
+  \item Shota Ochi [contributor]
+}
+
 }

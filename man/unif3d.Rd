@@ -4,9 +4,11 @@
 \name{unif3d}
 \alias{unif3d}
 \title{3-dimensional point cloud of a unit cube}
-\format{A matrix with 100 rows and 3 columns: the x-, y-, and z-coordinates}
+\format{
+A matrix with 100 rows and 3 columns: the x-, y-, and z-coordinates
+}
 \source{
-\url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/unif3d.R}
+\url{https://github.com/tdaverse/TDAstats/blob/master/data-raw/unif3d.R}
 }
 \usage{
 unif3d

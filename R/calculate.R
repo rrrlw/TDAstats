@@ -56,7 +56,7 @@ calculate_homology <- function(mat, dim = 1, threshold = -1, p = 2L, format = "c
  
   ## If dist object passed in directly, use that, otherwise check various conditions that 
   ## mat is a valid matrix object
-  if (is(mat, "dist")) {
+  if (methods::is(mat, "dist")) {
    format <- "distmat"
    stopifnot(all(is.numeric(mat)))
    ans_vec <- ripser_cpp_dist(mat, dim, threshold, p)

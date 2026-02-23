@@ -4,9 +4,11 @@
 \name{circle2d}
 \alias{circle2d}
 \title{2-dimensional point cloud of a unit circle}
-\format{A matrix with 100 rows and 2 columns: the x- and y-coordinates}
+\format{
+A matrix with 100 rows and 2 columns: the x- and y-coordinates
+}
 \source{
-\url{https://github.com/rrrlw/TDAstats/blob/master/data-raw/circle2d.R}
+\url{https://github.com/tdaverse/TDAstats/blob/master/data-raw/circle2d.R}
 }
 \usage{
 circle2d

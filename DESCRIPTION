@@ -36,10 +36,10 @@ Depends: R (>= 3.3)
 Imports: ggplot2 (>= 2.2.1),
     Rcpp (>= 0.12.15),
     methods (>= 3.6.2)
-URL: https://rrrlw.github.io/TDAstats/
-BugReports: https://github.com/rrrlw/TDAstats/issues
+URL: https://tdaverse.github.io/TDAstats/
+BugReports: https://github.com/tdaverse/TDAstats/issues
 LinkingTo: Rcpp
-RoxygenNote: 6.1.0
+RoxygenNote: 7.3.3
 Suggests: testthat (>= 2.0.0),
     knitr,
     rmarkdown,

@@ -11,5 +11,4 @@
 #' @useDynLib TDAstats
 #' @importFrom Rcpp sourceCpp
 #' @name TDAstats
-#' @docType package
-NULL
+"_PACKAGE"

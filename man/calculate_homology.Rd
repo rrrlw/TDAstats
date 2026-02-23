@@ -4,8 +4,15 @@
 \alias{calculate_homology}
 \title{Calculate Persistent Homology of a Point Cloud}
 \usage{
-calculate_homology(mat, dim = 1, threshold = -1, p = 2L,
-  format = "cloud", standardize = FALSE, return_df = FALSE)
+calculate_homology(
+  mat,
+  dim = 1,
+  threshold = -1,
+  p = 2L,
+  format = "cloud",
+  standardize = FALSE,
+  return_df = FALSE
+)
 }
 \arguments{
 \item{mat}{numeric matrix containing point cloud or distance matrix}
