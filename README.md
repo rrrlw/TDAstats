@@ -1,5 +1,8 @@
 # TDAstats: topological data analysis in R <img src="man/figures/HexTDA.png" align="right" height="175" width="151"/>
 
+[![Lifecycle:
+superseded](https://img.shields.io/badge/lifecycle-superseded-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#superseded)
+
 [![Travis-CI Build Status](https://travis-ci.org/rrrlw/TDAstats.svg?branch=master)](https://travis-ci.org/rrrlw/TDAstats)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rrrlw/TDAstats?branch=master&svg=true)](https://ci.appveyor.com/project/rrrlw/TDAstats)
 [![Coverage Status](https://img.shields.io/codecov/c/github/rrrlw/TDAstats/master.svg)](https://codecov.io/github/rrrlw/TDAstats?branch=master)
@@ -10,6 +13,10 @@
 
 [![JOSS DOI](http://joss.theoj.org/papers/10.21105/joss.00860/status.svg)](https://doi.org/10.21105/joss.00860)
 [![Zenodo DOI](https://zenodo.org/badge/130141540.svg)](https://zenodo.org/badge/latestdoi/130141540)
+
+## Supersedure
+
+TDAstats has transitioned to legacy status: It may be maintained to work with new versions of R, but no new features or refactoring are planned. For the essential functionality described below, we recommend the more targeted packages [ripserr](https://github.com/tdaverse/ripserr) to compute persistent homology, [phutil](https://github.com/tdaverse/phutil) to compute Kantorovich/Wasserstein distances, [inphr](https://github.com/tdaverse/inphr) for statistical inference, and [ggtda](https://github.com/tdaverse/ggtda) for visualization, as well as the original [TDA](https://github.com/compTAG/r-tda) package for a comprehensive standalone toolkit.
 
 ## Overview
 
